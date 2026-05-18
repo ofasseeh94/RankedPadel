@@ -1,0 +1,960 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RankedPadel Beta</title>
+    <style>
+      :root {
+        --bg: #f3f6f2;
+        --surface: #ffffff;
+        --ink: #101915;
+        --muted: #5c6a62;
+        --line: #d7dfd4;
+        --soft: #e9f1ec;
+        --soft-blue: #edf3f7;
+        --accent: #1f6f52;
+        --accent-dark: #164f3b;
+        --gold: #b78b2a;
+        --danger: #9b2c22;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      button, input, select { font: inherit; }
+      button { cursor: pointer; }
+      a { color: inherit; text-decoration: none; }
+
+      .wrap {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        border-bottom: 1px solid rgba(215, 223, 212, 0.85);
+        background: rgba(255, 255, 255, 0.92);
+      }
+      .nav {
+        display: flex;
+        min-height: 66px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .brand {
+        font-weight: 900;
+        letter-spacing: 0.02em;
+      }
+      .nav-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .tab, .primary, .secondary, .ghost {
+        min-height: 40px;
+        border-radius: 8px;
+        padding: 0 15px;
+        font-size: 14px;
+        font-weight: 800;
+      }
+      .tab, .secondary {
+        border: 1px solid var(--line);
+        background: #fff;
+        color: #304137;
+      }
+      .tab.active, .primary {
+        border: 0;
+        background: var(--accent);
+        color: #fff;
+      }
+      .primary:hover { background: var(--accent-dark); }
+      .ghost {
+        border: 1px solid rgba(255, 255, 255, 0.42);
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+      }
+
+      .view { display: none; }
+      .view.active { display: block; }
+
+      .landing-hero {
+        min-height: calc(100vh - 66px);
+        display: grid;
+        align-items: center;
+        background:
+          linear-gradient(90deg, rgba(8, 17, 13, 0.88), rgba(8, 17, 13, 0.58), rgba(8, 17, 13, 0.22)),
+          url("https://images.pexels.com/photos/32349891/pexels-photo-32349891.jpeg?auto=compress&cs=tinysrgb&w=1800");
+        background-position: center;
+        background-size: cover;
+      }
+      .hero-content {
+        max-width: 760px;
+        padding: 68px 0;
+        color: #fff;
+      }
+      .eyebrow {
+        margin: 0 0 14px;
+        color: #bde5cf;
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(40px, 7vw, 78px);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+      .lead {
+        max-width: 660px;
+        margin: 20px 0 0;
+        color: rgba(255, 255, 255, 0.84);
+        font-size: 18px;
+        line-height: 1.7;
+      }
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 26px;
+      }
+      .landing-band {
+        border-top: 1px solid var(--line);
+        background: #fff;
+        padding: 26px 0;
+      }
+      .marketing-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .mini-card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 16px;
+        background: #fbfcfa;
+      }
+      .mini-card h3 { margin: 0; font-size: 17px; }
+      .mini-card p { margin: 8px 0 0; color: var(--muted); line-height: 1.5; }
+
+      .shell {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        gap: 18px;
+        padding: 24px 0 34px;
+      }
+      .sidebar, .panel {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+        box-shadow: 0 1px 8px rgba(16, 25, 21, 0.04);
+      }
+      .sidebar { padding: 14px; align-self: start; }
+      .side-button {
+        display: block;
+        width: 100%;
+        min-height: 42px;
+        margin-top: 8px;
+        border: 0;
+        border-radius: 7px;
+        background: transparent;
+        color: #33463c;
+        padding: 0 12px;
+        text-align: left;
+        font-weight: 800;
+      }
+      .side-button.active, .side-button:hover { background: var(--soft); color: var(--accent-dark); }
+      .panel { padding: 20px; }
+      .panel + .panel { margin-top: 18px; }
+      .panel-head {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 16px;
+      }
+      h2, h3 { margin: 0; }
+      .hint, .small {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .hint { margin: 6px 0 0; }
+      .small { margin: 4px 0 0; }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+      label {
+        display: block;
+        color: #3b5044;
+        font-size: 13px;
+        font-weight: 900;
+      }
+      input, select {
+        width: 100%;
+        height: 43px;
+        margin-top: 7px;
+        border: 1px solid #cbd6ca;
+        border-radius: 7px;
+        background: #fff;
+        color: var(--ink);
+        padding: 0 12px;
+      }
+      .section-title {
+        margin: 20px 0 10px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        font-size: 16px;
+      }
+      .summary {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 16px;
+        align-items: center;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfcfa;
+        padding: 16px;
+      }
+      .summary strong, .stat strong {
+        display: block;
+        margin-top: 4px;
+        font-size: 26px;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 999px;
+        background: var(--soft);
+        color: var(--accent-dark);
+        padding: 6px 10px;
+        font-size: 12px;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+      .pill.gold { background: #f7edd4; color: #8a6518; }
+      .pill.danger { background: #f8dfdc; color: var(--danger); }
+
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .stat {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfcfa;
+        padding: 14px;
+      }
+      .action-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .action-card {
+        min-height: 150px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfcfa;
+        padding: 18px;
+        text-align: left;
+      }
+      .action-card h3 { font-size: 22px; }
+      .action-card p { color: var(--muted); line-height: 1.5; }
+
+      .list { display: grid; gap: 12px; }
+      .game {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        padding: 16px;
+      }
+      .game-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 12px;
+      }
+      .court-layout {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .team-box {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfcfa;
+        padding: 12px;
+      }
+      .team-title {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 8px;
+        font-weight: 900;
+      }
+      .slot {
+        display: grid;
+        grid-template-columns: 58px 1fr;
+        gap: 9px;
+        min-height: 74px;
+        border: 1px dashed #c9d3c7;
+        border-radius: 7px;
+        background: #fff;
+        padding: 9px;
+      }
+      .slot + .slot { margin-top: 8px; }
+      .slot.locked { border-color: #e2bba8; background: #fbefe9; }
+      .slot.reserved { border-color: #b8cde2; background: var(--soft-blue); }
+      .side-label {
+        display: grid;
+        height: 28px;
+        place-items: center;
+        border-radius: 999px;
+        background: var(--soft);
+        color: var(--accent-dark);
+        font-size: 12px;
+        font-weight: 900;
+      }
+      .player-row {
+        display: grid;
+        grid-template-columns: 36px 1fr auto;
+        gap: 12px;
+        align-items: center;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        padding: 12px;
+      }
+      .rank-number { text-align: center; color: #728073; font-weight: 900; }
+      .hidden { display: none; }
+      table { width: 100%; border-collapse: collapse; font-size: 13px; }
+      th, td { border-bottom: 1px solid var(--line); padding: 10px 8px; text-align: left; vertical-align: top; }
+      th { color: #3d5045; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+      @media (max-width: 920px) {
+        .marketing-grid, .shell, .form-grid, .dashboard-grid, .action-grid, .court-layout, .summary {
+          grid-template-columns: 1fr;
+        }
+        .landing-hero { min-height: auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap nav">
+        <button class="brand side-button" style="width:auto;margin:0" data-view="landing">RankedPadel</button>
+        <nav class="nav-actions">
+          <button class="tab active" data-view="landing">Landing</button>
+          <button class="tab" data-view="signup">Sign up</button>
+          <button class="tab" data-view="login">Log in</button>
+          <button class="tab" data-view="app">Player dashboard</button>
+          <button class="tab" data-view="admin">Admin</button>
+        </nav>
+      </div>
+    </header>
+
+    <section id="landing" class="view active">
+      <div class="landing-hero">
+        <div class="wrap hero-content">
+          <p class="eyebrow">Beta season 0</p>
+          <h1>Find padel games that match your level.</h1>
+          <p class="lead">
+            RankedPadel is a community ladder for players who want better games, clearer ranking,
+            verified scores, and a simple way to create or join competitive matches.
+          </p>
+          <div class="hero-actions">
+            <button class="primary" data-view="signup">Sign up for beta</button>
+            <button class="ghost" data-view="login">Log in</button>
+          </div>
+        </div>
+      </div>
+      <div class="landing-band">
+        <div class="wrap marketing-grid">
+          <article class="mini-card"><h3>Ranked identity</h3><p>Players see rank tiers and progress without exposing private point values to everyone.</p></article>
+          <article class="mini-card"><h3>Better matchups</h3><p>Find open games by day, rank, and court, then join the exact right or left side position.</p></article>
+          <article class="mini-card"><h3>Verified results</h3><p>Post-game scores require confirmation from the other team before rankings update.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="signup" class="view wrap" style="padding:24px 0 34px">
+      <article class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Sign Up</h2>
+            <p class="hint">Create your player profile first. Your ID links future games, scores, rankings, and dashboard stats.</p>
+          </div>
+          <span class="pill">3 match placement</span>
+        </div>
+
+        <h3 class="section-title" style="border-top:0;padding-top:0">Personal Info</h3>
+        <div class="form-grid">
+          <label>Full name<input id="name" placeholder="Player name" /></label>
+          <label>Email<input id="email" placeholder="name@example.com" /></label>
+          <label>Phone<input id="phone" placeholder="+20..." /></label>
+        </div>
+
+        <h3 class="section-title">Initial Ranking Assist</h3>
+        <div class="form-grid">
+          <label>Primary side<select id="side"></select></label>
+          <label>Weekly play<select id="frequency"></select></label>
+          <label>Padel play duration<select id="padelAge"></select></label>
+          <label>Coaching<select id="coaching"></select></label>
+          <label>Racket background<select id="racketSport"></select></label>
+          <label>Tournament history<select id="tournamentPlayed"></select></label>
+          <label>Tournament level<select id="tournament"></select></label>
+          <label>Best tournament result<select id="tournamentResult"></select></label>
+          <label>Return consistency<select id="returns"></select></label>
+          <label>Serve consistency<select id="serve"></select></label>
+        </div>
+
+        <div class="summary" style="margin-top:18px">
+          <div>
+            <p class="small">Private placement setup</p>
+            <strong id="estimate">Profile ready for placement</strong>
+            <p class="small" id="estimateReason">Your initial ranking is calculated privately and validated through your first 3 confirmed matches.</p>
+          </div>
+          <button class="primary" id="addPlayer">Create account</button>
+        </div>
+        <p class="hint" id="registrationStatus"></p>
+      </article>
+    </section>
+
+    <section id="login" class="view wrap" style="padding:24px 0 34px">
+      <article class="panel">
+        <h2>Log In</h2>
+        <p class="hint">Prototype login: choose an existing beta player. Real beta will use email or phone authentication.</p>
+        <div class="form-grid" style="margin-top:14px">
+          <label>Player<select id="loginPlayer"></select></label>
+        </div>
+        <button class="primary" id="loginButton" style="margin-top:14px">Go to dashboard</button>
+      </article>
+    </section>
+
+    <main id="app" class="view wrap">
+      <div class="shell">
+        <aside class="sidebar">
+          <strong>Player menu</strong>
+          <button class="side-button active" data-app-section="dashboard">Dashboard</button>
+          <button class="side-button" data-app-section="find">Find open games</button>
+          <button class="side-button" data-app-section="create">Create game</button>
+          <button class="side-button" data-app-section="score">Register score</button>
+        </aside>
+
+        <section>
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <h2 id="dashName">Dashboard</h2>
+                <p class="hint" id="signedInId">Player ID: -</p>
+              </div>
+              <span class="pill" id="dashboardPlacement">Placement</span>
+            </div>
+            <div class="dashboard-grid">
+              <div class="stat"><span class="small">Rank</span><strong id="dashRank">-</strong></div>
+              <div class="stat"><span class="small">Your points</span><strong id="dashPoints">-</strong></div>
+              <div class="stat"><span class="small">Win / loss</span><strong id="dashRecord">-</strong></div>
+              <div class="stat"><span class="small">Leaderboard</span><strong id="dashLeaderboard">-</strong></div>
+            </div>
+          </article>
+
+          <article id="dashboardSection" class="panel app-section">
+            <h2>What would you like to do?</h2>
+            <div class="action-grid" style="margin-top:14px">
+              <button class="action-card" data-app-section="create">
+                <h3>Create game</h3>
+                <p>Choose court, time, your side, and optionally lock a premade partner slot.</p>
+              </button>
+              <button class="action-card" data-app-section="find">
+                <h3>Find open games</h3>
+                <p>Filter by day, rank, and court, then join a right or left vacant position.</p>
+              </button>
+            </div>
+            <h3 class="section-title">Leaderboard</h3>
+            <div class="list" id="leaderboard"></div>
+          </article>
+
+          <article id="findSection" class="panel app-section hidden">
+            <h2>Find Open Games</h2>
+            <div class="form-grid" style="margin-top:14px">
+              <label>Day<select id="filterDay"></select></label>
+              <label>Rank<select id="filterRank"></select></label>
+              <label>Court<select id="filterCourt"></select></label>
+            </div>
+            <div class="list" id="matches" style="margin-top:14px"></div>
+          </article>
+
+          <article id="createSection" class="panel app-section hidden">
+            <h2>Create Game</h2>
+            <p class="hint">Create Team 1 and Team 2 with right and left player slots.</p>
+            <div class="form-grid" style="margin-top:14px">
+              <label>Court<select id="newMatchCourt"></select></label>
+              <label>Court number<input id="newCourtNumber" placeholder="Court 1" value="Court 1" /></label>
+              <label>Day<select id="newMatchDay"></select></label>
+              <label>Time<input id="newMatchTime" placeholder="8:00 PM" value="8:00 PM" /></label>
+              <label>Your position<select id="creatorSlot">
+                <option value="t1r">Team 1 Right</option>
+                <option value="t1l">Team 1 Left</option>
+                <option value="t2r">Team 2 Right</option>
+                <option value="t2l">Team 2 Left</option>
+              </select></label>
+              <label>Premade partner<select id="premadePartner"></select></label>
+              <label>Partner slot<select id="partnerSlot">
+                <option value="">No premade</option>
+                <option value="t1r">Team 1 Right</option>
+                <option value="t1l">Team 1 Left</option>
+                <option value="t2r">Team 2 Right</option>
+                <option value="t2l">Team 2 Left</option>
+              </select></label>
+              <label>Slot access<select id="matchAccess">
+                <option value="open">Open remaining slots</option>
+                <option value="pass">Require pass for remaining slots</option>
+                <option value="lock-partner">Lock partner slot only</option>
+              </select></label>
+            </div>
+            <button class="primary" id="createMatch" style="margin-top:14px">Create game</button>
+            <p class="hint" id="matchCreateStatus"></p>
+          </article>
+
+          <article id="scoreSection" class="panel app-section hidden">
+            <h2>Post-game Score Registration</h2>
+            <p class="hint">A score updates ranking only after one player from the other team confirms it.</p>
+            <div class="form-grid" style="margin-top:14px">
+              <label>Match<select id="scoreMatch"></select></label>
+              <label>Submitted by<select id="scoreSubmitter"></select></label>
+              <label>Confirmed by other team<select id="scoreConfirmer"></select></label>
+              <label>Winner<select id="winner"><option value="1">Team 1</option><option value="2">Team 2</option></select></label>
+            </div>
+            <div class="summary" style="margin-top:14px">
+              <div>
+                <p class="small">Team layout</p>
+                <strong id="team1">Team 1</strong>
+                <p class="small" id="team2">Team 2</p>
+              </div>
+              <button class="primary" id="confirmScore">Submit and confirm score</button>
+            </div>
+            <p class="hint" id="scoreStatus"></p>
+          </article>
+        </section>
+      </div>
+    </main>
+
+    <section id="admin" class="view wrap" style="padding:24px 0 34px">
+      <div class="panel">
+        <h2>Admin Back-end</h2>
+        <p class="hint">Admins can see player points, review ranking data, and manage courts that players use when finding games.</p>
+
+        <h3 class="section-title" style="border-top:0;padding-top:0">Add Padel Court</h3>
+        <div class="form-grid">
+          <label>Court name<input id="adminCourtName" placeholder="Club name" /></label>
+          <label>Location link<input id="adminCourtLocation" placeholder="Google Maps link" /></label>
+          <label>Area<input id="adminCourtArea" placeholder="Alexandria" /></label>
+        </div>
+        <button class="primary" id="addCourt" style="margin-top:14px">Add court</button>
+
+        <h3 class="section-title">Courts</h3>
+        <div id="adminCourts" class="list"></div>
+
+        <h3 class="section-title">Players</h3>
+        <div style="overflow:auto">
+          <table>
+            <thead>
+              <tr><th>Player</th><th>Contact</th><th>Rank</th><th>Points</th><th>Placement</th><th>Risk</th></tr>
+            </thead>
+            <tbody id="adminRows"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const optionSets = {
+        side: [["right", "Right"], ["left", "Left"], ["both", "Both / flexible"]],
+        frequency: [["rare", "< 1 / week"], ["weekly", "1 / week"], ["regular", "2-3 / week"], ["heavy", "4+ / week"]],
+        padelAge: [["new", "< 3 months"], ["threeMonths", "3-6 months"], ["sixMonths", "6-12 months"], ["oneYear", "1-2 years"], ["twoYears", "2+ years"]],
+        coaching: [["none", "No coaching"], ["few", "Few sessions"], ["short", "1-3 months"], ["long", "3-12 months"], ["yearPlus", "1+ year"]],
+        racketSport: [["none", "None"], ["tennis", "Tennis"], ["squash", "Squash"], ["other", "Other racket sport"]],
+        tournamentPlayed: [["no", "No"], ["yes", "Yes"]],
+        tournament: [["none", "None"], ["beginner", "Beginner"], ["d", "D"], ["c", "C"], ["open", "Open"], ["fip", "FIP"]],
+        tournamentResult: [["none", "None"], ["lateRounds", "Late rounds"], ["finalist", "Finalist"], ["winner", "Winner"]],
+        returns: [["low", "Breaks down often"], ["basic", "Stable slow returns"], ["intermediate", "Stable under pace"], ["advanced", "Can attack returns"], ["pro", "Reliable under pressure"]],
+        serve: [["low", "Inconsistent"], ["basic", "Mostly in"], ["intermediate", "Controlled placement"], ["advanced", "Creates advantage"], ["pro", "Reliable weapon"]],
+        filterDay: [["all", "Any day"], ["Today", "Today"], ["Tomorrow", "Tomorrow"], ["Friday", "Friday"]],
+        filterRank: [["all", "Any rank"], ["Bronze", "Bronze"], ["Silver", "Silver"], ["Gold", "Gold"], ["Platinum", "Platinum"], ["Diamond", "Diamond"], ["Elite", "Elite"]],
+        newMatchDay: [["Today", "Today"], ["Tomorrow", "Tomorrow"], ["Friday", "Friday"]],
+      };
+
+      const slotDefinitions = [
+        { key: "t1r", team: 1, side: "Right" },
+        { key: "t1l", team: 1, side: "Left" },
+        { key: "t2r", team: 2, side: "Right" },
+        { key: "t2l", team: 2, side: "Left" },
+      ];
+
+      const levelScore = { low: 0, none: 0, no: 0, basic: 1, few: 1, weekly: 1, beginner: 1, intermediate: 2, short: 2, regular: 2, d: 2, advanced: 3, long: 3, heavy: 3, c: 3, pro: 4, yearPlus: 4, open: 4, fip: 5 };
+
+      let signedInPlayerId = "p1";
+      let players = [
+        { id: "p1", name: "Omar", email: "omar@example.com", phone: "+201000000001", side: "left", rating: 1520, tier: "Gold", risk: "normal", placementCount: 2, isPlaced: false, wins: 2, losses: 0 },
+        { id: "p2", name: "Karim", email: "karim@example.com", phone: "+201000000002", side: "right", rating: 1475, tier: "Gold", risk: "normal", placementCount: 3, isPlaced: true, wins: 4, losses: 2 },
+        { id: "p3", name: "Youssef", email: "youssef@example.com", phone: "+201000000003", side: "both", rating: 1640, tier: "Platinum", risk: "normal", placementCount: 3, isPlaced: true, wins: 5, losses: 1 },
+        { id: "p4", name: "Mariam", email: "mariam@example.com", phone: "+201000000004", side: "right", rating: 1360, tier: "Silver", risk: "review", placementCount: 1, isPlaced: false, wins: 1, losses: 1 },
+      ];
+      let courts = [
+        { id: "c1", name: "Smash Sporting Club", area: "Alexandria", locationUrl: "https://maps.google.com" },
+        { id: "c2", name: "Alex Padel Hub", area: "Alexandria", locationUrl: "https://maps.google.com" },
+      ];
+      let matches = [
+        { id: "m1", courtId: "c1", courtNumber: "Court 1", day: "Today", time: "8:00 PM", status: "open", accessCode: "BETA", scoreSubmittedBy: "", scoreConfirmedBy: "", slots: [
+          { key: "t1r", playerId: "p2", locked: false },
+          { key: "t1l", playerId: "p1", locked: false },
+          { key: "t2r", playerId: "", locked: false },
+          { key: "t2l", playerId: "", locked: false },
+        ]},
+        { id: "m2", courtId: "c2", courtNumber: "Court 2", day: "Tomorrow", time: "7:30 PM", status: "open", accessCode: "BETA", scoreSubmittedBy: "", scoreConfirmedBy: "", slots: [
+          { key: "t1r", playerId: "p3", locked: false },
+          { key: "t1l", playerId: "", reservedFor: "p4", locked: false },
+          { key: "t2r", playerId: "", locked: true },
+          { key: "t2l", playerId: "", locked: true },
+        ]},
+      ];
+
+      function tierForRating(rating) {
+        if (rating < 1200) return "Bronze";
+        if (rating < 1400) return "Silver";
+        if (rating < 1600) return "Gold";
+        if (rating < 1800) return "Platinum";
+        if (rating < 2000) return "Diamond";
+        return "Elite";
+      }
+      function selectedPlayer() { return players.find((player) => player.id === signedInPlayerId) || players[0]; }
+      function courtById(id) { return courts.find((court) => court.id === id); }
+      function playerName(id) { return players.find((player) => player.id === id)?.name || "Vacant"; }
+      function getSlot(match, key) { return match.slots.find((slot) => slot.key === key); }
+      function occupiedPlayerIds(match) { return match.slots.map((slot) => slot.playerId).filter(Boolean); }
+      function teamIds(match, team) {
+        return slotDefinitions.filter((slot) => slot.team === team).map((slot) => getSlot(match, slot.key)?.playerId).filter(Boolean);
+      }
+      function vacantCount(match) { return match.slots.filter((slot) => !slot.playerId && !slot.locked).length; }
+      function updateMatchStatus(match) { return occupiedPlayerIds(match).length === 4 ? "locked" : "open"; }
+
+      function estimatePlacement() {
+        const a = Object.fromEntries(Object.keys(optionSets).map((key) => [key, document.getElementById(key)?.value]));
+        const training = levelScore[a.coaching] * 65 + (a.frequency === "heavy" ? 20 : a.frequency === "regular" ? 12 : 0);
+        const experience = { new: 5, threeMonths: 18, sixMonths: 34, oneYear: 52, twoYears: 72 }[a.padelAge] + (a.racketSport === "none" ? 0 : 18);
+        const competition = a.tournamentPlayed === "no" ? 0 : ({ beginner: 16, d: 30, c: 48, open: 68, fip: 88 }[a.tournament] || 0) + ({ none: 0, lateRounds: 6, finalist: 14, winner: 24 }[a.tournamentResult] || 0);
+        const technical = (levelScore[a.returns] + levelScore[a.serve]) * 12.5;
+        const raw = 930 + training * 1.25 + experience * 1.5 + competition * 1.75 + technical * 2.1;
+        const rating = Math.min(Math.max(Math.round(raw), 880), 2150);
+        const risk = (a.tournamentPlayed === "no" && a.tournamentResult !== "none") || (a.coaching === "none" && technical >= 75) ? "review" : rating >= 1850 ? "admin" : "normal";
+        return { rating, tier: tierForRating(rating), risk };
+      }
+
+      function renderOptions() {
+        Object.entries(optionSets).forEach(([id, options]) => {
+          const el = document.getElementById(id);
+          if (el) el.innerHTML = options.map(([value, label]) => `<option value="${value}">${label}</option>`).join("");
+        });
+        document.getElementById("side").value = "right";
+        document.getElementById("frequency").value = "weekly";
+        document.getElementById("padelAge").value = "sixMonths";
+        document.getElementById("coaching").value = "few";
+        document.getElementById("returns").value = "intermediate";
+        document.getElementById("serve").value = "basic";
+      }
+
+      function switchView(view) {
+        document.querySelectorAll(".view").forEach((node) => node.classList.toggle("active", node.id === view));
+        document.querySelectorAll(".tab").forEach((node) => node.classList.toggle("active", node.dataset.view === view));
+      }
+      function switchAppSection(section) {
+        document.querySelectorAll(".app-section").forEach((node) => node.classList.toggle("hidden", node.id !== `${section}Section`));
+        document.querySelectorAll(".side-button[data-app-section]").forEach((node) => node.classList.toggle("active", node.dataset.appSection === section));
+      }
+
+      function renderSignupPreview() {
+        estimatePlacement();
+        document.getElementById("estimate").textContent = "Profile ready for placement";
+        document.getElementById("estimateReason").textContent = "Your initial ranking is calculated privately and validated through your first 3 confirmed matches.";
+      }
+
+      function renderDashboard() {
+        const player = selectedPlayer();
+        const sorted = [...players].sort((a, b) => b.rating - a.rating);
+        document.getElementById("dashName").textContent = `${player.name}'s dashboard`;
+        document.getElementById("signedInId").textContent = `Player ID: ${player.id}`;
+        document.getElementById("dashRank").textContent = player.tier;
+        document.getElementById("dashPoints").textContent = player.isPlaced ? player.rating : "Hidden";
+        document.getElementById("dashRecord").textContent = `${player.wins}-${player.losses}`;
+        document.getElementById("dashLeaderboard").textContent = `#${sorted.findIndex((p) => p.id === player.id) + 1}`;
+        document.getElementById("dashboardPlacement").textContent = player.isPlaced ? "Ranked" : `${player.placementCount}/3 placement`;
+        document.getElementById("leaderboard").innerHTML = sorted.map((p, index) => `
+          <div class="player-row">
+            <div class="rank-number">${index + 1}</div>
+            <div><strong>${p.name}</strong><p class="small">${p.tier} rank · ${p.side} side · ${p.wins}-${p.losses}</p></div>
+            <span class="pill">${p.isPlaced ? "Ranked" : "Placement"}</span>
+          </div>
+        `).join("");
+      }
+
+      function renderPlayerSelects() {
+        const playerOptions = players.map((p) => `<option value="${p.id}">${p.name}</option>`).join("");
+        document.getElementById("loginPlayer").innerHTML = playerOptions;
+        document.getElementById("loginPlayer").value = signedInPlayerId;
+        document.getElementById("premadePartner").innerHTML = `<option value="">No premade partner</option>${playerOptions}`;
+        document.getElementById("scoreSubmitter").innerHTML = playerOptions;
+        document.getElementById("scoreSubmitter").value = signedInPlayerId;
+        document.getElementById("scoreConfirmer").innerHTML = playerOptions;
+      }
+
+      function renderCourtSelects() {
+        const options = courts.map((court) => `<option value="${court.id}">${court.name} - ${court.area}</option>`).join("");
+        document.getElementById("newMatchCourt").innerHTML = options;
+        document.getElementById("filterCourt").innerHTML = `<option value="all">Any court</option>${options}`;
+      }
+
+      function renderGames() {
+        const day = document.getElementById("filterDay").value;
+        const rank = document.getElementById("filterRank").value;
+        const court = document.getElementById("filterCourt").value;
+        const shown = matches.filter((match) => {
+          const matchPlayers = occupiedPlayerIds(match).map((id) => players.find((p) => p.id === id));
+          return match.status !== "completed"
+            && (day === "all" || match.day === day)
+            && (court === "all" || match.courtId === court)
+            && (rank === "all" || matchPlayers.some((p) => p?.tier === rank));
+        });
+        document.getElementById("matches").innerHTML = shown.map(renderGame).join("") || `<p class="hint">No open games match these filters.</p>`;
+        document.getElementById("scoreMatch").innerHTML = matches.map((match) => `<option value="${match.id}">${courtById(match.courtId)?.name} ${match.courtNumber} (${occupiedPlayerIds(match).length}/4)</option>`).join("");
+        renderScoreTeams();
+      }
+
+      function renderGame(match) {
+        const court = courtById(match.courtId);
+        return `
+          <article class="game">
+            <div class="game-head">
+              <div>
+                <h3>${court?.name || "Court"} · ${match.courtNumber}</h3>
+                <p class="small">${match.day}, ${match.time} · <a href="${court?.locationUrl}" target="_blank">Open location</a></p>
+              </div>
+              <span class="pill">${match.status} · ${vacantCount(match)} open</span>
+            </div>
+            <div class="court-layout">
+              ${[1, 2].map((team) => `
+                <div class="team-box">
+                  <div class="team-title"><span>Team ${team}</span><span class="small">Right / Left</span></div>
+                  ${slotDefinitions.filter((slot) => slot.team === team).map((definition) => renderSlot(match, definition)).join("")}
+                </div>
+              `).join("")}
+            </div>
+          </article>
+        `;
+      }
+
+      function renderSlot(match, definition) {
+        const slot = getSlot(match, definition.key);
+        const player = players.find((p) => p.id === slot?.playerId);
+        const reserved = slot?.reservedFor ? players.find((p) => p.id === slot.reservedFor) : null;
+        const klass = slot?.locked ? "slot locked" : slot?.reservedFor ? "slot reserved" : "slot";
+        let body = `<strong>Vacant</strong><p class="small">Open position</p><button class="secondary" onclick="joinSlot('${match.id}', '${definition.key}')">Join</button>`;
+        if (player) body = `<strong>${player.name}</strong><p class="small">${player.tier} rank · points hidden</p>`;
+        else if (slot?.locked) body = `<strong>Locked</strong><p class="small">Requires pass</p><button class="secondary" onclick="joinSlot('${match.id}', '${definition.key}')">Enter pass</button>`;
+        else if (reserved) body = `<strong>Reserved</strong><p class="small">For ${reserved.name}</p><button class="secondary" onclick="joinSlot('${match.id}', '${definition.key}')">Claim</button>`;
+        return `<div class="${klass}"><span class="side-label">${definition.side}</span><div>${body}</div></div>`;
+      }
+
+      function renderScoreTeams() {
+        const match = matches.find((m) => m.id === document.getElementById("scoreMatch").value) || matches[0];
+        document.getElementById("team1").textContent = `Team 1: ${teamIds(match, 1).map(playerName).join(" / ") || "Needs two players"}`;
+        document.getElementById("team2").textContent = `Team 2: ${teamIds(match, 2).map(playerName).join(" / ") || "Needs two players"}`;
+      }
+
+      function renderAdmin() {
+        document.getElementById("adminCourts").innerHTML = courts.map((court) => `
+          <div class="mini-card"><strong>${court.name}</strong><p class="small">${court.area} · <a href="${court.locationUrl}" target="_blank">Location link</a></p></div>
+        `).join("");
+        const sorted = [...players].sort((a, b) => b.rating - a.rating);
+        document.getElementById("adminRows").innerHTML = sorted.map((p) => `
+          <tr>
+            <td><strong>${p.name}</strong><br><span class="small">ID: ${p.id}</span></td>
+            <td>${p.email}<br>${p.phone}</td>
+            <td>${p.tier}</td>
+            <td><strong>${p.rating}</strong></td>
+            <td>${p.isPlaced ? "Ranked" : `${p.placementCount}/3`}</td>
+            <td><span class="pill ${p.risk === "normal" ? "" : "danger"}">${p.risk}</span></td>
+          </tr>
+        `).join("");
+      }
+
+      function render() {
+        renderSignupPreview();
+        renderPlayerSelects();
+        renderCourtSelects();
+        renderDashboard();
+        renderGames();
+        renderAdmin();
+      }
+
+      function addPlayer() {
+        const placement = estimatePlacement();
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim().toLowerCase();
+        const phone = document.getElementById("phone").value.trim();
+        const status = document.getElementById("registrationStatus");
+        if (!name || !email.includes("@") || phone.length < 8) {
+          status.textContent = "Add a valid name, email, and phone number.";
+          return;
+        }
+        if (players.some((p) => p.email === email || p.phone === phone)) {
+          status.textContent = "This email or phone number is already registered.";
+          return;
+        }
+        const id = `p${Date.now()}`;
+        players.push({ id, name, email, phone, side: document.getElementById("side").value, rating: placement.rating, tier: placement.tier, risk: placement.risk, placementCount: 0, isPlaced: false, wins: 0, losses: 0 });
+        signedInPlayerId = id;
+        status.textContent = "Account created. Opening your dashboard.";
+        render();
+        switchView("app");
+        switchAppSection("dashboard");
+      }
+
+      function login() {
+        signedInPlayerId = document.getElementById("loginPlayer").value;
+        render();
+        switchView("app");
+        switchAppSection("dashboard");
+      }
+
+      function createMatch() {
+        const player = selectedPlayer();
+        const courtId = document.getElementById("newMatchCourt").value;
+        const courtNumber = document.getElementById("newCourtNumber").value.trim();
+        const day = document.getElementById("newMatchDay").value;
+        const time = document.getElementById("newMatchTime").value.trim();
+        const creatorSlot = document.getElementById("creatorSlot").value;
+        const partnerId = document.getElementById("premadePartner").value;
+        const partnerSlot = document.getElementById("partnerSlot").value;
+        const access = document.getElementById("matchAccess").value;
+        const status = document.getElementById("matchCreateStatus");
+        if (!courtId || !courtNumber || !time) {
+          status.textContent = "Choose court, court number, and time.";
+          return;
+        }
+        if (partnerId && (!partnerSlot || partnerSlot === creatorSlot || partnerId === player.id)) {
+          status.textContent = "Choose a different player and slot for your premade partner.";
+          return;
+        }
+        const slots = slotDefinitions.map((definition) => ({
+          key: definition.key,
+          playerId: definition.key === creatorSlot ? player.id : definition.key === partnerSlot ? partnerId : "",
+          locked: false,
+          reservedFor: "",
+        }));
+        if (access === "pass") slots.forEach((slot) => { if (!slot.playerId) slot.locked = true; });
+        if (access === "lock-partner" && partnerSlot && !partnerId) getSlot({ slots }, partnerSlot).locked = true;
+        matches.unshift({ id: `m${Date.now()}`, courtId, courtNumber, day, time, status: "open", accessCode: "BETA", scoreSubmittedBy: "", scoreConfirmedBy: "", slots });
+        status.textContent = "Game created. It is now visible in open games.";
+        render();
+        switchAppSection("find");
+      }
+
+      function joinSlot(matchId, slotKey) {
+        const player = selectedPlayer();
+        const match = matches.find((m) => m.id === matchId);
+        const slot = match ? getSlot(match, slotKey) : null;
+        if (!match || !slot || slot.playerId) return;
+        if (occupiedPlayerIds(match).includes(player.id)) return;
+        if (slot.reservedFor && slot.reservedFor !== player.id) return;
+        if (slot.locked) {
+          const pass = window.prompt("Enter match pass");
+          if (pass !== match.accessCode) return;
+        }
+        slot.playerId = player.id;
+        slot.locked = false;
+        slot.reservedFor = "";
+        match.status = updateMatchStatus(match);
+        render();
+      }
+
+      function confirmScore() {
+        const match = matches.find((m) => m.id === document.getElementById("scoreMatch").value);
+        const submitter = document.getElementById("scoreSubmitter").value;
+        const confirmer = document.getElementById("scoreConfirmer").value;
+        if (!match || occupiedPlayerIds(match).length < 4) {
+          document.getElementById("scoreStatus").textContent = "All four positions must be filled before score registration.";
+          return;
+        }
+        const team1 = teamIds(match, 1);
+        const team2 = teamIds(match, 2);
+        const submitterTeam = team1.includes(submitter) ? 1 : team2.includes(submitter) ? 2 : 0;
+        const confirmerTeam = team1.includes(confirmer) ? 1 : team2.includes(confirmer) ? 2 : 0;
+        if (!submitterTeam || !confirmerTeam || submitterTeam === confirmerTeam) {
+          document.getElementById("scoreStatus").textContent = "Score must be submitted by one team and confirmed by someone from the other team.";
+          return;
+        }
+        const team1Average = team1.reduce((sum, id) => sum + players.find((p) => p.id === id).rating, 0) / 2;
+        const team2Average = team2.reduce((sum, id) => sum + players.find((p) => p.id === id).rating, 0) / 2;
+        const expectedTeam1 = 1 / (1 + 10 ** ((team2Average - team1Average) / 400));
+        const winner = Number(document.getElementById("winner").value);
+        players = players.map((p) => {
+          if (![...team1, ...team2].includes(p.id)) return p;
+          const actual = winner === (team1.includes(p.id) ? 1 : 2) ? 1 : 0;
+          const expected = team1.includes(p.id) ? expectedTeam1 : 1 - expectedTeam1;
+          const delta = Math.round(28 * (p.isPlaced ? 1 : 1.65) * (actual - expected));
+          const rating = Math.max(700, p.rating + delta);
+          const placementCount = Math.min(3, p.placementCount + 1);
+          return { ...p, rating, tier: tierForRating(rating), placementCount, isPlaced: placementCount >= 3, wins: p.wins + (actual ? 1 : 0), losses: p.losses + (actual ? 0 : 1) };
+        });
+        match.status = "completed";
+        match.scoreSubmittedBy = submitter;
+        match.scoreConfirmedBy = confirmer;
+        document.getElementById("scoreStatus").textContent = "Score confirmed by the other team. Rankings updated.";
+        render();
+      }
+
+      function addCourt() {
+        const name = document.getElementById("adminCourtName").value.trim();
+        const locationUrl = document.getElementById("adminCourtLocation").value.trim() || "https://maps.google.com";
+        const area = document.getElementById("adminCourtArea").value.trim() || "Alexandria";
+        if (!name) return;
+        courts.push({ id: `c${Date.now()}`, name, locationUrl, area });
+        document.getElementById("adminCourtName").value = "";
+        document.getElementById("adminCourtLocation").value = "";
+        document.getElementById("adminCourtArea").value = "";
+        render();
+      }
+
+      document.addEventListener("click", (event) => {
+        const view = event.target.closest("[data-view]");
+        if (view) switchView(view.dataset.view);
+        const section = event.target.closest("[data-app-section]");
+        if (section) switchAppSection(section.dataset.appSection);
+      });
+      document.addEventListener("change", (event) => {
+        if (event.target.matches("select")) render();
+        if (event.target.id === "scoreMatch") renderScoreTeams();
+      });
+      document.getElementById("addPlayer").addEventListener("click", addPlayer);
+      document.getElementById("loginButton").addEventListener("click", login);
+      document.getElementById("createMatch").addEventListener("click", createMatch);
+      document.getElementById("confirmScore").addEventListener("click", confirmScore);
+      document.getElementById("addCourt").addEventListener("click", addCourt);
+
+      renderOptions();
+      render();
+    </script>
+  </body>
+</html>
