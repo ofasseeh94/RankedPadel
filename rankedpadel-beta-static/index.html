@@ -1262,11 +1262,13 @@
     <section id="login" class="view wrap" style="padding:24px 0 34px">
       <article class="panel">
         <h2>Log In</h2>
-        <p class="hint">Prototype login: choose an existing beta player. Real beta will use email or phone authentication.</p>
+        <p class="hint">Use your email, phone number, or player name with your password. For this static beta, use password <strong>NADDbeta</strong> for the sample accounts.</p>
         <div class="form-grid" style="margin-top:14px">
-          <label>Player<select id="loginPlayer"></select></label>
+          <label>Email, phone, or username<input id="loginIdentifier" placeholder="omar@example.com" autocomplete="username" /></label>
+          <label>Password<input id="loginPassword" type="password" placeholder="Password" autocomplete="current-password" /></label>
         </div>
-        <button class="primary" id="loginButton" style="margin-top:14px">Go to dashboard</button>
+        <button class="primary" id="loginButton" style="margin-top:14px">Log in</button>
+        <p class="hint" id="loginStatus"></p>
       </article>
     </section>
 
@@ -1489,10 +1491,10 @@
 
       let signedInPlayerId = "p1";
       let players = [
-        { id: "p1", name: "Omar", email: "omar@example.com", phone: "+201000000001", side: "left", rating: 1520, tier: "N4 Competitive", risk: "normal", placementCount: 2, isPlaced: false, wins: 2, losses: 0 },
-        { id: "p2", name: "Karim", email: "karim@example.com", phone: "+201000000002", side: "right", rating: 1475, tier: "N4 Competitive", risk: "normal", placementCount: 3, isPlaced: true, wins: 4, losses: 2 },
-        { id: "p3", name: "Youssef", email: "youssef@example.com", phone: "+201000000003", side: "both", rating: 1640, tier: "N5 Advanced", risk: "normal", placementCount: 3, isPlaced: true, wins: 5, losses: 1 },
-        { id: "p4", name: "Mariam", email: "mariam@example.com", phone: "+201000000004", side: "right", rating: 1360, tier: "N3 Club", risk: "review", placementCount: 1, isPlaced: false, wins: 1, losses: 1 },
+        { id: "p1", name: "Omar", email: "omar@example.com", phone: "+201000000001", password: "NADDbeta", side: "left", rating: 1520, tier: "N4 Competitive", risk: "normal", placementCount: 2, isPlaced: false, wins: 2, losses: 0 },
+        { id: "p2", name: "Karim", email: "karim@example.com", phone: "+201000000002", password: "NADDbeta", side: "right", rating: 1475, tier: "N4 Competitive", risk: "normal", placementCount: 3, isPlaced: true, wins: 4, losses: 2 },
+        { id: "p3", name: "Youssef", email: "youssef@example.com", phone: "+201000000003", password: "NADDbeta", side: "both", rating: 1640, tier: "N5 Advanced", risk: "normal", placementCount: 3, isPlaced: true, wins: 5, losses: 1 },
+        { id: "p4", name: "Mariam", email: "mariam@example.com", phone: "+201000000004", password: "NADDbeta", side: "right", rating: 1360, tier: "N3 Club", risk: "review", placementCount: 1, isPlaced: false, wins: 1, losses: 1 },
       ];
       let courts = [
         { id: "c1", name: "Smash Sporting Club", area: "Alexandria", locationUrl: "https://maps.google.com" },
@@ -1642,8 +1644,6 @@
 
       function renderPlayerSelects() {
         const playerOptions = players.map((p) => `<option value="${p.id}">${p.name}</option>`).join("");
-        document.getElementById("loginPlayer").innerHTML = playerOptions;
-        document.getElementById("loginPlayer").value = signedInPlayerId;
         document.getElementById("premadePartner").innerHTML = `<option value="">No premade partner</option>${playerOptions}`;
         document.getElementById("scoreSubmitter").innerHTML = playerOptions;
         document.getElementById("scoreSubmitter").value = signedInPlayerId;
@@ -1754,7 +1754,7 @@
           return;
         }
         const id = `p${Date.now()}`;
-        players.push({ id, name, email, phone, side: document.getElementById("side").value, rating: placement.rating, tier: placement.tier, risk: placement.risk, placementCount: 0, isPlaced: false, wins: 0, losses: 0 });
+        players.push({ id, name, email, phone, password: "NADDbeta", side: document.getElementById("side").value, rating: placement.rating, tier: placement.tier, risk: placement.risk, placementCount: 0, isPlaced: false, wins: 0, losses: 0 });
         signedInPlayerId = id;
         status.textContent = "Account created. Opening your dashboard.";
         render();
@@ -1763,7 +1763,25 @@
       }
 
       function login() {
-        signedInPlayerId = document.getElementById("loginPlayer").value;
+        const identifier = document.getElementById("loginIdentifier").value.trim().toLowerCase();
+        const password = document.getElementById("loginPassword").value;
+        const status = document.getElementById("loginStatus");
+        const player = players.find((p) => {
+          const cleanPhone = p.phone.replace(/\s+/g, "").toLowerCase();
+          return p.email.toLowerCase() === identifier
+            || p.name.toLowerCase() === identifier
+            || cleanPhone === identifier.replace(/\s+/g, "");
+        });
+        if (!identifier || !password) {
+          status.textContent = "Enter your email, phone, or username and password.";
+          return;
+        }
+        if (!player || player.password !== password) {
+          status.textContent = "Login details not recognized. For the static beta, try omar@example.com with password NADDbeta.";
+          return;
+        }
+        signedInPlayerId = player.id;
+        status.textContent = "";
         render();
         switchView("app");
         switchAppSection("dashboard");
