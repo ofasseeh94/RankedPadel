@@ -1214,6 +1214,12 @@
         document.querySelectorAll(".view").forEach((node) => node.classList.toggle("active", node.id === view));
         document.querySelectorAll(".tab").forEach((node) => node.classList.toggle("active", node.dataset.view === view));
       }
+      function scrollToLandingSection(hash) {
+        if (!hash || hash === "#") return;
+        const target = document.querySelector(hash);
+        if (!target) return;
+        requestAnimationFrame(() => target.scrollIntoView({ behavior: "smooth", block: "start" }));
+      }
       function switchAppSection(section) {
         document.querySelectorAll(".app-section").forEach((node) => node.classList.toggle("hidden", node.id !== `${section}Section`));
         document.querySelectorAll(".side-button[data-app-section]").forEach((node) => node.classList.toggle("active", node.dataset.appSection === section));
@@ -1473,8 +1479,20 @@
       }
 
       document.addEventListener("click", (event) => {
+        const landingLink = event.target.closest('a[href^="#"]');
+        if (landingLink) {
+          event.preventDefault();
+          const hash = landingLink.getAttribute("href");
+          switchView("landing");
+          scrollToLandingSection(hash);
+          if (hash) window.history.pushState(null, "", hash);
+          return;
+        }
         const view = event.target.closest("[data-view]");
-        if (view) switchView(view.dataset.view);
+        if (view) {
+          switchView(view.dataset.view);
+          if (view.dataset.view === "landing") window.scrollTo({ top: 0, behavior: "smooth" });
+        }
         const section = event.target.closest("[data-app-section]");
         if (section) switchAppSection(section.dataset.appSection);
       });
