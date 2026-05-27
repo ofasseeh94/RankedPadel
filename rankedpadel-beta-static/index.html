@@ -3,19 +3,22 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>RankedPadel Beta</title>
+    <title>NADD Beta</title>
     <style>
+      @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
       :root {
-        --bg: #f3f6f2;
+        --bg: #f7f4ea;
         --surface: #ffffff;
-        --ink: #101915;
-        --muted: #5c6a62;
-        --line: #d7dfd4;
-        --soft: #e9f1ec;
+        --ink: #162033;
+        --muted: #5f6878;
+        --line: #d8dee8;
+        --soft: #eef2f7;
         --soft-blue: #edf3f7;
-        --accent: #1f6f52;
-        --accent-dark: #164f3b;
-        --gold: #b78b2a;
+        --navy: #0d1628;
+        --accent: #c6ff00;
+        --accent-dark: #a7d900;
+        --gold: #c9a45a;
         --danger: #9b2c22;
       }
 
@@ -24,7 +27,11 @@
         margin: 0;
         background: var(--bg);
         color: var(--ink);
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: "Space Grotesk", Arial, Helvetica, sans-serif;
+        font-variant-numeric: tabular-nums;
+      }
+      :lang(ar) {
+        font-family: "IBM Plex Sans Arabic", "Space Grotesk", Arial, Helvetica, sans-serif;
       }
       button, input, select { font: inherit; }
       button { cursor: pointer; }
@@ -38,8 +45,8 @@
         position: sticky;
         top: 0;
         z-index: 5;
-        border-bottom: 1px solid rgba(215, 223, 212, 0.85);
-        background: rgba(255, 255, 255, 0.92);
+        border-bottom: 1px solid rgba(216, 222, 232, 0.22);
+        background: rgba(13, 22, 40, 0.94);
       }
       .nav {
         display: flex;
@@ -49,13 +56,46 @@
         gap: 16px;
       }
       .brand {
+        color: #ffffff;
         font-weight: 900;
         letter-spacing: 0.02em;
       }
       .nav-actions {
         display: flex;
         flex-wrap: wrap;
+        align-items: center;
         gap: 8px;
+      }
+      .wordmark {
+        border: 0;
+        background: transparent;
+        color: #ffffff;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+      .nav-link {
+        border: 0;
+        background: transparent;
+        color: rgba(247, 244, 234, 0.78);
+        font-size: 14px;
+        font-weight: 800;
+      }
+      .nav-link:hover { color: var(--accent); }
+      .nav-cta {
+        min-height: 40px;
+        border: 0;
+        border-radius: 8px;
+        background: var(--accent);
+        color: var(--navy);
+        padding: 0 15px;
+        font-size: 14px;
+        font-weight: 900;
       }
       .tab, .primary, .secondary, .ghost {
         min-height: 40px;
@@ -67,12 +107,12 @@
       .tab, .secondary {
         border: 1px solid var(--line);
         background: #fff;
-        color: #304137;
+        color: var(--ink);
       }
       .tab.active, .primary {
         border: 0;
         background: var(--accent);
-        color: #fff;
+        color: var(--navy);
       }
       .primary:hover { background: var(--accent-dark); }
       .ghost {
@@ -85,23 +125,44 @@
       .view.active { display: block; }
 
       .landing-hero {
+        position: relative;
+        overflow: hidden;
         min-height: calc(100vh - 66px);
         display: grid;
         align-items: center;
         background:
-          linear-gradient(90deg, rgba(8, 17, 13, 0.88), rgba(8, 17, 13, 0.58), rgba(8, 17, 13, 0.22)),
+          linear-gradient(90deg, rgba(13, 22, 40, 0.98), rgba(13, 22, 40, 0.78), rgba(13, 22, 40, 0.34)),
           url("https://images.pexels.com/photos/32349891/pexels-photo-32349891.jpeg?auto=compress&cs=tinysrgb&w=1800");
-        background-position: center;
+        background-position: 64% center;
         background-size: cover;
+      }
+      .landing-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, rgba(198, 255, 0, 0.12) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(198, 255, 0, 0.08) 1px, transparent 1px);
+        background-size: 120px 120px;
+        opacity: 0.35;
+        pointer-events: none;
+      }
+      .hero-grid {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 430px;
+        gap: 46px;
+        align-items: center;
       }
       .hero-content {
         max-width: 760px;
-        padding: 68px 0;
+        padding: 76px 0;
         color: #fff;
       }
       .eyebrow {
         margin: 0 0 14px;
-        color: #bde5cf;
+        color: var(--accent);
         font-size: 13px;
         font-weight: 900;
         letter-spacing: 0.18em;
@@ -109,8 +170,9 @@
       }
       h1 {
         margin: 0;
-        font-size: clamp(40px, 7vw, 78px);
-        line-height: 0.98;
+        font-size: clamp(58px, 9vw, 116px);
+        font-weight: 700;
+        line-height: 0.88;
         letter-spacing: 0;
       }
       .lead {
@@ -126,24 +188,275 @@
         gap: 10px;
         margin-top: 26px;
       }
-      .landing-band {
-        border-top: 1px solid var(--line);
-        background: #fff;
-        padding: 26px 0;
+      .hero-proof {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 24px;
       }
+      .proof-item {
+        border: 1px solid rgba(216, 222, 232, 0.26);
+        border-radius: 999px;
+        background: rgba(13, 22, 40, 0.52);
+        color: rgba(247, 244, 234, 0.9);
+        padding: 8px 12px;
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .match-card {
+        border: 1px solid rgba(216, 222, 232, 0.26);
+        border-radius: 14px;
+        background: linear-gradient(180deg, rgba(13, 22, 40, 0.82), rgba(13, 22, 40, 0.62));
+        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.34);
+        color: var(--bg);
+        padding: 20px;
+        backdrop-filter: blur(14px);
+      }
+      .match-card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+      .live-dot {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .live-dot::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 18px var(--accent);
+      }
+      .match-card h2 {
+        color: #ffffff;
+        font-size: 24px;
+        font-weight: 700;
+      }
+      .match-card-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+        border-top: 1px solid rgba(216, 222, 232, 0.16);
+        padding: 12px 0;
+        color: rgba(247, 244, 234, 0.82);
+        font-size: 14px;
+      }
+      .level-band {
+        border-radius: 8px;
+        background: rgba(198, 255, 0, 0.12);
+        color: var(--accent);
+        padding: 10px 12px;
+        font-weight: 700;
+      }
+      .hero-stack {
+        display: grid;
+        gap: 14px;
+      }
+      .micro-card {
+        border: 1px solid rgba(216, 222, 232, 0.2);
+        border-radius: 10px;
+        background: rgba(13, 22, 40, 0.58);
+        color: var(--bg);
+        padding: 15px;
+        backdrop-filter: blur(12px);
+      }
+      .micro-card strong {
+        display: block;
+        color: #ffffff;
+        font-size: 18px;
+      }
+      .micro-card p {
+        margin: 5px 0 0;
+        color: rgba(247, 244, 234, 0.68);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+      .movement {
+        color: var(--accent);
+        font-weight: 900;
+      }
+      .live-strip {
+        border-top: 1px solid rgba(216, 222, 232, 0.16);
+        border-bottom: 1px solid rgba(216, 222, 232, 0.16);
+        background: #091120;
+        color: var(--bg);
+        padding: 18px 0;
+      }
+      .metric-strip {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .metric {
+        border-left: 1px solid rgba(216, 222, 232, 0.18);
+        padding: 6px 14px;
+      }
+      .metric strong {
+        display: block;
+        color: var(--accent);
+        font-size: 24px;
+      }
+      .metric span {
+        color: rgba(247, 244, 234, 0.68);
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+      .landing-band {
+        border-top: 1px solid rgba(216, 222, 232, 0.16);
+        background: var(--navy);
+        padding: 44px 0;
+      }
+      .landing-section {
+        background: var(--bg);
+        padding: 58px 0;
+      }
+      .landing-section.dark {
+        background: var(--navy);
+        color: var(--bg);
+      }
+      .landing-section.gold {
+        background: #111a2d;
+        color: var(--bg);
+      }
+      .section-kicker {
+        margin: 0 0 10px;
+        color: var(--gold);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .section-title-large {
+        max-width: 760px;
+        font-size: clamp(34px, 5vw, 64px);
+        line-height: 0.96;
+        letter-spacing: 0;
+      }
+      .section-copy {
+        max-width: 720px;
+        color: var(--muted);
+        font-size: 17px;
+        line-height: 1.65;
+      }
+      .dark .section-copy, .gold .section-copy {
+        color: rgba(247, 244, 234, 0.68);
+      }
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 22px;
+      }
+      .card-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .card-grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .marketing-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 14px;
       }
       .mini-card {
-        border: 1px solid var(--line);
+        border: 1px solid rgba(216, 222, 232, 0.18);
         border-radius: 8px;
-        padding: 16px;
+        padding: 20px;
+        background: rgba(247, 244, 234, 0.04);
+      }
+      .mini-card h3 { margin: 0; color: #ffffff; font-size: 18px; }
+      .mini-card p { margin: 8px 0 0; color: rgba(247, 244, 234, 0.7); line-height: 1.5; }
+      .landing-section .mini-card {
+        border-color: var(--line);
+        background: #ffffff;
+      }
+      .landing-section .mini-card h3 { color: var(--ink); }
+      .landing-section .mini-card p { color: var(--muted); }
+      .dark .mini-card, .gold .mini-card {
+        border-color: rgba(216, 222, 232, 0.18);
+        background: rgba(247, 244, 234, 0.04);
+      }
+      .dark .mini-card h3, .gold .mini-card h3 { color: #ffffff; }
+      .dark .mini-card p, .gold .mini-card p { color: rgba(247, 244, 234, 0.7); }
+      .panel .mini-card {
+        border-color: var(--line);
         background: #fbfcfa;
       }
-      .mini-card h3 { margin: 0; font-size: 17px; }
-      .mini-card p { margin: 8px 0 0; color: var(--muted); line-height: 1.5; }
+      .panel .mini-card h3 { color: var(--ink); }
+      .panel .mini-card p { color: var(--muted); }
+      .progress-line {
+        height: 10px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(216, 222, 232, 0.18);
+        margin-top: 12px;
+      }
+      .progress-line span {
+        display: block;
+        width: 40%;
+        height: 100%;
+        border-radius: inherit;
+        background: var(--accent);
+      }
+      .receipt-preview {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 260px;
+        gap: 18px;
+        align-items: stretch;
+      }
+      .receipt-score {
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        background: rgba(198, 255, 0, 0.1);
+        color: var(--accent);
+        font-size: 42px;
+        font-weight: 700;
+      }
+      .final-cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 22px;
+      }
+      .sticky-record {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 6;
+        border: 0;
+        border-radius: 999px;
+        background: var(--accent);
+        color: var(--navy);
+        box-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
+        padding: 14px 18px;
+        font-weight: 900;
+      }
+      .how-heading {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        align-items: end;
+        margin-bottom: 18px;
+        color: var(--bg);
+      }
+      .how-heading h2 {
+        font-size: clamp(30px, 5vw, 54px);
+      }
+      .how-heading p {
+        max-width: 420px;
+        color: rgba(247, 244, 234, 0.68);
+        line-height: 1.6;
+      }
 
       .shell {
         display: grid;
@@ -171,7 +484,9 @@
         text-align: left;
         font-weight: 800;
       }
-      .side-button.active, .side-button:hover { background: var(--soft); color: var(--accent-dark); }
+      .topbar .side-button { color: #ffffff; }
+      .topbar .side-button:hover { background: transparent; color: var(--accent); }
+      .side-button.active, .side-button:hover { background: var(--soft); color: var(--navy); }
       .panel { padding: 20px; }
       .panel + .panel { margin-top: 18px; }
       .panel-head {
@@ -197,7 +512,7 @@
       }
       label {
         display: block;
-        color: #3b5044;
+        color: var(--ink);
         font-size: 13px;
         font-weight: 900;
       }
@@ -231,13 +546,15 @@
         display: block;
         margin-top: 4px;
         font-size: 26px;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
       }
       .pill {
         display: inline-flex;
         align-items: center;
         border-radius: 999px;
         background: var(--soft);
-        color: var(--accent-dark);
+        color: var(--navy);
         padding: 6px 10px;
         font-size: 12px;
         font-weight: 900;
@@ -337,54 +654,227 @@
         background: #fff;
         padding: 12px;
       }
-      .rank-number { text-align: center; color: #728073; font-weight: 900; }
+      .rank-number { text-align: center; color: var(--gold); font-weight: 700; font-variant-numeric: tabular-nums; }
       .hidden { display: none; }
       table { width: 100%; border-collapse: collapse; font-size: 13px; }
       th, td { border-bottom: 1px solid var(--line); padding: 10px 8px; text-align: left; vertical-align: top; }
-      th { color: #3d5045; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+      th { color: var(--ink); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
 
       @media (max-width: 920px) {
-        .marketing-grid, .shell, .form-grid, .dashboard-grid, .action-grid, .court-layout, .summary {
+        .hero-grid, .metric-strip, .marketing-grid, .card-grid, .card-grid.two, .card-grid.four, .receipt-preview, .shell, .form-grid, .dashboard-grid, .action-grid, .court-layout, .summary, .how-heading {
           grid-template-columns: 1fr;
         }
+        .nav-links { display: none; }
+        .nav-actions { justify-content: flex-end; }
         .landing-hero { min-height: auto; }
+        .sticky-record { left: 16px; right: 16px; bottom: 14px; }
       }
     </style>
   </head>
   <body>
     <header class="topbar">
       <div class="wrap nav">
-        <button class="brand side-button" style="width:auto;margin:0" data-view="landing">RankedPadel</button>
+        <button class="wordmark" data-view="landing">NADD</button>
         <nav class="nav-actions">
-          <button class="tab active" data-view="landing">Landing</button>
-          <button class="tab" data-view="signup">Sign up</button>
-          <button class="tab" data-view="login">Log in</button>
-          <button class="tab" data-view="app">Player dashboard</button>
-          <button class="tab" data-view="admin">Admin</button>
+          <div class="nav-links">
+            <a class="nav-link" href="#how">How it works</a>
+            <a class="nav-link" href="#ranking">Ranking</a>
+            <a class="nav-link" href="#matches-info">Matches</a>
+            <a class="nav-link" href="#city-board">City Board</a>
+            <a class="nav-link" href="#clubs">For clubs</a>
+          </div>
+          <button class="nav-link" data-view="login">Log in</button>
+          <button class="nav-cta" data-view="signup">Get your NADD Level</button>
         </nav>
       </div>
     </header>
+    <button class="sticky-record" data-view="app" data-app-section="score">Record a Match</button>
 
     <section id="landing" class="view active">
       <div class="landing-hero">
-        <div class="wrap hero-content">
-          <p class="eyebrow">Beta season 0</p>
-          <h1>Find padel games that match your level.</h1>
-          <p class="lead">
-            RankedPadel is a community ladder for players who want better games, clearer ranking,
-            verified scores, and a simple way to create or join competitive matches.
-          </p>
-          <div class="hero-actions">
-            <button class="primary" data-view="signup">Sign up for beta</button>
-            <button class="ghost" data-view="login">Log in</button>
+        <div class="wrap hero-grid">
+          <div class="hero-content">
+            <p class="eyebrow">No More Random Matches</p>
+            <h1>Find your equal.</h1>
+            <p class="lead">
+              Get your NADD Level. Record the matches you already play. Move up, challenge nearby rivals, and find better games with players who actually fit.
+            </p>
+            <div class="hero-actions">
+              <button class="primary" data-view="signup">Get your NADD Level</button>
+              <button class="ghost" data-view="app" data-app-section="score">Record a Match</button>
+            </div>
+            <div class="hero-proof">
+              <span class="proof-item">Verified Levels</span>
+              <span class="proof-item">Ranked Matches</span>
+              <span class="proof-item">Open Slots</span>
+              <span class="proof-item">City Boards</span>
+            </div>
+          </div>
+          <div class="hero-stack">
+            <div class="micro-card">
+              <span class="live-dot">Match counted</span>
+              <strong>Alexandria Sporting</strong>
+              <p>6-4 / 7-5 <span class="movement">+0.2 NADD Level</span></p>
+              <p>Receipt ready to share</p>
+            </div>
+          <div class="match-card" id="hero-match">
+            <div class="match-card-top">
+              <span class="live-dot">Open Slot</span>
+              <span class="pill">Ranked Match</span>
+            </div>
+            <h2>New Cairo | 9:00 PM</h2>
+            <div class="match-card-row">
+              <span>Level band</span>
+              <strong class="level-band">N4.0-N4.7</strong>
+            </div>
+            <div class="match-card-row">
+              <span>Needed</span>
+              <strong>1 right-side player</strong>
+            </div>
+            <div class="match-card-row">
+              <span>Court booked</span>
+              <strong>Yes</strong>
+            </div>
+            <button class="primary" data-view="app" data-app-section="find" style="width:100%;margin-top:14px">Join Match</button>
+          </div>
+            <div class="micro-card">
+              <span class="live-dot">Nearby rival</span>
+              <strong>You are 0.1 behind Youssef M.</strong>
+              <p>Win your next confirmed match to overtake him.</p>
+              <p><span class="movement">Challenge rival</span></p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="landing-band">
-        <div class="wrap marketing-grid">
-          <article class="mini-card"><h3>Ranked identity</h3><p>Players see rank tiers and progress without exposing private point values to everyone.</p></article>
-          <article class="mini-card"><h3>Better matchups</h3><p>Find open games by day, rank, and court, then join the exact right or left side position.</p></article>
-          <article class="mini-card"><h3>Verified results</h3><p>Post-game scores require confirmation from the other team before rankings update.</p></article>
+      <div class="live-strip">
+        <div class="wrap metric-strip">
+          <div class="metric"><strong>126</strong><span>matches recorded</span></div>
+          <div class="metric"><strong>48</strong><span>Season 0 players</span></div>
+          <div class="metric"><strong>17</strong><span>verified levels</span></div>
+          <div class="metric"><strong>9</strong><span>open slots filled</span></div>
+          <div class="metric"><strong>+0.4</strong><span>top mover this week</span></div>
+        </div>
+      </div>
+      <div class="landing-band" id="how">
+        <div class="wrap">
+          <div class="how-heading">
+            <h2>From normal match to ranked proof</h2>
+            <p>Already playing tonight? Make it count. Record, confirm, move, compare, and come back for a better next match.</p>
+          </div>
+          <div class="card-grid">
+            <article class="mini-card"><h3>1. Play</h3><p>You already have a match, a group, or a court.</p></article>
+            <article class="mini-card"><h3>2. Record</h3><p>Log the match before or after the game.</p></article>
+            <article class="mini-card"><h3>3. Confirm</h3><p>Both sides confirm the score before it counts.</p></article>
+            <article class="mini-card"><h3>4. Move</h3><p>Your NADD Level, Score, Confidence, and form update.</p></article>
+            <article class="mini-card"><h3>5. Compare</h3><p>See city position, nearby rivals, and progress.</p></article>
+            <article class="mini-card"><h3>6. Return</h3><p>Get a rematch, challenge, Open Slot, or better-ranked game.</p></article>
+          </div>
+          <p class="lead" style="font-size:16px">Rank proof creates status. Status creates comparison. Comparison creates challenges. Challenges create matches. Matches create more rank proof.</p>
+          <div class="final-cta">
+            <button class="primary" data-view="app" data-app-section="score">Make your next match count</button>
+            <button class="ghost" data-view="signup">See how ranking works</button>
+          </div>
+        </div>
+      </div>
+      <div class="landing-section" id="ranking">
+        <div class="wrap">
+          <p class="section-kicker">Ranking</p>
+          <h2 class="section-title-large">Your level is not what you say. It is what your matches prove.</h2>
+          <p class="section-copy">NADD turns confirmed match results into a trusted level, score, confidence rating, and fair play record.</p>
+          <div class="card-grid four">
+            <article class="mini-card"><h3>NADD Level</h3><p>Your public competitive tier. Example: <strong>N4.3 Competitive</strong>.</p></article>
+            <article class="mini-card"><h3>NADD Score</h3><p>The number behind your level. Visible to you and admins, not other players.</p></article>
+            <article class="mini-card"><h3>Rank Confidence</h3><p>How sure the system is, based on volume, recency, and verified results.</p></article>
+            <article class="mini-card"><h3>Fair Play Score</h3><p>Your reliability record for showing up, confirming fairly, and protecting the community.</p></article>
+          </div>
+          <div class="summary" style="margin-top:18px">
+            <div>
+              <p class="small">Your path to verified level</p>
+              <strong>2 / 5 placement matches completed</strong>
+              <p class="small">Complete 3 more confirmed matches to unlock your first verified NADD Level.</p>
+              <div class="progress-line"><span></span></div>
+            </div>
+            <button class="primary" data-view="app" data-app-section="score">Record placement match</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="landing-section dark" id="matches-info">
+        <div class="wrap">
+          <p class="section-kicker">Matches</p>
+          <h2 class="section-title-large">Every serious match should count.</h2>
+          <p class="section-copy">NADD is not only for finding strangers. It gives structure to the matches already happening and helps you turn them into progress.</p>
+          <div class="card-grid">
+            <article class="mini-card"><h3>Ranked Match</h3><p>Affects Level, Score, Confidence, and Fair Play.</p></article>
+            <article class="mini-card"><h3>Logged Match</h3><p>For matches arranged outside NADD. Eligible results can support placement or rank.</p></article>
+            <article class="mini-card"><h3>Challenge Match</h3><p>For nearby rivals, rematches, and club peers with clear risk and reward.</p></article>
+            <article class="mini-card"><h3>Friendly Match</h3><p>Casual play without skill rank pressure.</p></article>
+            <article class="mini-card"><h3>NADD Night</h3><p>Level-based games at partner clubs with higher trust context.</p></article>
+            <article class="mini-card"><h3>Open Slot</h3><p>A ranked game missing the right player at the right side and level.</p></article>
+          </div>
+        </div>
+      </div>
+
+      <div class="landing-section" id="city-board">
+        <div class="wrap">
+          <p class="section-kicker">City Board</p>
+          <h2 class="section-title-large">See where you stand.</h2>
+          <p class="section-copy">Your city board turns every confirmed match into proof, movement, and respectful rivalry.</p>
+          <div class="card-grid four">
+            <article class="mini-card"><h3>Top Movers</h3><p>Players who moved the most this week.</p></article>
+            <article class="mini-card"><h3>Nearby Rivals</h3><p>Players close enough that one result can change the board.</p></article>
+            <article class="mini-card"><h3>Defend Your Spot</h3><p>See who is close to passing you.</p></article>
+            <article class="mini-card"><h3>Club vs Club</h3><p>Compare N4, N5, and active-player strength by club.</p></article>
+          </div>
+        </div>
+      </div>
+
+      <div class="landing-section gold">
+        <div class="wrap receipt-preview">
+          <div>
+            <p class="section-kicker">Match Receipt</p>
+            <h2 class="section-title-large">The court decides. The ranking remembers.</h2>
+            <p class="section-copy">A confirmed result creates a shareable receipt with score, rank impact, confidence movement, and status.</p>
+            <div class="final-cta">
+              <button class="primary" data-view="app" data-app-section="score">Record a Match</button>
+              <button class="ghost" data-view="app" data-app-section="create">Create Ranked Match</button>
+            </div>
+          </div>
+          <article class="match-card">
+            <span class="live-dot">NADD Match Receipt</span>
+            <h2>Alexandria Sporting</h2>
+            <div class="match-card-row"><span>Team A def. Team B</span><strong>6-4 / 7-5</strong></div>
+            <div class="match-card-row"><span>Omar H.</span><strong class="movement">+0.2</strong></div>
+            <div class="match-card-row"><span>Rank Confidence</span><strong>Medium to High</strong></div>
+            <div class="match-card-row"><span>New status</span><strong>Top 10 mover</strong></div>
+          </article>
+        </div>
+      </div>
+
+      <div class="landing-section" id="clubs">
+        <div class="wrap">
+          <p class="section-kicker">For clubs</p>
+          <h2 class="section-title-large">Turn your club into a ranked arena.</h2>
+          <p class="section-copy">NADD helps clubs organize level-based games, fill Open Slots, activate players, and build trusted local leaderboards.</p>
+          <div class="card-grid">
+            <article class="mini-card"><h3>Ranked Nights</h3><p>Weekly level-based matches with posted results.</p></article>
+            <article class="mini-card"><h3>Rank Days</h3><p>Coach-supported placement sessions.</p></article>
+            <article class="mini-card"><h3>Open Slot Fill</h3><p>Find suitable players when a game is missing one.</p></article>
+            <article class="mini-card"><h3>Club Board</h3><p>Show top movers, active players, and category leaders.</p></article>
+            <article class="mini-card"><h3>Tournament Seeding</h3><p>Use NADD data to seed events fairly.</p></article>
+            <article class="mini-card"><h3>NADD Nights</h3><p>Create a recurring competitive rhythm at the club.</p></article>
+          </div>
+        </div>
+      </div>
+
+      <div class="landing-section dark">
+        <div class="wrap">
+          <p class="section-kicker">Season 0</p>
+          <h2 class="section-title-large">Your next match is already happening. Make it count.</h2>
+          <div class="final-cta">
+            <button class="primary" data-view="signup">Get your NADD Level</button>
+            <button class="ghost" data-view="app" data-app-section="score">Record a Match</button>
+          </div>
         </div>
       </div>
     </section>
@@ -393,10 +883,19 @@
       <article class="panel">
         <div class="panel-head">
           <div>
-            <h2>Sign Up</h2>
-            <p class="hint">Create your player profile first. Your ID links future games, scores, rankings, and dashboard stats.</p>
+            <h2>Claim your NADD Level.</h2>
+            <p class="hint">Start provisional. Record matches. Build your first verified rank.</p>
           </div>
-          <span class="pill">3 match placement</span>
+          <span class="pill">Season 0 founding badge</span>
+        </div>
+
+        <div class="summary" style="margin-bottom:18px">
+          <div>
+            <p class="small">Signup path</p>
+            <strong>Profile -> Level -> Match -> Verification</strong>
+            <p class="small">Your first recorded matches build the proof behind your founding NADD profile.</p>
+          </div>
+          <span class="pill gold">Founding player</span>
         </div>
 
         <h3 class="section-title" style="border-top:0;padding-top:0">Personal Info</h3>
@@ -406,7 +905,7 @@
           <label>Phone<input id="phone" placeholder="+20..." /></label>
         </div>
 
-        <h3 class="section-title">Initial Ranking Assist</h3>
+        <h3 class="section-title">NADD Level Assist</h3>
         <div class="form-grid">
           <label>Primary side<select id="side"></select></label>
           <label>Weekly play<select id="frequency"></select></label>
@@ -424,9 +923,14 @@
           <div>
             <p class="small">Private placement setup</p>
             <strong id="estimate">Profile ready for placement</strong>
-            <p class="small" id="estimateReason">Your initial ranking is calculated privately and validated through your first 3 confirmed matches.</p>
+            <p class="small" id="estimateReason">Your provisional level is calculated privately and validated through your first 3 confirmed Ranked Matches.</p>
           </div>
           <button class="primary" id="addPlayer">Create account</button>
+        </div>
+        <h3 class="section-title">Your first action</h3>
+        <div class="action-grid">
+          <button class="action-card" data-view="app" data-app-section="score"><h3>Record an existing match</h3><p>Already playing? Make it count once both sides confirm.</p></button>
+          <button class="action-card" data-view="app" data-app-section="find"><h3>Join an Open Slot</h3><p>Find a game that fits your side, level, court, and time.</p></button>
         </div>
         <p class="hint" id="registrationStatus"></p>
       </article>
@@ -448,9 +952,9 @@
         <aside class="sidebar">
           <strong>Player menu</strong>
           <button class="side-button active" data-app-section="dashboard">Dashboard</button>
-          <button class="side-button" data-app-section="find">Find open games</button>
-          <button class="side-button" data-app-section="create">Create game</button>
-          <button class="side-button" data-app-section="score">Register score</button>
+          <button class="side-button" data-app-section="find">Find Open Slots</button>
+          <button class="side-button" data-app-section="create">Create Ranked Match</button>
+          <button class="side-button" data-app-section="score">Record Match</button>
         </aside>
 
         <section>
@@ -463,41 +967,64 @@
               <span class="pill" id="dashboardPlacement">Placement</span>
             </div>
             <div class="dashboard-grid">
-              <div class="stat"><span class="small">Rank</span><strong id="dashRank">-</strong></div>
-              <div class="stat"><span class="small">Your points</span><strong id="dashPoints">-</strong></div>
+              <div class="stat"><span class="small">NADD Level</span><strong id="dashRank">-</strong></div>
+              <div class="stat"><span class="small">NADD Score</span><strong id="dashPoints">-</strong></div>
               <div class="stat"><span class="small">Win / loss</span><strong id="dashRecord">-</strong></div>
-              <div class="stat"><span class="small">Leaderboard</span><strong id="dashLeaderboard">-</strong></div>
+              <div class="stat"><span class="small">NADD Board</span><strong id="dashLeaderboard">-</strong></div>
+              <div class="stat"><span class="small">Rank Confidence</span><strong>Medium</strong></div>
+              <div class="stat"><span class="small">Fair Play</span><strong>96%</strong></div>
             </div>
           </article>
 
           <article id="dashboardSection" class="panel app-section">
-            <h2>What would you like to do?</h2>
+            <h2>Your next best action</h2>
+            <div class="summary" style="margin-top:14px">
+              <div>
+                <p class="small">Placement progress</p>
+                <strong>Your rank is waiting for evidence.</strong>
+                <p class="small">Record tonight's match to move closer to verified status.</p>
+              </div>
+              <button class="primary" data-app-section="score">Record next match</button>
+            </div>
             <div class="action-grid" style="margin-top:14px">
+              <button class="action-card" data-app-section="score">
+                <h3>Record existing match</h3>
+                <p>Already playing? Both sides confirm before it affects your NADD Level.</p>
+              </button>
               <button class="action-card" data-app-section="create">
-                <h3>Create game</h3>
+                <h3>Create Ranked Match</h3>
                 <p>Choose court, time, your side, and optionally lock a premade partner slot.</p>
               </button>
               <button class="action-card" data-app-section="find">
-                <h3>Find open games</h3>
-                <p>Filter by day, rank, and court, then join a right or left vacant position.</p>
+                <h3>Find Open Slots</h3>
+                <p>Filter by day, NADD Level, and court, then join a right or left vacant position.</p>
+              </button>
+              <button class="action-card">
+                <h3>Nearby rival</h3>
+                <p>You are 0.1 behind Youssef M. A confirmed match can move the board.</p>
               </button>
             </div>
-            <h3 class="section-title">Leaderboard</h3>
+            <h3 class="section-title">Recent movement</h3>
+            <div class="card-grid two" style="margin-top:0">
+              <article class="mini-card"><h3>+0.2 after a strong result</h3><p>Close games and wins above level both strengthen the system's confidence.</p></article>
+              <article class="mini-card"><h3>Match receipt ready</h3><p>Share proof after score confirmation or request a rematch from the same players.</p></article>
+            </div>
+            <h3 class="section-title">NADD Board</h3>
             <div class="list" id="leaderboard"></div>
           </article>
 
           <article id="findSection" class="panel app-section hidden">
-            <h2>Find Open Games</h2>
+            <h2>Open Matches Near You</h2>
             <div class="form-grid" style="margin-top:14px">
               <label>Day<select id="filterDay"></select></label>
-              <label>Rank<select id="filterRank"></select></label>
+              <label>NADD Level<select id="filterRank"></select></label>
               <label>Court<select id="filterCourt"></select></label>
             </div>
             <div class="list" id="matches" style="margin-top:14px"></div>
           </article>
 
           <article id="createSection" class="panel app-section hidden">
-            <h2>Create Game</h2>
+            <h2>Create Ranked Match</h2>
             <p class="hint">Create Team 1 and Team 2 with right and left player slots.</p>
             <div class="form-grid" style="margin-top:14px">
               <label>Court<select id="newMatchCourt"></select></label>
@@ -524,13 +1051,13 @@
                 <option value="lock-partner">Lock partner slot only</option>
               </select></label>
             </div>
-            <button class="primary" id="createMatch" style="margin-top:14px">Create game</button>
+            <button class="primary" id="createMatch" style="margin-top:14px">Create Ranked Match</button>
             <p class="hint" id="matchCreateStatus"></p>
           </article>
 
           <article id="scoreSection" class="panel app-section hidden">
-            <h2>Post-game Score Registration</h2>
-            <p class="hint">A score updates ranking only after one player from the other team confirms it.</p>
+            <h2>Ranked Match Result</h2>
+            <p class="hint">A result updates NADD Level only after one player from the other team confirms it.</p>
             <div class="form-grid" style="margin-top:14px">
               <label>Match<select id="scoreMatch"></select></label>
               <label>Submitted by<select id="scoreSubmitter"></select></label>
@@ -554,9 +1081,16 @@
     <section id="admin" class="view wrap" style="padding:24px 0 34px">
       <div class="panel">
         <h2>Admin Back-end</h2>
-        <p class="hint">Admins can see player points, review ranking data, and manage courts that players use when finding games.</p>
+        <p class="hint">Admins can see NADD Scores, review level data, and manage courts that players use when finding Open Slots.</p>
 
-        <h3 class="section-title" style="border-top:0;padding-top:0">Add Padel Court</h3>
+        <h3 class="section-title" style="border-top:0;padding-top:0">Operations Queue</h3>
+        <div class="card-grid">
+          <article class="mini-card"><h3>Score disputes</h3><p>Review mismatched score submissions before rank movement is final.</p></article>
+          <article class="mini-card"><h3>Suspicious patterns</h3><p>Flag repeated partner abuse, fake scores, and abnormal win patterns.</p></article>
+          <article class="mini-card"><h3>Fair Play incidents</h3><p>Track no-shows, late cancellations, and behavior reports separately from skill rank.</p></article>
+        </div>
+
+        <h3 class="section-title">Add Padel Court</h3>
         <div class="form-grid">
           <label>Court name<input id="adminCourtName" placeholder="Club name" /></label>
           <label>Location link<input id="adminCourtLocation" placeholder="Google Maps link" /></label>
@@ -571,7 +1105,7 @@
         <div style="overflow:auto">
           <table>
             <thead>
-              <tr><th>Player</th><th>Contact</th><th>Rank</th><th>Points</th><th>Placement</th><th>Risk</th></tr>
+              <tr><th>Player</th><th>Contact</th><th>NADD Level</th><th>NADD Score</th><th>Placement</th><th>Risk</th></tr>
             </thead>
             <tbody id="adminRows"></tbody>
           </table>
@@ -592,7 +1126,7 @@
         returns: [["low", "Breaks down often"], ["basic", "Stable slow returns"], ["intermediate", "Stable under pace"], ["advanced", "Can attack returns"], ["pro", "Reliable under pressure"]],
         serve: [["low", "Inconsistent"], ["basic", "Mostly in"], ["intermediate", "Controlled placement"], ["advanced", "Creates advantage"], ["pro", "Reliable weapon"]],
         filterDay: [["all", "Any day"], ["Today", "Today"], ["Tomorrow", "Tomorrow"], ["Friday", "Friday"]],
-        filterRank: [["all", "Any rank"], ["Bronze", "Bronze"], ["Silver", "Silver"], ["Gold", "Gold"], ["Platinum", "Platinum"], ["Diamond", "Diamond"], ["Elite", "Elite"]],
+        filterRank: [["all", "Any level"], ["N1 Starter", "N1 Starter"], ["N2 Developing", "N2 Developing"], ["N3 Club", "N3 Club"], ["N4 Competitive", "N4 Competitive"], ["N5 Advanced", "N5 Advanced"], ["N6 Elite Amateur", "N6 Elite Amateur"], ["N7 Pro / Invitational", "N7 Pro / Invitational"]],
         newMatchDay: [["Today", "Today"], ["Tomorrow", "Tomorrow"], ["Friday", "Friday"]],
       };
 
@@ -607,10 +1141,10 @@
 
       let signedInPlayerId = "p1";
       let players = [
-        { id: "p1", name: "Omar", email: "omar@example.com", phone: "+201000000001", side: "left", rating: 1520, tier: "Gold", risk: "normal", placementCount: 2, isPlaced: false, wins: 2, losses: 0 },
-        { id: "p2", name: "Karim", email: "karim@example.com", phone: "+201000000002", side: "right", rating: 1475, tier: "Gold", risk: "normal", placementCount: 3, isPlaced: true, wins: 4, losses: 2 },
-        { id: "p3", name: "Youssef", email: "youssef@example.com", phone: "+201000000003", side: "both", rating: 1640, tier: "Platinum", risk: "normal", placementCount: 3, isPlaced: true, wins: 5, losses: 1 },
-        { id: "p4", name: "Mariam", email: "mariam@example.com", phone: "+201000000004", side: "right", rating: 1360, tier: "Silver", risk: "review", placementCount: 1, isPlaced: false, wins: 1, losses: 1 },
+        { id: "p1", name: "Omar", email: "omar@example.com", phone: "+201000000001", side: "left", rating: 1520, tier: "N4 Competitive", risk: "normal", placementCount: 2, isPlaced: false, wins: 2, losses: 0 },
+        { id: "p2", name: "Karim", email: "karim@example.com", phone: "+201000000002", side: "right", rating: 1475, tier: "N4 Competitive", risk: "normal", placementCount: 3, isPlaced: true, wins: 4, losses: 2 },
+        { id: "p3", name: "Youssef", email: "youssef@example.com", phone: "+201000000003", side: "both", rating: 1640, tier: "N5 Advanced", risk: "normal", placementCount: 3, isPlaced: true, wins: 5, losses: 1 },
+        { id: "p4", name: "Mariam", email: "mariam@example.com", phone: "+201000000004", side: "right", rating: 1360, tier: "N3 Club", risk: "review", placementCount: 1, isPlaced: false, wins: 1, losses: 1 },
       ];
       let courts = [
         { id: "c1", name: "Smash Sporting Club", area: "Alexandria", locationUrl: "https://maps.google.com" },
@@ -632,12 +1166,13 @@
       ];
 
       function tierForRating(rating) {
-        if (rating < 1200) return "Bronze";
-        if (rating < 1400) return "Silver";
-        if (rating < 1600) return "Gold";
-        if (rating < 1800) return "Platinum";
-        if (rating < 2000) return "Diamond";
-        return "Elite";
+        if (rating < 1050) return "N1 Starter";
+        if (rating < 1200) return "N2 Developing";
+        if (rating < 1400) return "N3 Club";
+        if (rating < 1600) return "N4 Competitive";
+        if (rating < 1800) return "N5 Advanced";
+        if (rating < 2000) return "N6 Elite Amateur";
+        return "N7 Pro / Invitational";
       }
       function selectedPlayer() { return players.find((player) => player.id === signedInPlayerId) || players[0]; }
       function courtById(id) { return courts.find((court) => court.id === id); }
@@ -687,7 +1222,7 @@
       function renderSignupPreview() {
         estimatePlacement();
         document.getElementById("estimate").textContent = "Profile ready for placement";
-        document.getElementById("estimateReason").textContent = "Your initial ranking is calculated privately and validated through your first 3 confirmed matches.";
+        document.getElementById("estimateReason").textContent = "Your provisional NADD Level is calculated privately and validated through your first 3 confirmed Ranked Matches.";
       }
 
       function renderDashboard() {
@@ -699,12 +1234,12 @@
         document.getElementById("dashPoints").textContent = player.isPlaced ? player.rating : "Hidden";
         document.getElementById("dashRecord").textContent = `${player.wins}-${player.losses}`;
         document.getElementById("dashLeaderboard").textContent = `#${sorted.findIndex((p) => p.id === player.id) + 1}`;
-        document.getElementById("dashboardPlacement").textContent = player.isPlaced ? "Ranked" : `${player.placementCount}/3 placement`;
+        document.getElementById("dashboardPlacement").textContent = player.isPlaced ? "Verified" : `${player.placementCount}/3 placement`;
         document.getElementById("leaderboard").innerHTML = sorted.map((p, index) => `
           <div class="player-row">
             <div class="rank-number">${index + 1}</div>
-            <div><strong>${p.name}</strong><p class="small">${p.tier} rank · ${p.side} side · ${p.wins}-${p.losses}</p></div>
-            <span class="pill">${p.isPlaced ? "Ranked" : "Placement"}</span>
+            <div><strong>${p.name}</strong><p class="small">${p.tier} | ${p.side} side | ${p.wins}-${p.losses}</p></div>
+            <span class="pill">${p.isPlaced ? "Verified" : "Placement"}</span>
           </div>
         `).join("");
       }
@@ -747,10 +1282,10 @@
           <article class="game">
             <div class="game-head">
               <div>
-                <h3>${court?.name || "Court"} · ${match.courtNumber}</h3>
-                <p class="small">${match.day}, ${match.time} · <a href="${court?.locationUrl}" target="_blank">Open location</a></p>
+                <h3>${court?.name || "Court"} | ${match.courtNumber}</h3>
+                <p class="small">${match.day}, ${match.time} | <a href="${court?.locationUrl}" target="_blank">Open location</a></p>
               </div>
-              <span class="pill">${match.status} · ${vacantCount(match)} open</span>
+              <span class="pill">${match.status} | ${vacantCount(match)} Open Slots</span>
             </div>
             <div class="court-layout">
               ${[1, 2].map((team) => `
@@ -770,7 +1305,7 @@
         const reserved = slot?.reservedFor ? players.find((p) => p.id === slot.reservedFor) : null;
         const klass = slot?.locked ? "slot locked" : slot?.reservedFor ? "slot reserved" : "slot";
         let body = `<strong>Vacant</strong><p class="small">Open position</p><button class="secondary" onclick="joinSlot('${match.id}', '${definition.key}')">Join</button>`;
-        if (player) body = `<strong>${player.name}</strong><p class="small">${player.tier} rank · points hidden</p>`;
+        if (player) body = `<strong>${player.name}</strong><p class="small">${player.tier} | NADD Score hidden</p>`;
         else if (slot?.locked) body = `<strong>Locked</strong><p class="small">Requires pass</p><button class="secondary" onclick="joinSlot('${match.id}', '${definition.key}')">Enter pass</button>`;
         else if (reserved) body = `<strong>Reserved</strong><p class="small">For ${reserved.name}</p><button class="secondary" onclick="joinSlot('${match.id}', '${definition.key}')">Claim</button>`;
         return `<div class="${klass}"><span class="side-label">${definition.side}</span><div>${body}</div></div>`;
@@ -784,7 +1319,7 @@
 
       function renderAdmin() {
         document.getElementById("adminCourts").innerHTML = courts.map((court) => `
-          <div class="mini-card"><strong>${court.name}</strong><p class="small">${court.area} · <a href="${court.locationUrl}" target="_blank">Location link</a></p></div>
+          <div class="mini-card"><strong>${court.name}</strong><p class="small">${court.area} | <a href="${court.locationUrl}" target="_blank">Location link</a></p></div>
         `).join("");
         const sorted = [...players].sort((a, b) => b.rating - a.rating);
         document.getElementById("adminRows").innerHTML = sorted.map((p) => `
@@ -793,7 +1328,7 @@
             <td>${p.email}<br>${p.phone}</td>
             <td>${p.tier}</td>
             <td><strong>${p.rating}</strong></td>
-            <td>${p.isPlaced ? "Ranked" : `${p.placementCount}/3`}</td>
+            <td>${p.isPlaced ? "Verified" : `${p.placementCount}/3`}</td>
             <td><span class="pill ${p.risk === "normal" ? "" : "danger"}">${p.risk}</span></td>
           </tr>
         `).join("");
@@ -921,7 +1456,7 @@
         match.status = "completed";
         match.scoreSubmittedBy = submitter;
         match.scoreConfirmedBy = confirmer;
-        document.getElementById("scoreStatus").textContent = "Score confirmed by the other team. Rankings updated.";
+        document.getElementById("scoreStatus").textContent = "Result confirmed by the other team. NADD Level updated.";
         render();
       }
 
