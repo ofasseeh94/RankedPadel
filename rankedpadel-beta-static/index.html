@@ -422,6 +422,256 @@
         font-size: 42px;
         font-weight: 700;
       }
+      .roadmap-section {
+        position: relative;
+        overflow: hidden;
+        background: radial-gradient(circle at 50% 28%, rgba(198, 255, 0, 0.13), transparent 28%), var(--navy);
+        color: var(--bg);
+        padding: 70px 0;
+      }
+      .roadmap-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(rgba(216, 222, 232, 0.045) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(216, 222, 232, 0.045) 1px, transparent 1px);
+        background-size: 86px 86px;
+        pointer-events: none;
+      }
+      .roadmap-content { position: relative; z-index: 1; }
+      .roadmap-header {
+        max-width: 900px;
+        margin: 0 auto 32px;
+        text-align: center;
+      }
+      .roadmap-header .section-kicker { color: var(--accent); }
+      .roadmap-header h2 {
+        margin: 0;
+        font-size: clamp(40px, 6vw, 76px);
+        line-height: 0.95;
+      }
+      .roadmap-header p {
+        max-width: 760px;
+        margin: 18px auto 0;
+        color: rgba(247, 244, 234, 0.76);
+        font-size: 18px;
+        line-height: 1.55;
+      }
+      .ladder-card, .unlock-roadmap {
+        border: 1px solid rgba(216, 222, 232, 0.2);
+        border-radius: 14px;
+        background: rgba(9, 17, 32, 0.74);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+        padding: 24px;
+        backdrop-filter: blur(14px);
+      }
+      .ladder-topline {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        border-bottom: 1px solid rgba(216, 222, 232, 0.16);
+        padding-bottom: 18px;
+        margin-bottom: 26px;
+      }
+      .ladder-topline span, .roadmap-insight span {
+        color: rgba(247, 244, 234, 0.6);
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+      .ladder-topline strong {
+        color: var(--accent);
+        font-size: 24px;
+      }
+      .ranking-ladder {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 12px;
+        position: relative;
+      }
+      .ranking-ladder::before {
+        content: "";
+        position: absolute;
+        left: 6%;
+        right: 6%;
+        top: 46px;
+        height: 2px;
+        background: linear-gradient(90deg, rgba(216, 222, 232, 0.28), rgba(198, 255, 0, 0.72), rgba(201, 164, 90, 0.72), rgba(216, 222, 232, 0.28));
+      }
+      .ladder-level {
+        position: relative;
+        display: flex;
+        min-height: 138px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(216, 222, 232, 0.18);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.035);
+        padding: 16px 10px;
+        text-align: center;
+      }
+      .ladder-level::before {
+        content: "";
+        position: absolute;
+        top: 39px;
+        left: 50%;
+        z-index: 1;
+        width: 13px;
+        height: 13px;
+        border: 2px solid var(--navy);
+        border-radius: 50%;
+        background: var(--line);
+        transform: translateX(-50%);
+      }
+      .ladder-level.is-current {
+        border-color: var(--accent);
+        background: rgba(198, 255, 0, 0.09);
+        box-shadow: 0 0 0 1px rgba(198, 255, 0, 0.35), 0 0 42px rgba(198, 255, 0, 0.15);
+      }
+      .ladder-level.is-current::before {
+        width: 19px;
+        height: 19px;
+        background: var(--accent);
+        box-shadow: 0 0 28px rgba(198, 255, 0, 0.7);
+      }
+      .ladder-level.is-next {
+        border-color: rgba(201, 164, 90, 0.8);
+      }
+      .ladder-level.is-next::before { background: var(--gold); }
+      .you-pill {
+        position: absolute;
+        top: -13px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 999px;
+        background: var(--accent);
+        color: var(--navy);
+        padding: 6px 11px;
+        font-size: 11px;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+      .next-pill {
+        position: absolute;
+        top: -13px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: var(--gold);
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+      .level-code {
+        margin-top: 40px;
+        color: #ffffff;
+        font-size: 28px;
+        font-weight: 700;
+      }
+      .is-current .level-code { color: var(--accent); }
+      .is-next .level-code { color: var(--gold); }
+      .level-name {
+        margin-top: 7px;
+        color: rgba(247, 244, 234, 0.68);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .roadmap-insight {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 22px;
+      }
+      .roadmap-insight div {
+        border: 1px solid rgba(216, 222, 232, 0.16);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.045);
+        padding: 16px;
+      }
+      .roadmap-insight strong {
+        display: block;
+        margin-top: 8px;
+        color: #ffffff;
+        font-size: 22px;
+      }
+      .roadmap-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 22px;
+      }
+      .roadmap-actions .ghost { color: var(--bg); }
+      .unlock-roadmap { margin-top: 20px; }
+      .unlock-roadmap h3 {
+        margin: 0 0 18px;
+        text-align: center;
+        font-size: 16px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+      }
+      .unlock-steps {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .unlock-step {
+        border: 1px solid rgba(216, 222, 232, 0.15);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.035);
+        padding: 14px;
+        text-align: center;
+      }
+      .unlock-step span {
+        display: inline-grid;
+        width: 30px;
+        height: 30px;
+        place-items: center;
+        border-radius: 50%;
+        background: rgba(216, 222, 232, 0.16);
+        color: var(--bg);
+        font-size: 12px;
+        font-weight: 900;
+      }
+      .unlock-step.is-complete span, .unlock-step.is-current span {
+        background: var(--accent);
+        color: var(--navy);
+      }
+      .unlock-step.is-current {
+        border-color: var(--accent);
+        box-shadow: 0 0 26px rgba(198, 255, 0, 0.12);
+      }
+      .unlock-step strong {
+        display: block;
+        margin-top: 11px;
+        color: #ffffff;
+        font-size: 13px;
+      }
+      .unlock-step p {
+        margin: 6px 0 0;
+        color: rgba(247, 244, 234, 0.58);
+        font-size: 12px;
+        line-height: 1.35;
+      }
+      .dashboard-roadmap {
+        border: 1px solid rgba(216, 222, 232, 0.2);
+        border-radius: 10px;
+        background: var(--navy);
+        color: var(--bg);
+        padding: 18px;
+      }
+      .dashboard-roadmap .ranking-ladder { grid-template-columns: repeat(7, minmax(88px, 1fr)); }
+      .dashboard-roadmap .ladder-level { min-height: 104px; border-radius: 10px; padding: 10px 8px; }
+      .dashboard-roadmap .ranking-ladder::before { top: 36px; }
+      .dashboard-roadmap .ladder-level::before { top: 30px; }
+      .dashboard-roadmap .level-code { margin-top: 30px; font-size: 20px; }
+      .dashboard-roadmap .level-name { font-size: 10px; }
+      .dashboard-roadmap .roadmap-insight strong { font-size: 16px; }
       .final-cta {
         display: flex;
         flex-wrap: wrap;
@@ -661,8 +911,32 @@
       th { color: var(--ink); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
 
       @media (max-width: 920px) {
-        .hero-grid, .metric-strip, .marketing-grid, .card-grid, .card-grid.two, .card-grid.four, .receipt-preview, .shell, .form-grid, .dashboard-grid, .action-grid, .court-layout, .summary, .how-heading {
+        .hero-grid, .metric-strip, .marketing-grid, .card-grid, .card-grid.two, .card-grid.four, .receipt-preview, .ranking-ladder, .unlock-steps, .roadmap-insight, .shell, .form-grid, .dashboard-grid, .action-grid, .court-layout, .summary, .how-heading {
           grid-template-columns: 1fr;
+        }
+        .ranking-ladder::before, .dashboard-roadmap .ranking-ladder::before {
+          left: 30px;
+          right: auto;
+          top: 20px;
+          bottom: 20px;
+          width: 2px;
+          height: auto;
+        }
+        .ladder-level, .dashboard-roadmap .ladder-level {
+          min-height: auto;
+          align-items: start;
+          padding-left: 60px;
+          text-align: left;
+        }
+        .ladder-level::before, .dashboard-roadmap .ladder-level::before {
+          left: 30px;
+          top: 50%;
+        }
+        .level-code, .dashboard-roadmap .level-code { margin-top: 0; }
+        .you-pill, .next-pill {
+          left: auto;
+          right: 12px;
+          transform: none;
         }
         .nav-links { display: none; }
         .nav-actions { justify-content: flex-end; }
@@ -679,6 +953,7 @@
           <div class="nav-links">
             <a class="nav-link" href="#how">How it works</a>
             <a class="nav-link" href="#ranking">Ranking</a>
+            <a class="nav-link" href="#roadmap">Roadmap</a>
             <a class="nav-link" href="#matches-info">Matches</a>
             <a class="nav-link" href="#city-board">City Board</a>
             <a class="nav-link" href="#clubs">For clubs</a>
@@ -798,6 +1073,54 @@
           </div>
         </div>
       </div>
+
+      <section id="roadmap" class="roadmap-section">
+        <div class="wrap roadmap-content">
+          <div class="roadmap-header">
+            <p class="section-kicker">Ranking Roadmap</p>
+            <h2>Your road up the NADD ladder.</h2>
+            <p>Start provisional. Record confirmed matches. Build confidence. Move through the levels and unlock better games, nearby rivals, city-board position, and competitive events.</p>
+          </div>
+
+          <div class="ladder-card">
+            <div class="ladder-topline">
+              <span>Your current level</span>
+              <strong>N4.3 Competitive</strong>
+            </div>
+            <div class="ranking-ladder">
+              <div class="ladder-level"><span class="level-code">N1</span><span class="level-name">Starter</span></div>
+              <div class="ladder-level"><span class="level-code">N2</span><span class="level-name">Developing</span></div>
+              <div class="ladder-level"><span class="level-code">N3</span><span class="level-name">Club</span></div>
+              <div class="ladder-level is-current"><span class="you-pill">You are here</span><span class="level-code">N4.3</span><span class="level-name">Competitive</span></div>
+              <div class="ladder-level is-next"><span class="next-pill">Next milestone</span><span class="level-code">N5</span><span class="level-name">Advanced</span></div>
+              <div class="ladder-level"><span class="level-code">N6</span><span class="level-name">Elite Amateur</span></div>
+              <div class="ladder-level"><span class="level-code">N7</span><span class="level-name">Pro / Invitational</span></div>
+            </div>
+            <div class="roadmap-insight">
+              <div><span>Next milestone</span><strong>N5 Advanced</strong></div>
+              <div><span>Distance to next level</span><strong>0.7</strong></div>
+              <div><span>Best next action</span><strong>Record a confirmed match vs N4.5-N5.0</strong></div>
+            </div>
+            <div class="roadmap-actions">
+              <button class="primary" data-view="app" data-app-section="score">Record a match to move up</button>
+              <button class="ghost" data-view="landing" data-scroll-target="#city-board">View nearby rivals</button>
+            </div>
+          </div>
+
+          <div class="unlock-roadmap">
+            <h3>What your rank unlocks</h3>
+            <div class="unlock-steps">
+              <div class="unlock-step is-complete"><span>1</span><strong>Placement</strong><p>First confirmed matches.</p></div>
+              <div class="unlock-step is-complete"><span>2</span><strong>Verified Level</strong><p>Your public NADD Level starts to form.</p></div>
+              <div class="unlock-step is-complete"><span>3</span><strong>City Board</strong><p>See where you stand locally.</p></div>
+              <div class="unlock-step is-current"><span>4</span><strong>Challenge Ladder</strong><p>Challenge nearby rivals.</p></div>
+              <div class="unlock-step"><span>5</span><strong>Priority Open Slots</strong><p>Get better access to games that fit.</p></div>
+              <div class="unlock-step"><span>6</span><strong>NADD Nights</strong><p>Join level-based club events.</p></div>
+              <div class="unlock-step"><span>7</span><strong>Open Cup</strong><p>Compete in seeded events.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <div class="landing-section dark" id="matches-info">
         <div class="wrap">
@@ -986,6 +1309,21 @@
               </div>
               <button class="primary" data-app-section="score">Record next match</button>
             </div>
+            <div class="dashboard-roadmap" style="margin-top:14px">
+              <div class="ladder-topline">
+                <div>
+                  <span>Your NADD Roadmap</span>
+                  <p class="small" id="dashRoadmapSummary">Placement: - confirmed matches</p>
+                </div>
+                <strong id="dashRoadmapCurrent">-</strong>
+              </div>
+              <div class="ranking-ladder" id="dashRoadmapLadder"></div>
+              <div class="roadmap-insight">
+                <div><span>Next best action</span><strong id="dashRoadmapAction">Record 2 more confirmed matches</strong></div>
+                <div><span>Nearby milestone</span><strong id="dashRoadmapMilestone">N5 Advanced</strong></div>
+                <div><span>Nearby rival</span><strong>You are 0.1 behind Youssef M.</strong></div>
+              </div>
+            </div>
             <div class="action-grid" style="margin-top:14px">
               <button class="action-card" data-app-section="score">
                 <h3>Record existing match</h3>
@@ -1137,6 +1475,16 @@
         { key: "t2l", team: 2, side: "Left" },
       ];
 
+      const levelDefinitions = [
+        { number: 1, label: "Starter", min: 700, max: 1050 },
+        { number: 2, label: "Developing", min: 1050, max: 1200 },
+        { number: 3, label: "Club", min: 1200, max: 1400 },
+        { number: 4, label: "Competitive", min: 1400, max: 1600 },
+        { number: 5, label: "Advanced", min: 1600, max: 1800 },
+        { number: 6, label: "Elite Amateur", min: 1800, max: 2000 },
+        { number: 7, label: "Pro / Invitational", min: 2000, max: 2400 },
+      ];
+
       const levelScore = { low: 0, none: 0, no: 0, basic: 1, few: 1, weekly: 1, beginner: 1, intermediate: 2, short: 2, regular: 2, d: 2, advanced: 3, long: 3, heavy: 3, c: 3, pro: 4, yearPlus: 4, open: 4, fip: 5 };
 
       let signedInPlayerId = "p1";
@@ -1166,13 +1514,42 @@
       ];
 
       function tierForRating(rating) {
-        if (rating < 1050) return "N1 Starter";
-        if (rating < 1200) return "N2 Developing";
-        if (rating < 1400) return "N3 Club";
-        if (rating < 1600) return "N4 Competitive";
-        if (rating < 1800) return "N5 Advanced";
-        if (rating < 2000) return "N6 Elite Amateur";
-        return "N7 Pro / Invitational";
+        const current = getLevelInfo(rating).definition;
+        return `N${current.number} ${current.label}`;
+      }
+      function getLevelInfo(rating) {
+        const index = levelDefinitions.findIndex((level) => rating < level.max);
+        const resolvedIndex = index === -1 ? levelDefinitions.length - 1 : index;
+        return { definition: levelDefinitions[resolvedIndex], index: resolvedIndex };
+      }
+      function levelCodeForRating(rating) {
+        const { definition } = getLevelInfo(rating);
+        const span = Math.max(1, definition.max - definition.min);
+        const decimal = Math.min(9, Math.max(0, Math.floor(((rating - definition.min) / span) * 10)));
+        return `N${definition.number}.${decimal}`;
+      }
+      function nextLevelForRating(rating) {
+        const { index } = getLevelInfo(rating);
+        return levelDefinitions[Math.min(index + 1, levelDefinitions.length - 1)];
+      }
+      function distanceToNextLevel(rating) {
+        const { definition, index } = getLevelInfo(rating);
+        if (index === levelDefinitions.length - 1) return "Invite";
+        const remaining = Math.max(0, definition.max - rating);
+        const span = Math.max(1, definition.max - definition.min);
+        return Math.max(0.1, remaining / span).toFixed(1);
+      }
+      function renderLadderHtml(player) {
+        const current = getLevelInfo(player.rating);
+        const nextIndex = Math.min(current.index + 1, levelDefinitions.length - 1);
+        return levelDefinitions.map((level, index) => {
+          const classes = ["ladder-level"];
+          if (index === current.index) classes.push("is-current");
+          if (index === nextIndex && index !== current.index) classes.push("is-next");
+          const code = index === current.index ? levelCodeForRating(player.rating) : `N${level.number}`;
+          const marker = index === current.index ? '<span class="you-pill">You are here</span>' : index === nextIndex ? '<span class="next-pill">Next milestone</span>' : "";
+          return `<div class="${classes.join(" ")}">${marker}<span class="level-code">${code}</span><span class="level-name">${level.label}</span></div>`;
+        }).join("");
       }
       function selectedPlayer() { return players.find((player) => player.id === signedInPlayerId) || players[0]; }
       function courtById(id) { return courts.find((court) => court.id === id); }
@@ -1248,6 +1625,19 @@
             <span class="pill">${p.isPlaced ? "Verified" : "Placement"}</span>
           </div>
         `).join("");
+        renderDashboardRoadmap(player);
+      }
+
+      function renderDashboardRoadmap(player) {
+        const current = getLevelInfo(player.rating).definition;
+        const next = nextLevelForRating(player.rating);
+        const placementTarget = 5;
+        const matchesLeft = Math.max(0, placementTarget - player.placementCount);
+        document.getElementById("dashRoadmapCurrent").textContent = `${levelCodeForRating(player.rating)} ${current.label}`;
+        document.getElementById("dashRoadmapSummary").textContent = `Placement: ${player.placementCount} / ${placementTarget} confirmed matches | Rank Confidence: Medium | Fair Play: 96%`;
+        document.getElementById("dashRoadmapLadder").innerHTML = renderLadderHtml(player);
+        document.getElementById("dashRoadmapAction").textContent = matchesLeft ? `Record ${matchesLeft} more confirmed matches` : "Challenge a nearby rival";
+        document.getElementById("dashRoadmapMilestone").textContent = `You are ${distanceToNextLevel(player.rating)} away from N${next.number} ${next.label}`;
       }
 
       function renderPlayerSelects() {
@@ -1491,7 +1881,11 @@
         const view = event.target.closest("[data-view]");
         if (view) {
           switchView(view.dataset.view);
-          if (view.dataset.view === "landing") window.scrollTo({ top: 0, behavior: "smooth" });
+          if (view.dataset.scrollTarget) {
+            scrollToLandingSection(view.dataset.scrollTarget);
+          } else if (view.dataset.view === "landing") {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
         }
         const section = event.target.closest("[data-app-section]");
         if (section) switchAppSection(section.dataset.appSection);
