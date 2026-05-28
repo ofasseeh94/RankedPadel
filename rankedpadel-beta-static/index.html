@@ -131,7 +131,8 @@
         display: grid;
         align-items: center;
         background:
-          linear-gradient(90deg, rgba(13, 22, 40, 0.98), rgba(13, 22, 40, 0.78), rgba(13, 22, 40, 0.34)),
+          radial-gradient(circle at 78% 72%, rgba(198, 255, 0, 0.16), transparent 13%),
+          linear-gradient(90deg, rgba(4, 9, 18, 0.99) 0%, rgba(13, 22, 40, 0.9) 34%, rgba(13, 22, 40, 0.46) 62%, rgba(7, 12, 21, 0.72) 100%),
           url("assets/nadd-landing-cover.png");
         background-position: center center;
         background-size: cover;
@@ -147,16 +148,25 @@
         opacity: 0.35;
         pointer-events: none;
       }
+      .landing-hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(13, 22, 40, 0.1), rgba(13, 22, 40, 0.32)),
+          radial-gradient(circle at 47% 42%, transparent 0 18%, rgba(5, 9, 16, 0.16) 44%, rgba(5, 9, 16, 0.52) 100%);
+        pointer-events: none;
+      }
       .hero-grid {
         position: relative;
         z-index: 1;
         display: grid;
-        grid-template-columns: minmax(0, 1fr) 430px;
-        gap: 46px;
+        grid-template-columns: minmax(0, 1fr) 390px;
+        gap: 56px;
         align-items: center;
       }
       .hero-content {
-        max-width: 760px;
+        max-width: 680px;
         padding: 76px 0;
         color: #fff;
       }
@@ -170,9 +180,9 @@
       }
       h1 {
         margin: 0;
-        font-size: clamp(58px, 9vw, 116px);
+        font-size: clamp(58px, 8.4vw, 108px);
         font-weight: 700;
-        line-height: 0.88;
+        line-height: 0.92;
         letter-spacing: 0;
       }
       .lead {
@@ -188,6 +198,19 @@
         gap: 10px;
         margin-top: 26px;
       }
+      .hero-actions .primary,
+      .hero-actions .ghost {
+        min-height: 52px;
+        padding: 0 26px;
+        font-size: 16px;
+      }
+      .hero-helper {
+        margin: 16px 0 0;
+        color: rgba(247, 244, 234, 0.74);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .hero-helper strong { color: var(--accent); }
       .hero-proof {
         display: flex;
         flex-wrap: wrap;
@@ -204,6 +227,75 @@
         font-weight: 900;
         letter-spacing: 0.06em;
         text-transform: uppercase;
+      }
+      .hero-decision-card {
+        border: 1px solid rgba(216, 222, 232, 0.28);
+        border-radius: 16px;
+        background: linear-gradient(180deg, rgba(9, 17, 32, 0.9), rgba(13, 22, 40, 0.68));
+        box-shadow: 0 30px 78px rgba(0, 0, 0, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        color: var(--bg);
+        padding: 22px;
+        backdrop-filter: blur(16px);
+      }
+      .hero-decision-card h2 {
+        margin: 0 0 16px;
+        color: #ffffff;
+        font-size: 24px;
+      }
+      .hero-decision-options {
+        display: grid;
+        gap: 10px;
+      }
+      .hero-decision-option {
+        display: grid;
+        grid-template-columns: 44px 1fr auto;
+        gap: 14px;
+        align-items: center;
+        width: 100%;
+        border: 1px solid rgba(216, 222, 232, 0.16);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.055);
+        color: var(--bg);
+        padding: 14px;
+        text-align: left;
+      }
+      .hero-decision-option:hover,
+      .hero-decision-option.is-highlighted {
+        border-color: rgba(198, 255, 0, 0.62);
+        background: rgba(198, 255, 0, 0.08);
+      }
+      .hero-decision-icon {
+        display: grid;
+        width: 44px;
+        height: 44px;
+        place-items: center;
+        border-radius: 12px;
+        background: rgba(216, 222, 232, 0.1);
+        color: var(--accent);
+        font-size: 22px;
+        font-weight: 900;
+      }
+      .hero-decision-option strong {
+        display: block;
+        color: #ffffff;
+        font-size: 16px;
+      }
+      .hero-decision-option span {
+        display: block;
+        margin-top: 3px;
+        color: rgba(247, 244, 234, 0.66);
+        font-size: 13px;
+        line-height: 1.35;
+      }
+      .hero-arrow {
+        color: var(--bg);
+        font-size: 24px;
+      }
+      .hero-decision-card .primary {
+        width: 100%;
+        min-height: 50px;
+        margin-top: 16px;
+        font-size: 16px;
       }
       .match-card {
         border: 1px solid rgba(216, 222, 232, 0.26);
@@ -688,8 +780,17 @@
         background: var(--accent);
         color: var(--navy);
         box-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
+        opacity: 0;
+        pointer-events: none;
         padding: 14px 18px;
+        transform: translateY(12px);
+        transition: opacity 0.2s ease, transform 0.2s ease;
         font-weight: 900;
+      }
+      .sticky-record.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
       }
       .how-heading {
         display: flex;
@@ -1335,55 +1436,43 @@
       <div class="landing-hero">
         <div class="wrap hero-grid">
           <div class="hero-content">
-            <p class="eyebrow">No More Random Matches</p>
-            <h1>Find your equal.</h1>
+            <p class="eyebrow">Built for tonight's game</p>
+            <h1>Play it.<br>Record it.<br>Prove it.</h1>
             <p class="lead">
-              Get your NADD Level. Record the matches you already play. Move up, challenge nearby rivals, and find better games with players who actually fit.
+              NADD turns your padel matches into ranked proof, fairer games, and better next matchups.
             </p>
             <div class="hero-actions">
-              <button class="primary" data-view="signup">Get your NADD Level</button>
-              <button class="ghost" data-view="app" data-app-section="score">Record a Match</button>
+              <button class="primary" data-view="app" data-app-section="score">Record a Match</button>
+              <button class="ghost" data-game-maker-open>Open Game Maker</button>
             </div>
+            <p class="hero-helper">Already have players? Run <strong>Americano</strong>, <strong>Mexicano</strong>, or <strong>Tournament</strong> for free.</p>
             <div class="hero-proof">
+              <span class="proof-item">Match Receipts</span>
               <span class="proof-item">Verified Levels</span>
-              <span class="proof-item">Ranked Matches</span>
               <span class="proof-item">Open Slots</span>
               <span class="proof-item">City Boards</span>
             </div>
           </div>
-          <div class="hero-stack">
-            <div class="micro-card">
-              <span class="live-dot">Match counted</span>
-              <strong>Alexandria Sporting</strong>
-              <p>6-4 / 7-5 <span class="movement">+0.2 NADD Level</span></p>
-              <p>Receipt ready to share</p>
+          <div class="hero-decision-card">
+            <h2>Start with what you have</h2>
+            <div class="hero-decision-options">
+              <button class="hero-decision-option" data-view="app" data-app-section="score">
+                <span class="hero-decision-icon">01</span>
+                <span><strong>I have a match</strong><span>Record score and get a receipt</span></span>
+                <span class="hero-arrow">&gt;</span>
+              </button>
+              <button class="hero-decision-option" data-game-maker-open>
+                <span class="hero-decision-icon">02</span>
+                <span><strong>We have a group</strong><span>Run Americano, Mexicano, or Tournament</span></span>
+                <span class="hero-arrow">&gt;</span>
+              </button>
+              <button class="hero-decision-option" data-view="app" data-app-section="find">
+                <span class="hero-decision-icon">03</span>
+                <span><strong>I need a game</strong><span>Find an open slot at my level</span></span>
+                <span class="hero-arrow">&gt;</span>
+              </button>
             </div>
-          <div class="match-card" id="hero-match">
-            <div class="match-card-top">
-              <span class="live-dot">Open Slot</span>
-              <span class="pill">Ranked Match</span>
-            </div>
-            <h2>New Cairo | 9:00 PM</h2>
-            <div class="match-card-row">
-              <span>Level band</span>
-              <strong class="level-band">N4.0-N4.7</strong>
-            </div>
-            <div class="match-card-row">
-              <span>Needed</span>
-              <strong>1 right-side player</strong>
-            </div>
-            <div class="match-card-row">
-              <span>Court booked</span>
-              <strong>Yes</strong>
-            </div>
-            <button class="primary" data-view="app" data-app-section="find" style="width:100%;margin-top:14px">Join Match</button>
-          </div>
-            <div class="micro-card">
-              <span class="live-dot">Nearby rival</span>
-              <strong>You are 0.1 behind Youssef M.</strong>
-              <p>Win your next confirmed match to overtake him.</p>
-              <p><span class="movement">Challenge rival</span></p>
-            </div>
+            <button class="primary" data-hero-flow-highlight>Choose your flow</button>
           </div>
         </div>
       </div>
@@ -2723,6 +2812,12 @@ Team Hotel</textarea></label>
       }
 
       document.addEventListener("click", (event) => {
+        const flowHighlight = event.target.closest("[data-hero-flow-highlight]");
+        if (flowHighlight) {
+          document.querySelectorAll(".hero-decision-option").forEach((option) => option.classList.add("is-highlighted"));
+          setTimeout(() => document.querySelectorAll(".hero-decision-option").forEach((option) => option.classList.remove("is-highlighted")), 1400);
+          return;
+        }
         const gameMakerOpen = event.target.closest("[data-game-maker-open]");
         if (gameMakerOpen) {
           openGameMaker(gameMakerOpen.dataset.gameMakerOpen || null);
@@ -2786,6 +2881,9 @@ Team Hotel</textarea></label>
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape" && !document.getElementById("gameMakerModal").classList.contains("hidden")) closeGameMaker();
       });
+      window.addEventListener("scroll", () => {
+        document.querySelector(".sticky-record")?.classList.toggle("is-visible", window.scrollY > 720);
+      }, { passive: true });
       document.getElementById("addPlayer").addEventListener("click", addPlayer);
       document.getElementById("loginButton").addEventListener("click", login);
       document.getElementById("createMatch").addEventListener("click", createMatch);
