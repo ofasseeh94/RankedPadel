@@ -820,6 +820,209 @@
         color: rgba(247, 244, 234, 0.68);
         line-height: 1.45;
       }
+      .format-card-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 22px;
+      }
+      .format-card {
+        display: flex;
+        min-height: 240px;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid rgba(216, 222, 232, 0.18);
+        border-radius: 12px;
+        background: rgba(247, 244, 234, 0.045);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        padding: 22px;
+      }
+      .format-card h3 {
+        color: #ffffff;
+        font-size: 28px;
+      }
+      .format-card p {
+        margin: 10px 0 0;
+        color: rgba(247, 244, 234, 0.72);
+        line-height: 1.45;
+      }
+      .field-preview {
+        display: block;
+        margin-top: 16px;
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .format-detail {
+        display: grid;
+        grid-template-columns: 0.8fr 1.4fr;
+        gap: 22px;
+        align-items: center;
+        margin-top: 28px;
+      }
+      .format-detail + .format-detail { margin-top: 34px; }
+      .format-detail-copy {
+        border: 1px solid rgba(216, 222, 232, 0.18);
+        border-radius: 12px;
+        background: rgba(247, 244, 234, 0.045);
+        padding: 24px;
+      }
+      .format-detail-copy h3 {
+        color: #ffffff;
+        font-size: clamp(28px, 4vw, 48px);
+      }
+      .format-detail-copy p {
+        color: rgba(247, 244, 234, 0.72);
+        font-size: 16px;
+        line-height: 1.55;
+      }
+      .game-maker-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        display: grid;
+        place-items: center;
+        background: rgba(3, 7, 14, 0.76);
+        padding: 18px;
+        backdrop-filter: blur(12px);
+      }
+      .game-maker-modal.hidden { display: none; }
+      .game-maker-panel {
+        width: min(1120px, 100%);
+        max-height: min(92vh, 980px);
+        overflow: auto;
+        border: 1px solid rgba(216, 222, 232, 0.22);
+        border-radius: 16px;
+        background: linear-gradient(180deg, rgba(13, 22, 40, 0.96), rgba(9, 17, 32, 0.98));
+        box-shadow: 0 28px 110px rgba(0, 0, 0, 0.56);
+        color: var(--bg);
+      }
+      .game-maker-head {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 18px;
+        border-bottom: 1px solid rgba(216, 222, 232, 0.16);
+        background: rgba(9, 17, 32, 0.96);
+        padding: 22px;
+      }
+      .game-maker-head p { margin: 6px 0 0; color: rgba(247, 244, 234, 0.66); }
+      .icon-button {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        flex: 0 0 auto;
+        place-items: center;
+        border: 1px solid rgba(216, 222, 232, 0.24);
+        border-radius: 999px;
+        background: transparent;
+        color: var(--bg);
+        font-size: 22px;
+        font-weight: 900;
+      }
+      .game-maker-body { padding: 22px; }
+      .gm-format-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin: 12px 0 20px;
+      }
+      .gm-format-button {
+        min-height: 82px;
+        border: 1px solid rgba(216, 222, 232, 0.18);
+        border-radius: 10px;
+        background: rgba(247, 244, 234, 0.045);
+        color: var(--bg);
+        padding: 16px;
+        text-align: left;
+      }
+      .gm-format-button strong { display: block; font-size: 18px; }
+      .gm-format-button span { color: rgba(247, 244, 234, 0.62); font-size: 12px; }
+      .gm-format-button.active {
+        border-color: var(--accent);
+        background: rgba(198, 255, 0, 0.1);
+        box-shadow: 0 0 34px rgba(198, 255, 0, 0.12);
+      }
+      .gm-form-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .game-maker-panel label { color: var(--bg); }
+      .game-maker-panel input,
+      .game-maker-panel select,
+      .game-maker-panel textarea {
+        border-color: rgba(216, 222, 232, 0.2);
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--bg);
+      }
+      .game-maker-panel option { color: var(--ink); }
+      .game-maker-panel textarea {
+        min-height: 132px;
+        margin-top: 7px;
+        resize: vertical;
+        padding: 12px;
+      }
+      .gm-panel-block {
+        margin-top: 18px;
+        border: 1px solid rgba(216, 222, 232, 0.16);
+        border-radius: 12px;
+        background: rgba(247, 244, 234, 0.04);
+        padding: 18px;
+      }
+      .gm-panel-block.hidden { display: none; }
+      .gm-helper { color: rgba(247, 244, 234, 0.66); line-height: 1.5; }
+      .gm-error {
+        min-height: 22px;
+        margin-top: 12px;
+        color: #ffb8a8;
+        font-weight: 800;
+      }
+      .gm-output {
+        display: grid;
+        gap: 14px;
+        margin-top: 16px;
+      }
+      .gm-output-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .gm-result-card {
+        border: 1px solid rgba(216, 222, 232, 0.16);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.055);
+        padding: 14px;
+      }
+      .gm-result-card h4 { margin: 0 0 10px; font-size: 16px; }
+      .gm-match-row {
+        display: grid;
+        grid-template-columns: 1fr 62px 62px auto;
+        gap: 8px;
+        align-items: center;
+        border-top: 1px solid rgba(216, 222, 232, 0.12);
+        padding-top: 10px;
+        margin-top: 10px;
+      }
+      .gm-match-row input { height: 38px; margin: 0; }
+      .gm-leaderboard-row {
+        display: grid;
+        grid-template-columns: 34px 1fr auto;
+        gap: 10px;
+        align-items: center;
+        border-top: 1px solid rgba(216, 222, 232, 0.12);
+        padding: 9px 0;
+      }
+      .gm-share-box {
+        width: 100%;
+        min-height: 110px;
+        color: var(--bg);
+      }
       .final-conversion {
         position: relative;
         overflow: hidden;
@@ -1034,7 +1237,7 @@
       th { color: var(--ink); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
 
       @media (max-width: 920px) {
-        .hero-grid, .metric-strip, .marketing-grid, .card-grid, .card-grid.two, .card-grid.four, .receipt-preview, .compact-card-grid, .ranking-ladder, .unlock-steps, .roadmap-insight, .shell, .form-grid, .dashboard-grid, .action-grid, .court-layout, .summary, .how-heading {
+        .hero-grid, .metric-strip, .marketing-grid, .card-grid, .card-grid.two, .card-grid.four, .receipt-preview, .compact-card-grid, .format-card-grid, .format-detail, .gm-format-grid, .gm-form-grid, .gm-output-grid, .ranking-ladder, .unlock-steps, .roadmap-insight, .shell, .form-grid, .dashboard-grid, .action-grid, .court-layout, .summary, .how-heading {
           grid-template-columns: 1fr;
         }
         .visual-section, .final-conversion {
@@ -1061,6 +1264,21 @@
         }
         .infographic-image {
           border-radius: 8px;
+        }
+        .format-card { min-height: 0; }
+        .game-maker-modal { padding: 8px; }
+        .game-maker-panel {
+          max-height: 96vh;
+          border-radius: 12px;
+        }
+        .game-maker-head, .game-maker-body {
+          padding: 16px;
+        }
+        .gm-match-row {
+          grid-template-columns: 1fr 54px 54px;
+        }
+        .gm-match-row button {
+          grid-column: 1 / -1;
         }
         .ranking-ladder::before, .dashboard-roadmap .ranking-ladder::before {
           left: 30px;
@@ -1102,6 +1320,7 @@
             <a class="nav-link" href="#how">How it works</a>
             <a class="nav-link" href="#ranking">Ranking</a>
             <a class="nav-link" href="#matches-info">Matches</a>
+            <a class="nav-link" href="#game-maker">Game Maker</a>
             <a class="nav-link" href="#city-board">City Board</a>
             <a class="nav-link" href="#clubs">For clubs</a>
           </div>
@@ -1213,13 +1432,90 @@
           <div class="visual-header center">
             <p class="visual-eyebrow">Matches</p>
             <h2 class="visual-title">Every serious match should count.</h2>
-            <p class="visual-subtitle">NADD supports the games players already play — ranked, logged, friendly, challenge, club nights, and open slots.</p>
+            <p class="visual-subtitle">NADD supports the games players already play: ranked, logged, friendly, challenge, club nights, and open slots.</p>
             <div class="visual-actions">
               <button class="primary" data-view="app" data-app-section="score">Record a Match</button>
             </div>
           </div>
           <div class="infographic-wrap">
             <img class="infographic-image" src="assets/infographics/nadd_match_types_ui_showcase.png" loading="lazy" alt="NADD match types infographic showing ranked, logged, challenge, friendly, NADD Night, and open slot matches" />
+          </div>
+        </div>
+      </section>
+
+      <section class="visual-section" id="game-maker">
+        <div class="wrap visual-content">
+          <div class="visual-header center">
+            <p class="visual-eyebrow">Free Tool</p>
+            <h2 class="visual-title">Run your next padel format in minutes.</h2>
+            <p class="visual-subtitle">Add names, pick Americano, Mexicano, or Tournament mode, and let NADD build the games.</p>
+            <div class="visual-actions">
+              <button class="primary" data-game-maker-open>Open Game Maker</button>
+              <button class="ghost" data-scroll-target="#game-maker-formats" data-view="landing">See formats</button>
+            </div>
+          </div>
+          <div class="infographic-wrap">
+            <img class="infographic-image" src="assets/infographics/run_your_next_padel_format_tool.png" loading="lazy" alt="NADD Game Maker overview showing Americano, Mexicano, Tournament, and setup flow" />
+          </div>
+
+          <div class="format-card-grid" id="game-maker-formats">
+            <article class="format-card">
+              <div>
+                <h3>Americano</h3>
+                <p>Rotate partners. Count every point.</p>
+                <span class="field-preview">Players | Courts | Points per game | Rounds</span>
+              </div>
+              <button class="primary" data-game-maker-open="americano">Create Americano</button>
+            </article>
+            <article class="format-card">
+              <div>
+                <h3>Mexicano</h3>
+                <p>Live standings create the next round.</p>
+                <span class="field-preview">Players | Courts | Points per game | Dynamic rounds</span>
+              </div>
+              <button class="primary" data-game-maker-open="mexicano">Create Mexicano</button>
+            </article>
+            <article class="format-card">
+              <div>
+                <h3>Tournament</h3>
+                <p>Build brackets, groups, and winners.</p>
+                <span class="field-preview">Teams | Courts | Match format | Seeding</span>
+              </div>
+              <button class="primary" data-game-maker-open="tournament">Create Tournament</button>
+            </article>
+          </div>
+
+          <div class="format-detail">
+            <div class="format-detail-copy">
+              <h3>Americano</h3>
+              <p>Rotate partners, enter scores, and rank every player by total points.</p>
+              <button class="primary" data-game-maker-open="americano">Create Americano</button>
+            </div>
+            <div class="infographic-wrap">
+              <img class="infographic-image" src="assets/infographics/futuristic_americano_tournament_dashboard_design.png" loading="lazy" alt="NADD Americano setup showing players, courts, points per game, rounds, score entry, and leaderboard" />
+            </div>
+          </div>
+
+          <div class="format-detail">
+            <div class="format-detail-copy">
+              <h3>Mexicano</h3>
+              <p>Enter each round's scores. NADD updates the standings and creates the next matchups.</p>
+              <button class="primary" data-game-maker-open="mexicano">Create Mexicano</button>
+            </div>
+            <div class="infographic-wrap">
+              <img class="infographic-image" src="assets/infographics/mexicano_tournament_dashboard_interface.png" loading="lazy" alt="NADD Mexicano setup showing live standings, score entry, and next round generation" />
+            </div>
+          </div>
+
+          <div class="format-detail">
+            <div class="format-detail-copy">
+              <h3>Tournament</h3>
+              <p>Add teams, choose the match format, generate brackets or groups, and crown a winner.</p>
+              <button class="primary" data-game-maker-open="tournament">Create Tournament</button>
+            </div>
+            <div class="infographic-wrap">
+              <img class="infographic-image" src="assets/infographics/futuristic_tournament_dashboard_interface.png" loading="lazy" alt="NADD tournament builder showing teams, courts, match format, seeding, brackets, groups, and champion" />
+            </div>
           </div>
         </div>
       </section>
@@ -1306,6 +1602,99 @@
         </div>
       </section>
     </section>
+
+    <div id="gameMakerModal" class="game-maker-modal hidden" role="dialog" aria-modal="true" aria-labelledby="gameMakerTitle">
+      <div class="game-maker-panel">
+        <div class="game-maker-head">
+          <div>
+            <h2 id="gameMakerTitle">NADD Game Maker</h2>
+            <p>Add names. Set courts and scoring. Generate the session.</p>
+          </div>
+          <button class="icon-button" type="button" aria-label="Close Game Maker" data-game-maker-close>&times;</button>
+        </div>
+        <div class="game-maker-body">
+          <p class="visual-eyebrow">Choose format</p>
+          <div class="gm-format-grid" role="group" aria-label="Game Maker format">
+            <button class="gm-format-button" type="button" data-gm-format="americano"><strong>Americano</strong><span>Rotate partners</span></button>
+            <button class="gm-format-button" type="button" data-gm-format="mexicano"><strong>Mexicano</strong><span>Dynamic standings</span></button>
+            <button class="gm-format-button" type="button" data-gm-format="tournament"><strong>Tournament</strong><span>Brackets and winners</span></button>
+          </div>
+
+          <div class="gm-form-grid">
+            <label>Session name<input id="gmSessionName" value="Friday Night Americano" /></label>
+            <label>Club / location<input id="gmLocation" value="Alexandria Sporting" /></label>
+            <label>Number of courts<input id="gmCourts" type="number" min="1" value="2" /></label>
+            <label>Date / time<input id="gmDateTime" placeholder="Tonight, 9:00 PM" /></label>
+          </div>
+
+          <section class="gm-panel-block hidden" data-gm-panel="americano">
+            <p class="gm-helper">Best for social competitive groups. Players rotate partners and collect individual points.</p>
+            <div class="gm-form-grid">
+              <label style="grid-column:1 / -1">Player names<textarea id="gmAmericanoNames" placeholder="One player per line">Omar H.
+Karim S.
+Youssef M.
+Mariam A.
+Alex R.
+Nour S.
+Hana K.
+Tarek B.</textarea></label>
+              <label>Points per game<select id="gmAmericanoPoints"><option>11</option><option>16</option><option selected>21</option><option>24</option><option>32</option><option value="custom">Custom</option></select></label>
+              <label class="hidden" id="gmAmericanoCustomPointsWrap">Custom points<input id="gmAmericanoCustomPoints" type="number" min="1" value="21" /></label>
+              <label>Number of rounds<select id="gmAmericanoRounds"><option value="auto" selected>Auto</option><option>3</option><option>4</option><option>5</option><option>6</option><option value="custom">Custom</option></select></label>
+              <label class="hidden" id="gmAmericanoCustomRoundsWrap">Custom rounds<input id="gmAmericanoCustomRounds" type="number" min="1" value="5" /></label>
+            </div>
+            <div class="visual-actions">
+              <button class="primary" type="button" id="gmGenerateAmericano">Generate Americano</button>
+            </div>
+          </section>
+
+          <section class="gm-panel-block hidden" data-gm-panel="mexicano">
+            <p class="gm-helper">Best for competitive sessions. Standings update after every round and shape the next matchups.</p>
+            <div class="gm-form-grid">
+              <label style="grid-column:1 / -1">Player names<textarea id="gmMexicanoNames" placeholder="One player per line">Omar H.
+Karim S.
+Youssef M.
+Mariam A.
+Alex R.
+Nour S.
+Hana K.
+Tarek B.</textarea></label>
+              <label>Points per game<select id="gmMexicanoPoints"><option>11</option><option>16</option><option selected>21</option><option>24</option><option>32</option><option value="custom">Custom</option></select></label>
+              <label class="hidden" id="gmMexicanoCustomPointsWrap">Custom points<input id="gmMexicanoCustomPoints" type="number" min="1" value="21" /></label>
+              <label>First round setup<select id="gmMexicanoSeed"><option value="random">Random</option><option disabled>Manual seed - Coming soon</option><option disabled>By NADD Level - Coming soon</option></select></label>
+            </div>
+            <div class="visual-actions">
+              <button class="primary" type="button" id="gmGenerateMexicano">Generate Round 1</button>
+              <button class="ghost" type="button" id="gmNextMexicanoRound">Generate Next Round</button>
+            </div>
+          </section>
+
+          <section class="gm-panel-block hidden" data-gm-panel="tournament">
+            <p class="gm-helper">Best for organized events. Build fixtures, brackets, and winners.</p>
+            <div class="gm-form-grid">
+              <label style="grid-column:1 / -1">Team names<textarea id="gmTournamentTeams" placeholder="One team per line">Team Alpha
+Team Bravo
+Team Charlie
+Team Delta
+Team Echo
+Team Foxtrot
+Team Golf
+Team Hotel</textarea></label>
+              <label>Tournament type<select id="gmTournamentType"><option value="knockout">Knockout</option><option value="roundRobin">Round Robin</option><option value="groups">Groups + Knockout - Coming soon</option></select></label>
+              <label>Match format<select id="gmMatchFormat"><option>First to 4 games</option><option>First to 6 games</option><option>Best of 3 sets</option><option>One set + super tiebreak</option><option>Timed match</option></select></label>
+              <label>Seeding<select id="gmSeeding"><option value="random">Random</option><option disabled>Manual - Coming soon</option><option disabled>By NADD Level - Coming soon</option></select></label>
+              <label>Third-place match<select id="gmThirdPlace"><option value="yes">Yes</option><option value="no">No</option></select></label>
+            </div>
+            <div class="visual-actions">
+              <button class="primary" type="button" id="gmGenerateTournament">Generate Tournament</button>
+            </div>
+          </section>
+
+          <p class="gm-error" id="gmError"></p>
+          <div id="gmOutput" class="gm-output"></div>
+        </div>
+      </div>
+    </div>
 
     <section id="signup" class="view wrap" style="padding:24px 0 34px">
       <article class="panel">
@@ -1991,7 +2380,380 @@
         render();
       }
 
+      const gameMakerState = {
+        format: null,
+        players: [],
+        teams: [],
+        courts: 1,
+        pointsPerGame: 21,
+        rounds: [],
+        leaderboard: {},
+        currentRound: 0,
+        tournament: {}
+      };
+
+      function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[char]));
+      }
+
+      function openGameMaker(format = null) {
+        document.getElementById("gameMakerModal").classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+        selectGameMakerFormat(format);
+        document.getElementById("gmError").textContent = "";
+        setTimeout(() => document.querySelector("[data-game-maker-close]")?.focus(), 0);
+      }
+
+      function closeGameMaker() {
+        document.getElementById("gameMakerModal").classList.add("hidden");
+        document.body.style.overflow = "";
+      }
+
+      function selectGameMakerFormat(format) {
+        gameMakerState.format = format || null;
+        document.querySelectorAll("[data-gm-format]").forEach((button) => {
+          button.classList.toggle("active", button.dataset.gmFormat === format);
+        });
+        document.querySelectorAll("[data-gm-panel]").forEach((panel) => {
+          panel.classList.toggle("hidden", panel.dataset.gmPanel !== format);
+        });
+        if (!format) document.getElementById("gmOutput").innerHTML = "";
+      }
+
+      function getNamesFromTextarea(text) {
+        return [...new Set(text.split(/\n|,/).map((name) => name.trim()).filter(Boolean))];
+      }
+
+      function getGameMakerCourts() {
+        return Math.max(1, Number(document.getElementById("gmCourts").value) || 1);
+      }
+
+      function getActivePointsValue(format = gameMakerState.format) {
+        const prefix = format === "mexicano" ? "gmMexicano" : "gmAmericano";
+        const select = document.getElementById(`${prefix}Points`);
+        if (!select) return 21;
+        const value = select.value === "custom" ? Number(document.getElementById(`${prefix}CustomPoints`).value) : Number(select.value);
+        return Math.max(1, value || 21);
+      }
+
+      function getAmericanoRoundsValue(players, courts) {
+        const selected = document.getElementById("gmAmericanoRounds").value;
+        if (selected === "custom") return Math.max(1, Number(document.getElementById("gmAmericanoCustomRounds").value) || 5);
+        if (selected === "auto") return Math.max(3, Math.min(6, Math.ceil(players.length / Math.max(1, courts))));
+        return Number(selected);
+      }
+
+      function seededShuffle(items) {
+        return [...items].sort((a, b) => a.localeCompare(b)).sort(() => Math.random() - 0.5);
+      }
+
+      function initializeLeaderboard(names) {
+        return Object.fromEntries(names.map((name) => [name, 0]));
+      }
+
+      function setGameMakerError(message) {
+        document.getElementById("gmError").textContent = message || "";
+      }
+
+      function makeMatchups(names, courts, roundIndex = 0, standingsMode = false) {
+        const activeSpots = Math.max(4, courts * 4);
+        const ordered = standingsMode ? [...names] : names.map((_, index) => names[(index + roundIndex) % names.length]);
+        const active = ordered.slice(0, activeSpots);
+        const rest = ordered.slice(activeSpots);
+        const matches = [];
+        for (let index = 0; index < active.length; index += 4) {
+          const group = active.slice(index, index + 4);
+          if (group.length < 4) {
+            rest.push(...group);
+            break;
+          }
+          const teamA = roundIndex % 2 ? [group[0], group[2]] : [group[0], group[1]];
+          const teamB = roundIndex % 2 ? [group[1], group[3]] : [group[2], group[3]];
+          matches.push({ court: matches.length + 1, teamA, teamB, scoreA: "", scoreB: "", saved: false });
+        }
+        return { matches, rest };
+      }
+
+      function updateLeaderboard(match) {
+        const scoreA = Number(match.scoreA);
+        const scoreB = Number(match.scoreB);
+        if (!Number.isFinite(scoreA) || !Number.isFinite(scoreB)) return;
+        match.teamA.forEach((name) => { gameMakerState.leaderboard[name] = (gameMakerState.leaderboard[name] || 0) + scoreA; });
+        match.teamB.forEach((name) => { gameMakerState.leaderboard[name] = (gameMakerState.leaderboard[name] || 0) + scoreB; });
+        match.saved = true;
+      }
+
+      function renderGameMakerLeaderboard() {
+        const rows = Object.entries(gameMakerState.leaderboard)
+          .sort((a, b) => b[1] - a[1])
+          .map(([name, points], index) => `
+            <div class="gm-leaderboard-row">
+              <strong>${index + 1}</strong>
+              <span>${escapeHtml(name)}</span>
+              <strong class="movement">${points}</strong>
+            </div>
+          `).join("");
+        return `<article class="gm-result-card"><h4>Leaderboard</h4>${rows || '<p class="gm-helper">Scores will appear here.</p>'}</article>`;
+      }
+
+      function renderConversionCard() {
+        return `
+          <article class="gm-result-card">
+            <h4>Want this session to count?</h4>
+            <p class="gm-helper">Save the players and results as NADD profiles and match history.</p>
+            <div class="visual-actions">
+              <button class="primary" type="button" id="gmSaveToNadd">Save to NADD</button>
+              <button class="ghost" type="button" id="gmShareOnly">Share only</button>
+            </div>
+            <textarea id="gmShareBox" class="gm-share-box hidden" readonly></textarea>
+          </article>
+        `;
+      }
+
+      function renderRound(round, format) {
+        const rest = round.rest?.length ? `<p class="gm-helper">Resting: ${round.rest.map(escapeHtml).join(", ")}</p>` : "";
+        const matches = round.matches.map((match, matchIndex) => `
+          <div class="gm-match-row">
+            <span><strong>Court ${match.court}</strong><br>${escapeHtml(match.teamA.join(" / "))} vs ${escapeHtml(match.teamB.join(" / "))}</span>
+            <input type="number" min="0" value="${match.scoreA}" placeholder="A" data-gm-score="${format}" data-round="${round.index}" data-match="${matchIndex}" data-side="A" />
+            <input type="number" min="0" value="${match.scoreB}" placeholder="B" data-gm-score="${format}" data-round="${round.index}" data-match="${matchIndex}" data-side="B" />
+            <button class="secondary" type="button" data-gm-save-score="${format}" data-round="${round.index}" data-match="${matchIndex}">${match.saved ? "Saved" : "Save score"}</button>
+          </div>
+        `).join("");
+        return `<article class="gm-result-card"><h4>Round ${round.index + 1}</h4>${matches}${rest}</article>`;
+      }
+
+      function renderGameMakerOutput(extra = "") {
+        document.getElementById("gmOutput").innerHTML = `
+          <div class="gm-output-grid">
+            ${gameMakerState.rounds.map((round) => renderRound(round, gameMakerState.format)).join("")}
+            ${renderGameMakerLeaderboard()}
+          </div>
+          ${extra}
+          ${renderConversionCard()}
+        `;
+      }
+
+      function generateAmericano() {
+        const playersList = getNamesFromTextarea(document.getElementById("gmAmericanoNames").value);
+        const courts = getGameMakerCourts();
+        if (playersList.length < 4) {
+          setGameMakerError("Add at least 4 players to generate Americano.");
+          return;
+        }
+        gameMakerState.format = "americano";
+        gameMakerState.players = playersList;
+        gameMakerState.courts = courts;
+        gameMakerState.pointsPerGame = getActivePointsValue("americano");
+        gameMakerState.leaderboard = initializeLeaderboard(playersList);
+        gameMakerState.rounds = [];
+        const roundsCount = getAmericanoRoundsValue(playersList, courts);
+        for (let roundIndex = 0; roundIndex < roundsCount; roundIndex += 1) {
+          const built = makeMatchups(playersList, courts, roundIndex);
+          gameMakerState.rounds.push({ index: roundIndex, ...built });
+        }
+        setGameMakerError("");
+        renderGameMakerOutput();
+      }
+
+      function generateMexicanoRound() {
+        const existing = gameMakerState.format === "mexicano" && gameMakerState.players.length;
+        const playersList = existing
+          ? Object.entries(gameMakerState.leaderboard).sort((a, b) => b[1] - a[1]).map(([name]) => name)
+          : seededShuffle(getNamesFromTextarea(document.getElementById("gmMexicanoNames").value));
+        const courts = getGameMakerCourts();
+        if (playersList.length < 4) {
+          setGameMakerError("Add at least 4 players to generate Mexicano.");
+          return;
+        }
+        if (!existing) {
+          gameMakerState.format = "mexicano";
+          gameMakerState.players = playersList;
+          gameMakerState.courts = courts;
+          gameMakerState.pointsPerGame = getActivePointsValue("mexicano");
+          gameMakerState.leaderboard = initializeLeaderboard(playersList);
+          gameMakerState.rounds = [];
+          gameMakerState.currentRound = 0;
+        }
+        const roundIndex = gameMakerState.rounds.length;
+        const built = makeMatchups(playersList, courts, roundIndex, true);
+        gameMakerState.rounds.push({ index: roundIndex, ...built });
+        gameMakerState.currentRound = roundIndex;
+        setGameMakerError("");
+        renderGameMakerOutput(`<button class="primary" type="button" data-gm-next-mexicano>Generate Next Round</button>`);
+      }
+
+      function submitMexicanoScores() {
+        const current = gameMakerState.rounds[gameMakerState.currentRound];
+        if (!current || !current.matches.every((match) => match.saved)) {
+          setGameMakerError("Save all current round scores before generating the next round.");
+          return false;
+        }
+        return true;
+      }
+
+      function generateTournament() {
+        const teams = getNamesFromTextarea(document.getElementById("gmTournamentTeams").value);
+        const type = document.getElementById("gmTournamentType").value;
+        if (teams.length < 2) {
+          setGameMakerError("Add at least 2 teams to generate a tournament.");
+          return;
+        }
+        gameMakerState.format = "tournament";
+        gameMakerState.teams = teams;
+        gameMakerState.leaderboard = initializeLeaderboard(teams);
+        gameMakerState.tournament = { type, champion: "", roundNumber: 1, pendingWinners: [] };
+        if (type === "roundRobin") generateRoundRobinFixtures(teams);
+        else if (type === "groups") {
+          gameMakerState.rounds = [];
+          document.getElementById("gmOutput").innerHTML = `<article class="gm-result-card"><h4>Groups + Knockout</h4><p class="gm-helper">Group generation is coming soon. Use Knockout or Round Robin for this beta.</p></article>`;
+          return;
+        } else {
+          generateKnockoutBracket(teams);
+        }
+        setGameMakerError("");
+        renderTournamentOutput();
+      }
+
+      function nextPowerOfTwo(value) {
+        let size = 1;
+        while (size < value) size *= 2;
+        return size;
+      }
+
+      function generateKnockoutBracket(teams) {
+        const seeded = seededShuffle(teams);
+        while (seeded.length < nextPowerOfTwo(seeded.length)) seeded.push("BYE");
+        const matchesList = [];
+        for (let index = 0; index < seeded.length; index += 2) {
+          matchesList.push({ court: (matchesList.length % getGameMakerCourts()) + 1, teamA: [seeded[index]], teamB: [seeded[index + 1]], scoreA: "", scoreB: "", saved: seeded[index + 1] === "BYE" || seeded[index] === "BYE", winner: seeded[index + 1] === "BYE" ? seeded[index] : seeded[index] === "BYE" ? seeded[index + 1] : "" });
+        }
+        gameMakerState.rounds = [{ index: 0, matches: matchesList, rest: [] }];
+        gameMakerState.currentRound = 0;
+      }
+
+      function generateRoundRobinFixtures(teams) {
+        const fixtures = [];
+        teams.forEach((team, index) => {
+          teams.slice(index + 1).forEach((opponent) => {
+            fixtures.push({ court: (fixtures.length % getGameMakerCourts()) + 1, teamA: [team], teamB: [opponent], scoreA: "", scoreB: "", saved: false });
+          });
+        });
+        gameMakerState.rounds = [{ index: 0, matches: fixtures, rest: [] }];
+      }
+
+      function renderTournamentOutput() {
+        const champion = gameMakerState.tournament.champion
+          ? `<article class="gm-result-card"><h4>Champion</h4><strong class="movement">${escapeHtml(gameMakerState.tournament.champion)}</strong></article>`
+          : "";
+        renderGameMakerOutput(champion);
+      }
+
+      function advanceKnockoutIfReady() {
+        if (gameMakerState.tournament.type !== "knockout") return;
+        const current = gameMakerState.rounds[gameMakerState.currentRound];
+        if (!current || !current.matches.every((match) => match.saved && match.winner)) return;
+        const winners = current.matches.map((match) => match.winner).filter((winner) => winner && winner !== "BYE");
+        if (winners.length === 1) {
+          gameMakerState.tournament.champion = winners[0];
+          renderTournamentOutput();
+          return;
+        }
+        const matchesList = [];
+        for (let index = 0; index < winners.length; index += 2) {
+          if (!winners[index + 1]) break;
+          matchesList.push({ court: (matchesList.length % getGameMakerCourts()) + 1, teamA: [winners[index]], teamB: [winners[index + 1]], scoreA: "", scoreB: "", saved: false, winner: "" });
+        }
+        gameMakerState.currentRound += 1;
+        gameMakerState.rounds.push({ index: gameMakerState.currentRound, matches: matchesList, rest: [] });
+        renderTournamentOutput();
+      }
+
+      function saveGameMakerScore(format, roundIndex, matchIndex) {
+        const round = gameMakerState.rounds[Number(roundIndex)];
+        const match = round?.matches[Number(matchIndex)];
+        if (!match) return;
+        const scoreA = Number(document.querySelector(`[data-gm-score="${format}"][data-round="${roundIndex}"][data-match="${matchIndex}"][data-side="A"]`)?.value);
+        const scoreB = Number(document.querySelector(`[data-gm-score="${format}"][data-round="${roundIndex}"][data-match="${matchIndex}"][data-side="B"]`)?.value);
+        if (!Number.isFinite(scoreA) || !Number.isFinite(scoreB)) {
+          setGameMakerError("Enter both scores before saving.");
+          return;
+        }
+        match.scoreA = scoreA;
+        match.scoreB = scoreB;
+        if (!match.saved) updateLeaderboard(match);
+        if (format === "tournament") {
+          match.winner = scoreA >= scoreB ? match.teamA[0] : match.teamB[0];
+          if (gameMakerState.tournament.type === "roundRobin") {
+            gameMakerState.leaderboard[match.winner] = (gameMakerState.leaderboard[match.winner] || 0) + 3;
+          }
+          advanceKnockoutIfReady();
+        }
+        setGameMakerError("");
+        if (format === "tournament") renderTournamentOutput();
+        else renderGameMakerOutput(format === "mexicano" ? `<button class="primary" type="button" data-gm-next-mexicano>Generate Next Round</button>` : "");
+      }
+
+      function buildShareSummary() {
+        const title = document.getElementById("gmSessionName").value.trim() || "NADD session";
+        const rows = Object.entries(gameMakerState.leaderboard).sort((a, b) => b[1] - a[1]).slice(0, 3);
+        const winner = gameMakerState.tournament.champion || rows[0]?.[0] || "Pending";
+        return [
+          "NADD Game Maker",
+          `Session: ${title}`,
+          `Winner: ${winner}`,
+          "Top 3:",
+          ...rows.map(([name, points], index) => `${index + 1}. ${name} - ${points}`)
+        ].join("\n");
+      }
+
+      async function shareResults() {
+        const summary = buildShareSummary();
+        const box = document.getElementById("gmShareBox");
+        if (box) {
+          box.classList.remove("hidden");
+          box.value = summary;
+        }
+        try {
+          await navigator.clipboard.writeText(summary);
+          setGameMakerError("Results copied to clipboard.");
+        } catch {
+          setGameMakerError("Copy is blocked here. Use the share text box.");
+        }
+      }
+
       document.addEventListener("click", (event) => {
+        const gameMakerOpen = event.target.closest("[data-game-maker-open]");
+        if (gameMakerOpen) {
+          openGameMaker(gameMakerOpen.dataset.gameMakerOpen || null);
+          return;
+        }
+        if (event.target.closest("[data-game-maker-close]")) {
+          closeGameMaker();
+          return;
+        }
+        if (event.target.id === "gameMakerModal") {
+          closeGameMaker();
+          return;
+        }
+        const formatButton = event.target.closest("[data-gm-format]");
+        if (formatButton) {
+          selectGameMakerFormat(formatButton.dataset.gmFormat);
+          return;
+        }
+        const scoreButton = event.target.closest("[data-gm-save-score]");
+        if (scoreButton) {
+          saveGameMakerScore(scoreButton.dataset.gmSaveScore, scoreButton.dataset.round, scoreButton.dataset.match);
+          return;
+        }
+        if (event.target.closest("#gmGenerateAmericano")) generateAmericano();
+        if (event.target.closest("#gmGenerateMexicano")) generateMexicanoRound();
+        if (event.target.closest("#gmNextMexicanoRound") || event.target.closest("[data-gm-next-mexicano]")) {
+          if (submitMexicanoScores()) generateMexicanoRound();
+        }
+        if (event.target.closest("#gmGenerateTournament")) generateTournament();
+        if (event.target.closest("#gmSaveToNadd")) setGameMakerError("Profile saving will be available in the beta.");
+        if (event.target.closest("#gmShareOnly")) shareResults();
         const landingLink = event.target.closest('a[href^="#"]');
         if (landingLink) {
           event.preventDefault();
@@ -2014,8 +2776,15 @@
         if (section) switchAppSection(section.dataset.appSection);
       });
       document.addEventListener("change", (event) => {
+        if (event.target.id === "gmAmericanoPoints") document.getElementById("gmAmericanoCustomPointsWrap").classList.toggle("hidden", event.target.value !== "custom");
+        if (event.target.id === "gmAmericanoRounds") document.getElementById("gmAmericanoCustomRoundsWrap").classList.toggle("hidden", event.target.value !== "custom");
+        if (event.target.id === "gmMexicanoPoints") document.getElementById("gmMexicanoCustomPointsWrap").classList.toggle("hidden", event.target.value !== "custom");
+        if (event.target.closest("#gameMakerModal")) return;
         if (event.target.matches("select")) render();
         if (event.target.id === "scoreMatch") renderScoreTeams();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !document.getElementById("gameMakerModal").classList.contains("hidden")) closeGameMaker();
       });
       document.getElementById("addPlayer").addEventListener("click", addPlayer);
       document.getElementById("loginButton").addEventListener("click", login);
