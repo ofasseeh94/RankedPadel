@@ -97,6 +97,52 @@
         font-size: 14px;
         font-weight: 900;
       }
+      .mobile-menu-toggle {
+        display: none;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border: 1px solid rgba(198, 255, 0, 0.82);
+        border-radius: 12px;
+        background: rgba(9, 17, 32, 0.74);
+        color: #fff;
+        font-size: 24px;
+        font-weight: 900;
+      }
+      .mobile-menu {
+        position: fixed;
+        top: 74px;
+        right: 16px;
+        left: 16px;
+        z-index: 18;
+        display: none;
+        border: 1px solid rgba(216, 222, 232, 0.22);
+        border-radius: 18px;
+        background: rgba(9, 17, 32, 0.96);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+        padding: 14px;
+        backdrop-filter: blur(18px);
+      }
+      .mobile-menu.is-open { display: grid; gap: 8px; }
+      .mobile-menu a,
+      .mobile-menu button {
+        min-height: 48px;
+        border-radius: 12px;
+        padding: 0 14px;
+        text-align: left;
+        font-weight: 900;
+      }
+      .mobile-menu a,
+      .mobile-menu .mobile-login {
+        border: 1px solid rgba(216, 222, 232, 0.14);
+        background: rgba(255, 255, 255, 0.055);
+        color: var(--bg);
+      }
+      .mobile-menu .mobile-signup {
+        border: 0;
+        background: var(--accent);
+        color: var(--navy);
+      }
       .tab, .primary, .secondary, .ghost {
         min-height: 40px;
         border-radius: 8px;
@@ -248,8 +294,8 @@
       }
       .hero-decision-option {
         display: grid;
-        grid-template-columns: 44px 1fr auto;
-        gap: 14px;
+        grid-template-columns: 44px minmax(0, 1fr) 16px;
+        gap: 12px;
         align-items: center;
         width: 100%;
         border: 1px solid rgba(216, 222, 232, 0.16);
@@ -272,15 +318,20 @@
         border-radius: 12px;
         background: rgba(216, 222, 232, 0.1);
         color: var(--accent);
-        font-size: 22px;
+        font-size: 13px;
         font-weight: 900;
+        line-height: 1;
+      }
+      .hero-decision-copy {
+        display: block;
+        min-width: 0;
       }
       .hero-decision-option strong {
         display: block;
         color: #ffffff;
         font-size: 16px;
       }
-      .hero-decision-option span {
+      .hero-decision-copy span {
         display: block;
         margin-top: 3px;
         color: rgba(247, 244, 234, 0.66);
@@ -288,8 +339,11 @@
         line-height: 1.35;
       }
       .hero-arrow {
+        display: grid;
+        margin-top: 0;
+        place-items: center;
         color: var(--bg);
-        font-size: 24px;
+        font-size: 16px;
       }
       .hero-decision-card .primary {
         width: 100%;
@@ -792,6 +846,12 @@
         pointer-events: auto;
         transform: translateY(0);
       }
+      body.modal-open .sticky-record,
+      body.mobile-menu-open .sticky-record {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(12px);
+      }
       .how-heading {
         display: flex;
         justify-content: space-between;
@@ -899,6 +959,12 @@
         height: auto;
         border-radius: 10px;
         object-fit: contain;
+      }
+      .infographic-wrap picture,
+      .infographic-wrap img {
+        display: block;
+        width: 100%;
+        height: auto;
       }
       .compact-card-grid {
         display: grid;
@@ -1406,9 +1472,292 @@
           transform: none;
         }
         .nav-links { display: none; }
+        .mobile-menu-toggle { display: grid; }
         .nav-actions { justify-content: flex-end; }
         .landing-hero { min-height: auto; }
         .sticky-record { left: 16px; right: 16px; bottom: 14px; }
+      }
+
+      @media (max-width: 1024px) {
+        .wrap {
+          width: min(100% - 40px, 960px);
+        }
+        .hero-grid {
+          grid-template-columns: minmax(0, 1fr) 370px;
+          gap: 28px;
+        }
+        .hero-decision-card {
+          padding: 18px;
+        }
+        .visual-section {
+          padding: 68px 0;
+        }
+      }
+
+      @media (max-width: 768px) {
+        html, body {
+          max-width: 100%;
+          overflow-x: hidden;
+        }
+        body {
+          background: var(--navy);
+        }
+        .wrap {
+          width: min(100% - 40px, 720px);
+        }
+        button,
+        .primary,
+        .secondary,
+        .ghost,
+        .nav-cta {
+          min-height: 52px;
+          border-radius: 14px;
+          font-size: 15px;
+        }
+        input,
+        select,
+        textarea {
+          min-height: 48px;
+          font-size: 16px;
+        }
+        input:focus,
+        select:focus,
+        textarea:focus {
+          outline: 2px solid rgba(198, 255, 0, 0.72);
+          outline-offset: 2px;
+        }
+        .topbar {
+          background: rgba(4, 9, 18, 0.84);
+          backdrop-filter: blur(16px);
+        }
+        .nav {
+          min-height: 76px;
+        }
+        .wordmark {
+          font-size: 28px;
+          letter-spacing: 0.08em;
+        }
+        .nav-actions > .nav-link,
+        .nav-actions > .nav-cta {
+          display: none;
+        }
+        .mobile-menu-toggle {
+          display: grid;
+        }
+        .mobile-menu {
+          top: 84px;
+        }
+        .landing-hero {
+          min-height: auto;
+          align-items: start;
+          padding: 42px 0 36px;
+          background:
+            linear-gradient(180deg, rgba(4, 9, 18, 0.36), rgba(4, 9, 18, 0.84) 56%, rgba(4, 9, 18, 0.96)),
+            linear-gradient(90deg, rgba(4, 9, 18, 0.95), rgba(4, 9, 18, 0.58), rgba(4, 9, 18, 0.76)),
+            url("assets/mobile/play_record_prove_your_game.png");
+          background-position: center top;
+          background-size: cover;
+        }
+        .landing-hero::before {
+          background-size: 88px 88px;
+          opacity: 0.22;
+        }
+        .landing-hero::after {
+          background: linear-gradient(180deg, rgba(4, 9, 18, 0.14), rgba(4, 9, 18, 0.84));
+        }
+        .hero-grid {
+          grid-template-columns: 1fr;
+          gap: 26px;
+        }
+        .hero-content {
+          max-width: 100%;
+          padding: 0;
+        }
+        .eyebrow {
+          font-size: 12px;
+          letter-spacing: 0.18em;
+        }
+        h1 {
+          font-size: clamp(56px, 16vw, 92px);
+          line-height: 0.9;
+        }
+        .lead {
+          max-width: 34ch;
+          font-size: 17px;
+          line-height: 1.55;
+        }
+        .hero-actions {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 12px;
+          margin-top: 22px;
+        }
+        .hero-actions .primary,
+        .hero-actions .ghost {
+          width: 100%;
+          min-height: 56px;
+          border-radius: 14px;
+          font-size: 16px;
+        }
+        .hero-helper {
+          font-size: 14px;
+        }
+        .hero-proof {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 10px;
+        }
+        .proof-item {
+          display: grid;
+          min-height: 54px;
+          place-items: center;
+          text-align: center;
+          white-space: normal;
+        }
+        .hero-decision-card {
+          width: 100%;
+          margin-top: 0;
+          border-radius: 18px;
+          padding: 18px;
+        }
+        .hero-decision-option {
+          grid-template-columns: 46px minmax(0, 1fr) 16px;
+          min-height: 88px;
+          border-radius: 14px;
+        }
+        .live-strip {
+          padding: 14px 0;
+        }
+        .metric-strip {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .metric {
+          border: 1px solid rgba(216, 222, 232, 0.14);
+          border-radius: 12px;
+          background: rgba(255, 255, 255, 0.045);
+          padding: 12px;
+        }
+        .metric strong {
+          font-size: 22px;
+        }
+        .visual-section,
+        .final-conversion {
+          padding: 72px 0;
+        }
+        .visual-title,
+        .final-conversion .visual-title {
+          font-size: clamp(36px, 11vw, 58px);
+          line-height: 0.98;
+        }
+        .visual-subtitle {
+          max-width: 32ch;
+          font-size: 16px;
+          line-height: 1.5;
+        }
+        .visual-actions {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+        .visual-actions .primary,
+        .visual-actions .ghost {
+          width: 100%;
+        }
+        .infographic-wrap {
+          width: 100%;
+          max-width: 100%;
+          overflow: hidden;
+          border-radius: 22px;
+          padding: 0;
+          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+        }
+        .infographic-image {
+          border-radius: 22px;
+        }
+        .format-card,
+        .format-detail-copy,
+        .compact-card {
+          border-radius: 16px;
+          padding: 18px;
+        }
+        .format-detail {
+          gap: 14px;
+        }
+        .format-detail-copy h3 {
+          font-size: 34px;
+        }
+        .game-maker-modal {
+          height: 100dvh;
+          padding: 0;
+        }
+        .game-maker-panel {
+          width: 100%;
+          height: 100dvh;
+          max-height: 100dvh;
+          border-radius: 0;
+        }
+        .game-maker-head {
+          padding: 18px 20px;
+        }
+        .game-maker-body {
+          padding: 18px 20px 92px;
+        }
+        .gm-format-button,
+        .gm-result-card,
+        .gm-panel-block {
+          border-radius: 16px;
+        }
+        .gm-match-row {
+          grid-template-columns: 1fr 58px 58px;
+        }
+        .sticky-record {
+          left: 20px;
+          right: 20px;
+          bottom: 16px;
+          min-height: 56px;
+          border-radius: 16px;
+          font-size: 16px;
+        }
+        table {
+          min-width: 620px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .wrap {
+          width: calc(100% - 32px);
+        }
+        .wordmark {
+          font-size: 24px;
+        }
+        .landing-hero {
+          padding-top: 34px;
+          background-position: 56% top;
+        }
+        .hero-decision-option {
+          gap: 10px;
+          grid-template-columns: 40px minmax(0, 1fr) 14px;
+          padding: 12px;
+        }
+        .hero-decision-icon {
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+          font-size: 14px;
+        }
+        .proof-item {
+          font-size: 11px;
+          padding: 8px;
+        }
+        .metric-strip {
+          grid-template-columns: 1fr;
+        }
+        .gm-match-row {
+          grid-template-columns: 1fr;
+        }
+        .gm-match-row input {
+          width: 100%;
+        }
       }
     </style>
   </head>
@@ -1427,9 +1776,20 @@
           </div>
           <button class="nav-link" data-view="login">Log in</button>
           <button class="nav-cta" data-view="signup">Get your NADD Level</button>
+          <button class="mobile-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" data-mobile-menu-toggle>&#9776;</button>
         </nav>
       </div>
     </header>
+    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+      <a href="#how">How it works</a>
+      <a href="#ranking">Ranking</a>
+      <a href="#matches-info">Matches</a>
+      <a href="#game-maker">Game Maker</a>
+      <a href="#city-board">City Board</a>
+      <a href="#clubs">For clubs</a>
+      <button class="mobile-login" data-view="login">Log in</button>
+      <button class="mobile-signup" data-view="signup">Get your NADD Level</button>
+    </nav>
     <button class="sticky-record" data-view="app" data-app-section="score">Record a Match</button>
 
     <section id="landing" class="view active">
@@ -1458,17 +1818,17 @@
             <div class="hero-decision-options">
               <button class="hero-decision-option" data-view="app" data-app-section="score">
                 <span class="hero-decision-icon">01</span>
-                <span><strong>I have a match</strong><span>Record score and get a receipt</span></span>
+                <span class="hero-decision-copy"><strong>I have a match</strong><span>Record score and get a receipt</span></span>
                 <span class="hero-arrow">&gt;</span>
               </button>
               <button class="hero-decision-option" data-game-maker-open>
                 <span class="hero-decision-icon">02</span>
-                <span><strong>We have a group</strong><span>Run Americano, Mexicano, or Tournament</span></span>
+                <span class="hero-decision-copy"><strong>We have a group</strong><span>Run Americano, Mexicano, or Tournament</span></span>
                 <span class="hero-arrow">&gt;</span>
               </button>
               <button class="hero-decision-option" data-view="app" data-app-section="find">
                 <span class="hero-decision-icon">03</span>
-                <span><strong>I need a game</strong><span>Find an open slot at my level</span></span>
+                <span class="hero-decision-copy"><strong>I need a game</strong><span>Find an open slot at my level</span></span>
                 <span class="hero-arrow">&gt;</span>
               </button>
             </div>
@@ -1496,7 +1856,10 @@
             </div>
           </div>
           <div class="infographic-wrap">
-            <img class="infographic-image" src="assets/infographics/nadd_from_normal_to_ranked_proof.png" loading="lazy" alt="NADD flow from normal match to ranked proof: play, record, confirm, move, compare, return" />
+            <picture>
+              <source media="(max-width: 768px)" srcset="assets/mobile/improving_your_game_with_nadd.png">
+              <img class="infographic-image" src="assets/infographics/nadd_from_normal_to_ranked_proof.png" loading="lazy" alt="NADD flow from normal match to ranked proof" />
+            </picture>
           </div>
         </div>
       </section>
@@ -1511,7 +1874,10 @@
             </div>
           </div>
           <div class="infographic-wrap">
-            <img class="infographic-image" src="assets/infographics/high_tech_ranking_and_progress_dashboard.png" loading="lazy" alt="NADD ranking system showing level, score, rank confidence, fair play, and placement progress" />
+            <picture>
+              <source media="(max-width: 768px)" srcset="assets/mobile/futuristic_nadd_ranking_system_dashboard.png">
+              <img class="infographic-image" src="assets/infographics/high_tech_ranking_and_progress_dashboard.png" loading="lazy" alt="NADD ranking system showing level, score, rank confidence, fair play, and placement progress" />
+            </picture>
           </div>
         </div>
       </section>
@@ -1527,7 +1893,10 @@
             </div>
           </div>
           <div class="infographic-wrap">
-            <img class="infographic-image" src="assets/infographics/nadd_match_types_ui_showcase.png" loading="lazy" alt="NADD match types infographic showing ranked, logged, challenge, friendly, NADD Night, and open slot matches" />
+            <picture>
+              <source media="(max-width: 768px)" srcset="assets/mobile/every_serious_match_should_count.png">
+              <img class="infographic-image" src="assets/infographics/nadd_match_types_ui_showcase.png" loading="lazy" alt="NADD match types showing ranked, logged, challenge, friendly, NADD Night, and open slot matches" />
+            </picture>
           </div>
         </div>
       </section>
@@ -1540,71 +1909,13 @@
             <p class="visual-subtitle">Add names, pick Americano, Mexicano, or Tournament mode, and let NADD build the games.</p>
             <div class="visual-actions">
               <button class="primary" data-game-maker-open>Open Game Maker</button>
-              <button class="ghost" data-scroll-target="#game-maker-formats" data-view="landing">See formats</button>
             </div>
           </div>
           <div class="infographic-wrap">
-            <img class="infographic-image" src="assets/infographics/run_your_next_padel_format_tool.png" loading="lazy" alt="NADD Game Maker overview showing Americano, Mexicano, Tournament, and setup flow" />
-          </div>
-
-          <div class="format-card-grid" id="game-maker-formats">
-            <article class="format-card">
-              <div>
-                <h3>Americano</h3>
-                <p>Rotate partners. Count every point.</p>
-                <span class="field-preview">Players | Courts | Points per game | Rounds</span>
-              </div>
-              <button class="primary" data-game-maker-open="americano">Create Americano</button>
-            </article>
-            <article class="format-card">
-              <div>
-                <h3>Mexicano</h3>
-                <p>Live standings create the next round.</p>
-                <span class="field-preview">Players | Courts | Points per game | Dynamic rounds</span>
-              </div>
-              <button class="primary" data-game-maker-open="mexicano">Create Mexicano</button>
-            </article>
-            <article class="format-card">
-              <div>
-                <h3>Tournament</h3>
-                <p>Build brackets, groups, and winners.</p>
-                <span class="field-preview">Teams | Courts | Match format | Seeding</span>
-              </div>
-              <button class="primary" data-game-maker-open="tournament">Create Tournament</button>
-            </article>
-          </div>
-
-          <div class="format-detail">
-            <div class="format-detail-copy">
-              <h3>Americano</h3>
-              <p>Rotate partners, enter scores, and rank every player by total points.</p>
-              <button class="primary" data-game-maker-open="americano">Create Americano</button>
-            </div>
-            <div class="infographic-wrap">
-              <img class="infographic-image" src="assets/infographics/futuristic_americano_tournament_dashboard_design.png" loading="lazy" alt="NADD Americano setup showing players, courts, points per game, rounds, score entry, and leaderboard" />
-            </div>
-          </div>
-
-          <div class="format-detail">
-            <div class="format-detail-copy">
-              <h3>Mexicano</h3>
-              <p>Enter each round's scores. NADD updates the standings and creates the next matchups.</p>
-              <button class="primary" data-game-maker-open="mexicano">Create Mexicano</button>
-            </div>
-            <div class="infographic-wrap">
-              <img class="infographic-image" src="assets/infographics/mexicano_tournament_dashboard_interface.png" loading="lazy" alt="NADD Mexicano setup showing live standings, score entry, and next round generation" />
-            </div>
-          </div>
-
-          <div class="format-detail">
-            <div class="format-detail-copy">
-              <h3>Tournament</h3>
-              <p>Add teams, choose the match format, generate brackets or groups, and crown a winner.</p>
-              <button class="primary" data-game-maker-open="tournament">Create Tournament</button>
-            </div>
-            <div class="infographic-wrap">
-              <img class="infographic-image" src="assets/infographics/futuristic_tournament_dashboard_interface.png" loading="lazy" alt="NADD tournament builder showing teams, courts, match format, seeding, brackets, groups, and champion" />
-            </div>
+            <picture>
+              <source media="(max-width: 768px)" srcset="assets/mobile/run_your_next_game_in_minutes.png">
+              <img class="infographic-image" src="assets/infographics/run_your_next_padel_format_tool.png" loading="lazy" alt="NADD Game Maker overview showing Americano, Mexicano, Tournament, and setup flow" />
+            </picture>
           </div>
         </div>
       </section>
@@ -1620,7 +1931,10 @@
             </div>
           </div>
           <div class="infographic-wrap">
-            <img class="infographic-image" src="assets/infographics/sports_leaderboard_dashboard_design.png" loading="lazy" alt="NADD city board preview showing top movers, nearby rivals, defend your spot, and club comparison" />
+            <picture>
+              <source media="(max-width: 768px)" srcset="assets/mobile/nadd_leaderboard_competition_at_your_fingertips.png">
+              <img class="infographic-image" src="assets/infographics/sports_leaderboard_dashboard_design.png" loading="lazy" alt="NADD city board showing top movers, nearby rival, defend your spot, and club comparison" />
+            </picture>
           </div>
         </div>
       </section>
@@ -1675,7 +1989,10 @@
             </div>
           </div>
           <div class="infographic-wrap">
-            <img class="infographic-image" src="assets/infographics/nadd_level_onboarding_flow_design.png" loading="lazy" alt="NADD onboarding flow showing profile, self-assess, record match, and verify level" />
+            <picture>
+              <source media="(max-width: 768px)" srcset="assets/mobile/claim_your_nadd_level_now.png">
+              <img class="infographic-image" src="assets/infographics/nadd_level_onboarding_flow_design.png" loading="lazy" alt="NADD onboarding flow showing profile, self-assess, record match, verify level, and Season 0 badge" />
+            </picture>
           </div>
         </div>
       </section>
@@ -1809,6 +2126,7 @@ Team Hotel</textarea></label>
           <label>Full name<input id="name" placeholder="Player name" /></label>
           <label>Email<input id="email" placeholder="name@example.com" /></label>
           <label>Phone<input id="phone" placeholder="+20..." /></label>
+          <label>Password<input id="signupPassword" type="password" placeholder="Choose a password" autocomplete="new-password" /></label>
         </div>
 
         <h3 class="section-title">NADD Level Assist</h3>
@@ -1845,12 +2163,16 @@ Team Hotel</textarea></label>
     <section id="login" class="view wrap" style="padding:24px 0 34px">
       <article class="panel">
         <h2>Log In</h2>
-        <p class="hint">Use your email, phone number, or player name with your password. For this static beta, use password <strong>NADDbeta</strong> for the sample accounts.</p>
+        <p class="hint">Use your email, phone number, or player name with your password. New players can register below and return to this dashboard on the same device.</p>
         <div class="form-grid" style="margin-top:14px">
           <label>Email, phone, or username<input id="loginIdentifier" placeholder="omar@example.com" autocomplete="username" /></label>
           <label>Password<input id="loginPassword" type="password" placeholder="Password" autocomplete="current-password" /></label>
         </div>
-        <button class="primary" id="loginButton" style="margin-top:14px">Log in</button>
+        <div class="final-cta">
+          <button class="primary" id="loginButton">Log in</button>
+          <button class="secondary" data-view="signup">Register instead</button>
+        </div>
+        <p class="hint">Sample accounts still use password <strong>NADDbeta</strong>.</p>
         <p class="hint" id="loginStatus"></p>
       </article>
     </section>
@@ -2097,6 +2419,29 @@ Team Hotel</textarea></label>
           { key: "t2l", playerId: "", locked: true },
         ]},
       ];
+      const betaStateKey = "nadd-static-beta-state-v1";
+
+      function saveBetaState() {
+        try {
+          localStorage.setItem(betaStateKey, JSON.stringify({ signedInPlayerId, players, courts, matches }));
+        } catch {
+          // Local storage can be unavailable in private browsing; the session still works in memory.
+        }
+      }
+
+      function loadBetaState() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(betaStateKey) || "null");
+          if (!saved) return;
+          if (Array.isArray(saved.players) && saved.players.length) players = saved.players;
+          if (Array.isArray(saved.courts) && saved.courts.length) courts = saved.courts;
+          if (Array.isArray(saved.matches) && saved.matches.length) matches = saved.matches;
+          if (saved.signedInPlayerId && players.some((player) => player.id === saved.signedInPlayerId)) signedInPlayerId = saved.signedInPlayerId;
+        } catch {
+          localStorage.removeItem(betaStateKey);
+        }
+      }
+      loadBetaState();
 
       function tierForRating(rating) {
         const current = getLevelInfo(rating).definition;
@@ -2175,6 +2520,18 @@ Team Hotel</textarea></label>
       function switchView(view) {
         document.querySelectorAll(".view").forEach((node) => node.classList.toggle("active", node.id === view));
         document.querySelectorAll(".tab").forEach((node) => node.classList.toggle("active", node.dataset.view === view));
+      }
+      function closeMobileMenu() {
+        document.getElementById("mobileMenu")?.classList.remove("is-open");
+        document.querySelector("[data-mobile-menu-toggle]")?.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("mobile-menu-open");
+      }
+      function toggleMobileMenu() {
+        const menu = document.getElementById("mobileMenu");
+        const isOpen = !menu.classList.contains("is-open");
+        menu.classList.toggle("is-open", isOpen);
+        document.querySelector("[data-mobile-menu-toggle]")?.setAttribute("aria-expanded", String(isOpen));
+        document.body.classList.toggle("mobile-menu-open", isOpen);
       }
       function scrollToLandingSection(hash) {
         if (!hash || hash === "#") return;
@@ -2327,9 +2684,14 @@ Team Hotel</textarea></label>
         const name = document.getElementById("name").value.trim();
         const email = document.getElementById("email").value.trim().toLowerCase();
         const phone = document.getElementById("phone").value.trim();
+        const password = document.getElementById("signupPassword").value.trim();
         const status = document.getElementById("registrationStatus");
         if (!name || !email.includes("@") || phone.length < 8) {
           status.textContent = "Add a valid name, email, and phone number.";
+          return;
+        }
+        if (password.length < 6) {
+          status.textContent = "Choose a password with at least 6 characters.";
           return;
         }
         if (players.some((p) => p.email === email || p.phone === phone)) {
@@ -2337,8 +2699,9 @@ Team Hotel</textarea></label>
           return;
         }
         const id = `p${Date.now()}`;
-        players.push({ id, name, email, phone, password: "NADDbeta", side: document.getElementById("side").value, rating: placement.rating, tier: placement.tier, risk: placement.risk, placementCount: 0, isPlaced: false, wins: 0, losses: 0 });
+        players.push({ id, name, email, phone, password, side: document.getElementById("side").value, rating: placement.rating, tier: placement.tier, risk: placement.risk, placementCount: 0, isPlaced: false, wins: 0, losses: 0 });
         signedInPlayerId = id;
+        saveBetaState();
         status.textContent = "Account created. Opening your dashboard.";
         render();
         switchView("app");
@@ -2364,6 +2727,7 @@ Team Hotel</textarea></label>
           return;
         }
         signedInPlayerId = player.id;
+        saveBetaState();
         status.textContent = "";
         render();
         switchView("app");
@@ -2398,6 +2762,7 @@ Team Hotel</textarea></label>
         if (access === "pass") slots.forEach((slot) => { if (!slot.playerId) slot.locked = true; });
         if (access === "lock-partner" && partnerSlot && !partnerId) getSlot({ slots }, partnerSlot).locked = true;
         matches.unshift({ id: `m${Date.now()}`, courtId, courtNumber, day, time, status: "open", accessCode: "BETA", scoreSubmittedBy: "", scoreConfirmedBy: "", slots });
+        saveBetaState();
         status.textContent = "Game created. It is now visible in open games.";
         render();
         switchAppSection("find");
@@ -2418,6 +2783,7 @@ Team Hotel</textarea></label>
         slot.locked = false;
         slot.reservedFor = "";
         match.status = updateMatchStatus(match);
+        saveBetaState();
         render();
       }
 
@@ -2453,6 +2819,7 @@ Team Hotel</textarea></label>
         match.status = "completed";
         match.scoreSubmittedBy = submitter;
         match.scoreConfirmedBy = confirmer;
+        saveBetaState();
         document.getElementById("scoreStatus").textContent = "Result confirmed by the other team. NADD Level updated.";
         render();
       }
@@ -2466,6 +2833,7 @@ Team Hotel</textarea></label>
         document.getElementById("adminCourtName").value = "";
         document.getElementById("adminCourtLocation").value = "";
         document.getElementById("adminCourtArea").value = "";
+        saveBetaState();
         render();
       }
 
@@ -2488,6 +2856,8 @@ Team Hotel</textarea></label>
       function openGameMaker(format = null) {
         document.getElementById("gameMakerModal").classList.remove("hidden");
         document.body.style.overflow = "hidden";
+        document.body.classList.add("modal-open");
+        closeMobileMenu();
         selectGameMakerFormat(format);
         document.getElementById("gmError").textContent = "";
         setTimeout(() => document.querySelector("[data-game-maker-close]")?.focus(), 0);
@@ -2496,6 +2866,7 @@ Team Hotel</textarea></label>
       function closeGameMaker() {
         document.getElementById("gameMakerModal").classList.add("hidden");
         document.body.style.overflow = "";
+        document.body.classList.remove("modal-open");
       }
 
       function selectGameMakerFormat(format) {
@@ -2812,6 +3183,10 @@ Team Hotel</textarea></label>
       }
 
       document.addEventListener("click", (event) => {
+        if (event.target.closest("[data-mobile-menu-toggle]")) {
+          toggleMobileMenu();
+          return;
+        }
         const flowHighlight = event.target.closest("[data-hero-flow-highlight]");
         if (flowHighlight) {
           document.querySelectorAll(".hero-decision-option").forEach((option) => option.classList.add("is-highlighted"));
@@ -2852,6 +3227,7 @@ Team Hotel</textarea></label>
         const landingLink = event.target.closest('a[href^="#"]');
         if (landingLink) {
           event.preventDefault();
+          closeMobileMenu();
           const hash = landingLink.getAttribute("href");
           switchView("landing");
           scrollToLandingSection(hash);
@@ -2860,6 +3236,7 @@ Team Hotel</textarea></label>
         }
         const view = event.target.closest("[data-view]");
         if (view) {
+          closeMobileMenu();
           switchView(view.dataset.view);
           if (view.dataset.scrollTarget) {
             scrollToLandingSection(view.dataset.scrollTarget);
