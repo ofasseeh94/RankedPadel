@@ -20,6 +20,9 @@
 # production
 /build
 
+# local beta data
+/data/*.json
+
 # misc
 .DS_Store
 *.pem

@@ -47,6 +47,7 @@ export type RegistrationAnswers = {
   name: string;
   email: string;
   phone: string;
+  registrationChannel: "website" | "phone";
   side: PreferredSide;
   frequency: "rare" | "weekly" | "regular" | "heavy";
   padelAge: "new" | "threeMonths" | "sixMonths" | "oneYear" | "twoYears";
@@ -55,4 +56,34 @@ export type RegistrationAnswers = {
   racketLevel: "casual" | "club" | "competitive" | "semiPro";
   tournament: "none" | "social" | "club" | "regional" | "national";
   tournamentResult: "none" | "lateRounds" | "finalist" | "winner";
+};
+
+export type BetaRole = "admin" | "player";
+
+export type BetaUser = Player &
+  RegistrationAnswers & {
+    role: BetaRole;
+    createdAt: string;
+    updatedAt: string;
+  };
+
+export type RecordedGame = {
+  id: string;
+  ownerId: string;
+  ownerName: string;
+  playedAt: string;
+  location: string;
+  partnerName: string;
+  opponentOne: string;
+  opponentTwo: string;
+  scoreFor: number;
+  scoreAgainst: number;
+  result: "win" | "loss";
+  notes: string;
+  createdAt: string;
+};
+
+export type BetaDatabase = {
+  users: BetaUser[];
+  games: RecordedGame[];
 };
