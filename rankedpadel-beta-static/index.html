@@ -1827,6 +1827,97 @@
         .gm-match-row {
           grid-template-columns: 1fr 58px 58px;
         }
+        #app.wrap {
+          width: 100%;
+          padding: 0 14px 28px;
+        }
+        .shell {
+          gap: 12px;
+          min-width: 0;
+          padding: 16px 0 96px;
+        }
+        .shell > *,
+        .sidebar,
+        .panel,
+        .dashboard-roadmap,
+        .stat,
+        .action-card,
+        .game,
+        .team-box {
+          min-width: 0;
+          max-width: 100%;
+        }
+        .sidebar,
+        .panel {
+          border-radius: 16px;
+        }
+        .sidebar {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 8px;
+          padding: 12px;
+        }
+        .sidebar strong {
+          grid-column: 1 / -1;
+          font-size: 14px;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+        }
+        .side-button {
+          min-height: 48px;
+          margin: 0;
+          border-radius: 12px;
+          padding: 0 10px;
+          text-align: center;
+          font-size: 13px;
+          line-height: 1.15;
+        }
+        .panel {
+          padding: 16px;
+        }
+        .panel-head {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+        .panel h2 {
+          font-size: clamp(26px, 7vw, 36px);
+          line-height: 1.08;
+          overflow-wrap: anywhere;
+        }
+        .dashboard-grid {
+          grid-template-columns: 1fr;
+        }
+        .stat {
+          padding: 14px;
+        }
+        .summary strong,
+        .stat strong {
+          font-size: clamp(24px, 7vw, 32px);
+          line-height: 1.12;
+          overflow-wrap: anywhere;
+        }
+        .dashboard-roadmap {
+          overflow: hidden;
+          padding: 14px;
+        }
+        .dashboard-roadmap .ranking-ladder {
+          grid-template-columns: 1fr;
+        }
+        .dashboard-roadmap .roadmap-insight {
+          grid-template-columns: 1fr;
+        }
+        .action-card {
+          min-height: auto;
+          padding: 16px;
+        }
+        .action-card h3 {
+          font-size: 20px;
+          line-height: 1.15;
+        }
+        .game-head,
+        .team-title {
+          display: grid;
+        }
         .sticky-record {
           left: 20px;
           right: 20px;
@@ -1843,6 +1934,11 @@
       @media (max-width: 480px) {
         .wrap {
           width: calc(100% - 32px);
+        }
+        #app.wrap {
+          width: 100%;
+          padding-right: 10px;
+          padding-left: 10px;
         }
         .wordmark {
           font-size: 24px;
