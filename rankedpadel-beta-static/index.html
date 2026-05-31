@@ -1887,7 +1887,7 @@
             <a class="nav-link" href="#how">How it works</a>
             <a class="nav-link" href="#matches-info">Record matches</a>
             <a class="nav-link" href="#game-maker">Create group games</a>
-            <a class="nav-link" href="#city-board">Find games</a>
+            <button class="nav-link" data-view="app" data-app-section="find">Find open slots</button>
           </div>
           <button class="nav-link" data-view="login">Log in</button>
           <button class="nav-cta" data-view="signup">Get your NADD Level</button>
@@ -1899,7 +1899,7 @@
       <a href="#how">How it works</a>
       <a href="#matches-info">Record matches</a>
       <a href="#game-maker">Create group games</a>
-      <a href="#city-board">Find games</a>
+      <button class="mobile-login" data-view="app" data-app-section="find">Find open slots</button>
       <button class="mobile-login" data-view="login">Log in</button>
       <button class="mobile-signup" data-view="signup">Get your NADD Level</button>
     </nav>
@@ -2461,6 +2461,14 @@ Team Hotel</textarea></label>
 
           <article id="findSection" class="panel app-section hidden">
             <h2>Open Matches Near You</h2>
+            <div class="summary" style="margin-top:14px">
+              <div>
+                <p class="small">Season 0 preview</p>
+                <strong>Open slots are not active yet in this public beta.</strong>
+                <p class="small">You can preview the flow and sample slots here. Live joining will be enabled for the first beta group.</p>
+              </div>
+              <span class="pill gold">Inactive</span>
+            </div>
             <div class="form-grid" style="margin-top:14px">
               <label>Day<select id="filterDay"></select></label>
               <label>NADD Level<select id="filterRank"></select></label>
