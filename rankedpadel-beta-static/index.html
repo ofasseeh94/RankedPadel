@@ -257,6 +257,49 @@
         line-height: 1.5;
       }
       .hero-helper strong { color: var(--accent); }
+      .definition-line {
+        max-width: 720px;
+        margin: 18px 0 0;
+        border-left: 4px solid var(--accent);
+        background: rgba(13, 22, 40, 0.44);
+        color: rgba(247, 244, 234, 0.9);
+        padding: 14px 16px;
+        line-height: 1.55;
+      }
+      .definition-line strong { color: #ffffff; }
+      .text-link {
+        display: inline-flex;
+        align-items: center;
+        min-height: 52px;
+        border: 0;
+        background: transparent;
+        padding: 0 4px;
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 900;
+        text-decoration: underline;
+        text-decoration-color: rgba(198, 255, 0, 0.75);
+        text-underline-offset: 5px;
+      }
+      .beta-banner {
+        border-top: 1px solid rgba(216, 222, 232, 0.16);
+        background: #0f1a2e;
+        color: var(--bg);
+        padding: 16px 0;
+      }
+      .beta-banner .wrap {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px 18px;
+      }
+      .beta-banner strong { color: var(--accent); }
+      .beta-banner span {
+        color: rgba(247, 244, 234, 0.72);
+        font-size: 14px;
+        line-height: 1.45;
+      }
       .hero-proof {
         display: flex;
         flex-wrap: wrap;
@@ -539,6 +582,77 @@
       }
       .panel .mini-card h3 { color: var(--ink); }
       .panel .mini-card p { color: var(--muted); }
+      .flow-grid,
+      .path-grid,
+      .glossary-grid,
+      .fairness-grid,
+      .example-grid,
+      .faq-grid {
+        display: grid;
+        gap: 14px;
+        margin-top: 26px;
+      }
+      .flow-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .path-grid,
+      .example-grid,
+      .faq-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .glossary-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+      .fairness-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+      .info-card {
+        border: 1px solid rgba(216, 222, 232, 0.18);
+        border-radius: 10px;
+        background: rgba(247, 244, 234, 0.045);
+        padding: 20px;
+      }
+      .light .info-card {
+        border-color: var(--line);
+        background: #ffffff;
+      }
+      .info-card span {
+        display: inline-grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        border-radius: 50%;
+        background: rgba(198, 255, 0, 0.14);
+        color: var(--accent);
+        font-size: 13px;
+        font-weight: 900;
+      }
+      .light .info-card span { color: #617500; }
+      .info-card h3 {
+        margin: 14px 0 0;
+        color: #ffffff;
+        font-size: 20px;
+      }
+      .light .info-card h3 { color: var(--ink); }
+      .info-card p {
+        margin: 9px 0 0;
+        color: rgba(247, 244, 234, 0.72);
+        line-height: 1.5;
+      }
+      .light .info-card p { color: var(--muted); }
+      .info-card .primary,
+      .info-card .secondary {
+        width: 100%;
+        margin-top: 16px;
+      }
+      .section-note {
+        max-width: 820px;
+        margin: 22px auto 0;
+        border: 1px solid rgba(198, 255, 0, 0.36);
+        border-radius: 10px;
+        background: rgba(198, 255, 0, 0.08);
+        color: rgba(247, 244, 234, 0.86);
+        padding: 16px 18px;
+        line-height: 1.55;
+      }
+      .light .section-note {
+        background: #f3f8de;
+        color: var(--ink);
+      }
+      .section-note strong { color: var(--accent); }
+      .light .section-note strong { color: #617500; }
       .progress-line {
         height: 10px;
         overflow: hidden;
@@ -1403,8 +1517,14 @@
       th, td { border-bottom: 1px solid var(--line); padding: 10px 8px; text-align: left; vertical-align: top; }
       th { color: var(--ink); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
 
+      @media (max-width: 1120px) {
+        .nav-links { display: none; }
+        .mobile-menu-toggle { display: grid; }
+        .nav-actions { justify-content: flex-end; }
+      }
+
       @media (max-width: 920px) {
-        .hero-grid, .metric-strip, .marketing-grid, .card-grid, .card-grid.two, .card-grid.four, .receipt-preview, .compact-card-grid, .format-card-grid, .format-detail, .gm-format-grid, .gm-form-grid, .gm-output-grid, .ranking-ladder, .unlock-steps, .roadmap-insight, .shell, .form-grid, .dashboard-grid, .action-grid, .court-layout, .summary, .how-heading {
+        .hero-grid, .metric-strip, .marketing-grid, .card-grid, .card-grid.two, .card-grid.four, .receipt-preview, .compact-card-grid, .format-card-grid, .format-detail, .gm-format-grid, .gm-form-grid, .gm-output-grid, .ranking-ladder, .unlock-steps, .roadmap-insight, .shell, .form-grid, .dashboard-grid, .action-grid, .court-layout, .summary, .how-heading, .flow-grid, .path-grid, .glossary-grid, .fairness-grid, .example-grid, .faq-grid {
           grid-template-columns: 1fr;
         }
         .visual-section, .final-conversion {
@@ -1471,9 +1591,6 @@
           right: 12px;
           transform: none;
         }
-        .nav-links { display: none; }
-        .mobile-menu-toggle { display: grid; }
-        .nav-actions { justify-content: flex-end; }
         .landing-hero { min-height: auto; }
         .sticky-record { left: 16px; right: 16px; bottom: 14px; }
       }
@@ -1768,10 +1885,10 @@
         <nav class="nav-actions">
           <div class="nav-links">
             <a class="nav-link" href="#how">How it works</a>
-            <a class="nav-link" href="#ranking">Ranking</a>
-            <a class="nav-link" href="#matches-info">Matches</a>
-            <a class="nav-link" href="#game-maker">Game Maker</a>
-            <a class="nav-link" href="#city-board">City Board</a>
+            <a class="nav-link" href="#season-0">Get your level</a>
+            <a class="nav-link" href="#matches-info">Record matches</a>
+            <a class="nav-link" href="#game-maker">Run a group session</a>
+            <a class="nav-link" href="#city-board">Find games</a>
             <a class="nav-link" href="#clubs">For clubs</a>
           </div>
           <button class="nav-link" data-view="login">Log in</button>
@@ -1782,10 +1899,10 @@
     </header>
     <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
       <a href="#how">How it works</a>
-      <a href="#ranking">Ranking</a>
-      <a href="#matches-info">Matches</a>
-      <a href="#game-maker">Game Maker</a>
-      <a href="#city-board">City Board</a>
+      <a href="#season-0">Get your level</a>
+      <a href="#matches-info">Record matches</a>
+      <a href="#game-maker">Run a group session</a>
+      <a href="#city-board">Find games</a>
       <a href="#clubs">For clubs</a>
       <button class="mobile-login" data-view="login">Log in</button>
       <button class="mobile-signup" data-view="signup">Get your NADD Level</button>
@@ -1796,16 +1913,18 @@
       <div class="landing-hero">
         <div class="wrap hero-grid">
           <div class="hero-content">
-            <p class="eyebrow">Built for tonight's game</p>
-            <h1>Play it.<br>Record it.<br>Prove it.</h1>
+            <p class="eyebrow">Currently in Season 0 Beta</p>
+            <h1>Know your real padel level.</h1>
             <p class="lead">
-              NADD turns your padel matches into ranked proof, fairer games, and better next matchups.
+              Record your padel matches, confirm results with opponents, and build a verified NADD Level that helps you find fairer games.
             </p>
+            <p class="definition-line"><strong>NADD is a verified ranking system for padel players.</strong> It helps you prove your level, find fairer matches, and track your progress over time.</p>
             <div class="hero-actions">
-              <button class="primary" data-view="app" data-app-section="score">Record a Match</button>
-              <button class="ghost" data-game-maker-open>Open Game Maker</button>
+              <button class="primary" data-view="signup">Get my NADD Level</button>
+              <button class="ghost" data-game-maker-open>Run a free Americano / Mexicano</button>
+              <button class="text-link" data-view="app" data-app-section="score">Record an existing match</button>
             </div>
-            <p class="hero-helper">Already have players? Run <strong>Americano</strong>, <strong>Mexicano</strong>, or <strong>Tournament</strong> for free.</p>
+            <p class="hero-helper">Early players can create profiles, record matches, and build their founding NADD Level. Currently launching with local beta groups.</p>
             <div class="hero-proof">
               <span class="proof-item">Match Receipts</span>
               <span class="proof-item">Verified Levels</span>
@@ -1814,26 +1933,32 @@
             </div>
           </div>
           <div class="hero-decision-card">
-            <h2>Start with what you have</h2>
+            <h2>What are you here to do?</h2>
             <div class="hero-decision-options">
               <button class="hero-decision-option" data-view="app" data-app-section="score">
                 <span class="hero-decision-icon">01</span>
-                <span class="hero-decision-copy"><strong>I have a match</strong><span>Record score and get a receipt</span></span>
+                <span class="hero-decision-copy"><strong>I already played a match</strong><span>Submit the score, get confirmation, and create a match receipt</span></span>
                 <span class="hero-arrow">&gt;</span>
               </button>
               <button class="hero-decision-option" data-game-maker-open>
                 <span class="hero-decision-icon">02</span>
-                <span class="hero-decision-copy"><strong>We have a group</strong><span>Run Americano, Mexicano, or Tournament</span></span>
+                <span class="hero-decision-copy"><strong>We are organizing a group session</strong><span>Generate Americano, Mexicano, or tournament games in minutes</span></span>
                 <span class="hero-arrow">&gt;</span>
               </button>
               <button class="hero-decision-option" data-view="app" data-app-section="find">
                 <span class="hero-decision-icon">03</span>
-                <span class="hero-decision-copy"><strong>I need a game</strong><span>Find an open slot at my level</span></span>
+                <span class="hero-decision-copy"><strong>I want to join a game</strong><span>Find open slots that match your level, side, court, and time</span></span>
                 <span class="hero-arrow">&gt;</span>
               </button>
             </div>
             <button class="primary" data-hero-flow-highlight>Choose your flow</button>
           </div>
+        </div>
+      </div>
+      <div class="beta-banner">
+        <div class="wrap">
+          <strong>Season 0 is NADD's founding beta season.</strong>
+          <span>Early players can create their first profile, validate their level through confirmed matches, and earn a founding player badge.</span>
         </div>
       </div>
       <div class="live-strip">
@@ -1849,12 +1974,19 @@
         <div class="wrap visual-content">
           <div class="visual-header center">
             <p class="visual-eyebrow">How it works</p>
-            <h2 class="visual-title">From normal match to ranked proof</h2>
-            <p class="visual-subtitle">Your normal match becomes ranked proof, progress, and future access.</p>
+            <h2 class="visual-title">How NADD works</h2>
+            <p class="visual-subtitle">NADD helps padel players stop guessing their level. Record real matches, confirm results, build a verified ranking, and find fairer games.</p>
             <div class="visual-actions">
               <button class="primary" data-view="app" data-app-section="score">Make your next match count</button>
             </div>
           </div>
+          <div class="flow-grid">
+            <article class="info-card"><span>1</span><h3>Create your player profile</h3><p>Tell us your playing background and get a provisional NADD Level.</p></article>
+            <article class="info-card"><span>2</span><h3>Record a real match</h3><p>Add the teams, score, court, and match type.</p></article>
+            <article class="info-card"><span>3</span><h3>Opponents confirm the result</h3><p>A result only affects your level after confirmation.</p></article>
+            <article class="info-card"><span>4</span><h3>Your level updates</h3><p>Confirmed matches improve your score, confidence, fair play record, and future matchups.</p></article>
+          </div>
+          <p class="section-note"><strong>Your first 3 confirmed ranked matches</strong> validate your provisional level and start building your verified NADD profile.</p>
           <div class="infographic-wrap">
             <picture>
               <source media="(max-width: 768px)" srcset="assets/mobile/improving_your_game_with_nadd.png">
@@ -1863,15 +1995,38 @@
           </div>
         </div>
       </section>
+
+      <section class="visual-section light" id="paths">
+        <div class="wrap visual-content">
+          <div class="visual-header center">
+            <p class="visual-eyebrow">Choose your path</p>
+            <h2 class="visual-title">What are you here to do?</h2>
+            <p class="visual-subtitle">Players, groups, and clubs can use NADD differently without forcing everyone into ranking on day one.</p>
+          </div>
+          <div class="path-grid">
+            <article class="info-card"><span>P</span><h3>For players</h3><p>Get your NADD Level, record matches, find fairer games, and track your progress.</p><button class="primary" data-view="signup">Start as a player</button></article>
+            <article class="info-card"><span>G</span><h3>For groups</h3><p>Run Americano, Mexicano, or tournament sessions for free.</p><button class="secondary" data-game-maker-open>Open Game Maker</button></article>
+            <article class="info-card"><span>C</span><h3>For clubs</h3><p>Host ranked nights, fill open slots, seed tournaments, and build a club ranking board.</p><button class="secondary" data-view="landing" data-scroll-target="#clubs">Explore club tools</button></article>
+          </div>
+        </div>
+      </section>
       <section class="visual-section light" id="ranking">
         <div class="wrap visual-content">
           <div class="visual-header center">
             <p class="visual-eyebrow">Ranking</p>
-            <h2 class="visual-title">Your level is what your matches prove.</h2>
-            <p class="visual-subtitle">NADD turns confirmed results into a trusted level, score, confidence rating, and fair play record.</p>
+            <h2 class="visual-title">What is a NADD Level?</h2>
+            <p class="visual-subtitle">Your NADD Level is your padel skill level based on confirmed match results. It helps other players and clubs know what level of game fits you.</p>
             <div class="visual-actions">
               <button class="primary" data-view="app" data-app-section="score">Record placement match</button>
             </div>
+          </div>
+          <p class="section-note"><strong>Example:</strong> If you consistently win close matches against stronger players, your score and confidence improve. If you lose to stronger players, your level may stay stable because the system understands the match context.</p>
+          <div class="glossary-grid">
+            <article class="info-card"><span>L</span><h3>NADD Level</h3><p>Your visible playing level. Used to match you with suitable games.</p></article>
+            <article class="info-card"><span>S</span><h3>NADD Score</h3><p>Your more detailed performance score behind the level.</p></article>
+            <article class="info-card"><span>C</span><h3>Rank Confidence</h3><p>How sure the system is about your level based on confirmed matches.</p></article>
+            <article class="info-card"><span>F</span><h3>Fair Play</h3><p>A separate behavior score for confirmations, no-shows, disputes, and reliability.</p></article>
+            <article class="info-card"><span>P</span><h3>Placement</h3><p>Your early phase before your level becomes fully verified.</p></article>
           </div>
           <div class="infographic-wrap">
             <picture>
@@ -1906,7 +2061,7 @@
           <div class="visual-header center">
             <p class="visual-eyebrow">Free Tool</p>
             <h2 class="visual-title">Run your next padel format in minutes.</h2>
-            <p class="visual-subtitle">Add names, pick Americano, Mexicano, or Tournament mode, and let NADD build the games.</p>
+            <p class="visual-subtitle">Game Maker is free to use for group sessions. You can run games without ranking, or connect results to NADD later when players are ready.</p>
             <div class="visual-actions">
               <button class="primary" data-game-maker-open>Open Game Maker</button>
             </div>
@@ -1956,6 +2111,23 @@
         </div>
       </section>
 
+      <section class="visual-section" id="fairness">
+        <div class="wrap visual-content">
+          <div class="visual-header center">
+            <p class="visual-eyebrow">Trust</p>
+            <h2 class="visual-title">How NADD keeps rankings fair</h2>
+            <p class="visual-subtitle">Competitive players need to know the ranking is protected before they care about the score.</p>
+          </div>
+          <div class="fairness-grid">
+            <article class="info-card"><span>1</span><h3>Opponent confirmation</h3><p>A ranked result only counts after confirmation from the other team.</p></article>
+            <article class="info-card"><span>2</span><h3>Dispute review</h3><p>Mismatched scores can be reviewed before rank movement is final.</p></article>
+            <article class="info-card"><span>3</span><h3>Pattern detection</h3><p>Repeated abuse, fake scores, and abnormal win patterns are flagged.</p></article>
+            <article class="info-card"><span>4</span><h3>Fair Play tracking</h3><p>No-shows, late cancellations, and behavior issues are tracked separately from skill.</p></article>
+            <article class="info-card"><span>5</span><h3>Confidence-based ranking</h3><p>Your level becomes more reliable as you complete more confirmed matches.</p></article>
+          </div>
+        </div>
+      </section>
+
       <section class="visual-section" id="clubs">
         <div class="wrap visual-content">
           <div class="visual-header center">
@@ -1982,7 +2154,7 @@
           <div class="visual-header center">
             <p class="visual-eyebrow">Season 0</p>
             <h2 class="visual-title">Claim your NADD Level.</h2>
-            <p class="visual-subtitle">Start provisional. Build proof through real matches.</p>
+            <p class="visual-subtitle">Season 0 is NADD's founding beta season. Early players can create their first profile, validate their level through confirmed matches, and earn a founding player badge.</p>
             <div class="visual-actions">
               <button class="primary" data-view="signup">Get your NADD Level</button>
               <button class="ghost" data-view="app" data-app-section="score">Record a Match</button>
@@ -1997,10 +2169,43 @@
         </div>
       </section>
 
+      <section class="visual-section" id="examples">
+        <div class="wrap visual-content">
+          <div class="visual-header center">
+            <p class="visual-eyebrow">Examples</p>
+            <h2 class="visual-title">What it looks like in real life</h2>
+            <p class="visual-subtitle">Simple journeys make the product easier to understand than product language alone.</p>
+          </div>
+          <div class="example-grid">
+            <article class="info-card"><span>P</span><h3>Example player journey</h3><p>Omar creates a profile and gets a provisional NADD Level. He records 3 confirmed ranked matches, his level becomes verified, and he can join better-matched games, compare himself on the city board, and share match receipts.</p></article>
+            <article class="info-card"><span>C</span><h3>Example club journey</h3><p>A club hosts a NADD Night for N5-N6 players. Players are matched by level, results are confirmed after each match, the club board updates, and open slots can be filled by players at the right level.</p></article>
+            <article class="info-card"><span>G</span><h3>Example group session</h3><p>A group opens Game Maker, adds names, runs Americano or Mexicano, and later decides whether confirmed results should count toward NADD Levels.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="visual-section light" id="faq">
+        <div class="wrap visual-content">
+          <div class="visual-header center">
+            <p class="visual-eyebrow">FAQ</p>
+            <h2 class="visual-title">Quick answers before you sign up</h2>
+          </div>
+          <div class="faq-grid">
+            <article class="info-card"><span>?</span><h3>What is NADD?</h3><p>NADD is a verified padel ranking system that helps players prove their level and find fairer games.</p></article>
+            <article class="info-card"><span>?</span><h3>How do I get a NADD Level?</h3><p>Create a profile, complete your level assist, and record confirmed ranked matches.</p></article>
+            <article class="info-card"><span>?</span><h3>How many matches do I need?</h3><p>Your first 3 confirmed ranked matches help validate your provisional level.</p></article>
+            <article class="info-card"><span>?</span><h3>Can I use NADD with my existing group?</h3><p>Yes. You can use Game Maker to run Americano, Mexicano, or tournament formats.</p></article>
+            <article class="info-card"><span>?</span><h3>Does every match affect my level?</h3><p>Only eligible ranked matches confirmed by the other team should affect your NADD Level.</p></article>
+            <article class="info-card"><span>?</span><h3>Can people fake results?</h3><p>Ranked results need confirmation from the other team. Suspicious patterns and disputes can be reviewed before they affect rankings.</p></article>
+            <article class="info-card"><span>?</span><h3>Can clubs use this?</h3><p>Yes. Clubs can run ranked nights, fill open slots, seed tournaments, and show club boards.</p></article>
+          </div>
+        </div>
+      </section>
+
       <section class="final-conversion">
         <div class="wrap">
-          <h2 class="visual-title">Your next match is already happening. Make it count.</h2>
-          <p class="visual-subtitle">Get your NADD Level, record your next serious match, and start building proof.</p>
+          <h2 class="visual-title">Stop guessing your level.</h2>
+          <p class="visual-subtitle">Record real matches, confirm results, build a verified ranking, and find fairer games.</p>
           <div class="visual-actions" style="justify-content:center">
             <button class="primary" data-view="signup">Get your NADD Level</button>
             <button class="ghost" data-view="app" data-app-section="score">Record a Match</button>
