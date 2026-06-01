@@ -3174,15 +3174,33 @@ Team Hotel</textarea></label>
         document.body.classList.remove("modal-open");
       }
 
-      function selectGameMakerFormat(format) {
+      function resetGameMakerRun(format = null) {
         gameMakerState.format = format || null;
+        gameMakerState.players = [];
+        gameMakerState.teams = [];
+        gameMakerState.courts = 1;
+        gameMakerState.pointsPerGame = 21;
+        gameMakerState.rounds = [];
+        gameMakerState.leaderboard = {};
+        gameMakerState.currentRound = 0;
+        gameMakerState.tournament = {};
+        document.getElementById("gmOutput").innerHTML = "";
+      }
+
+      function selectGameMakerFormat(format) {
+        const selectedFormat = format || null;
+        if (gameMakerState.format !== selectedFormat) {
+          resetGameMakerRun(selectedFormat);
+          setGameMakerError("");
+        } else {
+          gameMakerState.format = selectedFormat;
+        }
         document.querySelectorAll("[data-gm-format]").forEach((button) => {
           button.classList.toggle("active", button.dataset.gmFormat === format);
         });
         document.querySelectorAll("[data-gm-panel]").forEach((panel) => {
           panel.classList.toggle("hidden", panel.dataset.gmPanel !== format);
         });
-        if (!format) document.getElementById("gmOutput").innerHTML = "";
       }
 
       function getNamesFromTextarea(text) {
