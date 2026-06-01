@@ -1193,6 +1193,18 @@
         padding: 22px;
       }
       .game-maker-head p { margin: 6px 0 0; color: rgba(247, 244, 234, 0.66); }
+      .game-maker-actions {
+        display: flex;
+        flex: 0 0 auto;
+        align-items: center;
+        gap: 8px;
+      }
+      .game-maker-actions .secondary {
+        min-height: 38px;
+        border-color: rgba(216, 222, 232, 0.24);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--bg);
+      }
       .icon-button {
         display: grid;
         width: 38px;
@@ -1816,6 +1828,16 @@
         .game-maker-head {
           padding: 18px 20px;
         }
+        .game-maker-actions {
+          align-items: end;
+          flex-direction: column-reverse;
+        }
+        .game-maker-actions .secondary {
+          min-height: 36px;
+          border-radius: 999px;
+          padding: 0 12px;
+          font-size: 12px;
+        }
         .game-maker-body {
           padding: 18px 20px 92px;
         }
@@ -2313,7 +2335,10 @@
             <h2 id="gameMakerTitle">NADD Game Maker</h2>
             <p>Add names. Set courts and scoring. Generate the session.</p>
           </div>
-          <button class="icon-button" type="button" aria-label="Close Game Maker" data-game-maker-close>&times;</button>
+          <div class="game-maker-actions">
+            <button class="secondary" type="button" id="gmClearSession">Clear session</button>
+            <button class="icon-button" type="button" aria-label="Close Game Maker" data-game-maker-close>&times;</button>
+          </div>
         </div>
         <div class="game-maker-body">
           <p class="visual-eyebrow">Choose format</p>
@@ -3153,6 +3178,27 @@ Team Hotel</textarea></label>
         currentRound: 0,
         tournament: {}
       };
+      const gameMakerStateKey = "nadd-game-maker-session-v1";
+      const gameMakerFormIds = [
+        "gmSessionName",
+        "gmLocation",
+        "gmCourts",
+        "gmDateTime",
+        "gmAmericanoNames",
+        "gmAmericanoPoints",
+        "gmAmericanoRounds",
+        "gmAmericanoCustomPoints",
+        "gmAmericanoCustomRounds",
+        "gmMexicanoNames",
+        "gmMexicanoPoints",
+        "gmMexicanoSeed",
+        "gmMexicanoCustomPoints",
+        "gmTournamentTeams",
+        "gmTournamentType",
+        "gmMatchFormat",
+        "gmSeeding",
+        "gmThirdPlace",
+      ];
 
       function escapeHtml(value) {
         return String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[char]));
@@ -3163,7 +3209,13 @@ Team Hotel</textarea></label>
         document.body.style.overflow = "hidden";
         document.body.classList.add("modal-open");
         closeMobileMenu();
-        selectGameMakerFormat(format);
+        if (format) selectGameMakerFormat(format);
+        else if (gameMakerState.format) {
+          showGameMakerFormat(gameMakerState.format);
+          renderSavedGameMakerSession();
+        } else {
+          showGameMakerFormat(null);
+        }
         document.getElementById("gmError").textContent = "";
         setTimeout(() => document.querySelector("[data-game-maker-close]")?.focus(), 0);
       }
@@ -3174,7 +3226,63 @@ Team Hotel</textarea></label>
         document.body.classList.remove("modal-open");
       }
 
-      function resetGameMakerRun(format = null) {
+      function snapshotGameMakerForms() {
+        return Object.fromEntries(gameMakerFormIds.map((id) => {
+          const element = document.getElementById(id);
+          return [id, element ? element.value : ""];
+        }));
+      }
+
+      function restoreGameMakerForms(values = {}) {
+        Object.entries(values).forEach(([id, value]) => {
+          const element = document.getElementById(id);
+          if (element) element.value = value;
+        });
+        document.getElementById("gmAmericanoCustomPointsWrap").classList.toggle("hidden", document.getElementById("gmAmericanoPoints").value !== "custom");
+        document.getElementById("gmAmericanoCustomRoundsWrap").classList.toggle("hidden", document.getElementById("gmAmericanoRounds").value !== "custom");
+        document.getElementById("gmMexicanoCustomPointsWrap").classList.toggle("hidden", document.getElementById("gmMexicanoPoints").value !== "custom");
+      }
+
+      function saveGameMakerState() {
+        try {
+          localStorage.setItem(gameMakerStateKey, JSON.stringify({
+            format: gameMakerState.format,
+            players: gameMakerState.players,
+            teams: gameMakerState.teams,
+            courts: gameMakerState.courts,
+            pointsPerGame: gameMakerState.pointsPerGame,
+            rounds: gameMakerState.rounds,
+            leaderboard: gameMakerState.leaderboard,
+            currentRound: gameMakerState.currentRound,
+            tournament: gameMakerState.tournament,
+            formValues: snapshotGameMakerForms(),
+            savedAt: Date.now(),
+          }));
+        } catch {
+          // If storage is blocked, the Game Maker still works for the current session.
+        }
+      }
+
+      function loadGameMakerState() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(gameMakerStateKey) || "null");
+          if (!saved || !["americano", "mexicano", "tournament"].includes(saved.format)) return;
+          gameMakerState.format = saved.format;
+          gameMakerState.players = Array.isArray(saved.players) ? saved.players : [];
+          gameMakerState.teams = Array.isArray(saved.teams) ? saved.teams : [];
+          gameMakerState.courts = Number(saved.courts) || 1;
+          gameMakerState.pointsPerGame = Number(saved.pointsPerGame) || 21;
+          gameMakerState.rounds = Array.isArray(saved.rounds) ? saved.rounds : [];
+          gameMakerState.leaderboard = saved.leaderboard && typeof saved.leaderboard === "object" ? saved.leaderboard : {};
+          gameMakerState.currentRound = Number(saved.currentRound) || 0;
+          gameMakerState.tournament = saved.tournament && typeof saved.tournament === "object" ? saved.tournament : {};
+          restoreGameMakerForms(saved.formValues || {});
+        } catch {
+          localStorage.removeItem(gameMakerStateKey);
+        }
+      }
+
+      function resetGameMakerRun(format = null, persist = true) {
         gameMakerState.format = format || null;
         gameMakerState.players = [];
         gameMakerState.teams = [];
@@ -3185,6 +3293,24 @@ Team Hotel</textarea></label>
         gameMakerState.currentRound = 0;
         gameMakerState.tournament = {};
         document.getElementById("gmOutput").innerHTML = "";
+        if (persist) saveGameMakerState();
+      }
+
+      function clearGameMakerSession() {
+        resetGameMakerRun(null, false);
+        localStorage.removeItem(gameMakerStateKey);
+        showGameMakerFormat(null);
+        setGameMakerError("Game Maker session cleared.");
+      }
+
+      function showGameMakerFormat(format) {
+        gameMakerState.format = format || null;
+        document.querySelectorAll("[data-gm-format]").forEach((button) => {
+          button.classList.toggle("active", button.dataset.gmFormat === format);
+        });
+        document.querySelectorAll("[data-gm-panel]").forEach((panel) => {
+          panel.classList.toggle("hidden", panel.dataset.gmPanel !== format);
+        });
       }
 
       function selectGameMakerFormat(format) {
@@ -3195,12 +3321,7 @@ Team Hotel</textarea></label>
         } else {
           gameMakerState.format = selectedFormat;
         }
-        document.querySelectorAll("[data-gm-format]").forEach((button) => {
-          button.classList.toggle("active", button.dataset.gmFormat === format);
-        });
-        document.querySelectorAll("[data-gm-panel]").forEach((panel) => {
-          panel.classList.toggle("hidden", panel.dataset.gmPanel !== format);
-        });
+        showGameMakerFormat(selectedFormat);
       }
 
       function getNamesFromTextarea(text) {
@@ -3317,6 +3438,15 @@ Team Hotel</textarea></label>
         `;
       }
 
+      function renderSavedGameMakerSession() {
+        if (!gameMakerState.rounds.length) {
+          document.getElementById("gmOutput").innerHTML = "";
+          return;
+        }
+        if (gameMakerState.format === "tournament") renderTournamentOutput();
+        else renderGameMakerOutput();
+      }
+
       function generateAmericano() {
         const playersList = getNamesFromTextarea(document.getElementById("gmAmericanoNames").value);
         const courts = getGameMakerCourts();
@@ -3337,6 +3467,7 @@ Team Hotel</textarea></label>
         }
         setGameMakerError("");
         renderGameMakerOutput();
+        saveGameMakerState();
       }
 
       function generateMexicanoRound() {
@@ -3363,7 +3494,8 @@ Team Hotel</textarea></label>
         gameMakerState.rounds.push({ index: roundIndex, ...built });
         gameMakerState.currentRound = roundIndex;
         setGameMakerError("");
-        renderGameMakerOutput(`<button class="primary" type="button" data-gm-next-mexicano>Generate Next Round</button>`);
+        renderGameMakerOutput();
+        saveGameMakerState();
       }
 
       function submitMexicanoScores() {
@@ -3390,12 +3522,14 @@ Team Hotel</textarea></label>
         else if (type === "groups") {
           gameMakerState.rounds = [];
           document.getElementById("gmOutput").innerHTML = `<article class="gm-result-card"><h4>Groups + Knockout</h4><p class="gm-helper">Group generation is coming soon. Use Knockout or Round Robin for this beta.</p></article>`;
+          saveGameMakerState();
           return;
         } else {
           generateKnockoutBracket(teams);
         }
         setGameMakerError("");
         renderTournamentOutput();
+        saveGameMakerState();
       }
 
       function nextPowerOfTwo(value) {
@@ -3440,6 +3574,7 @@ Team Hotel</textarea></label>
         if (winners.length === 1) {
           gameMakerState.tournament.champion = winners[0];
           renderTournamentOutput();
+          saveGameMakerState();
           return;
         }
         const matchesList = [];
@@ -3450,6 +3585,7 @@ Team Hotel</textarea></label>
         gameMakerState.currentRound += 1;
         gameMakerState.rounds.push({ index: gameMakerState.currentRound, matches: matchesList, rest: [] });
         renderTournamentOutput();
+        saveGameMakerState();
       }
 
       function saveGameMakerScore(format, roundIndex, matchIndex) {
@@ -3474,7 +3610,17 @@ Team Hotel</textarea></label>
         }
         setGameMakerError("");
         if (format === "tournament") renderTournamentOutput();
-        else renderGameMakerOutput(format === "mexicano" ? `<button class="primary" type="button" data-gm-next-mexicano>Generate Next Round</button>` : "");
+        else renderGameMakerOutput();
+        saveGameMakerState();
+      }
+
+      function syncGameMakerScoreInput(input) {
+        const round = gameMakerState.rounds[Number(input.dataset.round)];
+        const match = round?.matches[Number(input.dataset.match)];
+        if (!match) return;
+        if (input.dataset.side === "A") match.scoreA = input.value;
+        if (input.dataset.side === "B") match.scoreB = input.value;
+        saveGameMakerState();
       }
 
       function buildShareSummary() {
@@ -3504,6 +3650,8 @@ Team Hotel</textarea></label>
           setGameMakerError("Copy is blocked here. Use the share text box.");
         }
       }
+
+      loadGameMakerState();
 
       document.addEventListener("click", (event) => {
         if (event.target.closest("[data-mobile-menu-toggle]")) {
@@ -3547,6 +3695,10 @@ Team Hotel</textarea></label>
         if (event.target.closest("#gmGenerateTournament")) generateTournament();
         if (event.target.closest("#gmSaveToNadd")) setGameMakerError("Profile saving will be available in the beta.");
         if (event.target.closest("#gmShareOnly")) shareResults();
+        if (event.target.closest("#gmClearSession")) {
+          clearGameMakerSession();
+          return;
+        }
         const landingLink = event.target.closest('a[href^="#"]');
         if (landingLink) {
           event.preventDefault();
@@ -3574,9 +3726,17 @@ Team Hotel</textarea></label>
         if (event.target.id === "gmAmericanoPoints") document.getElementById("gmAmericanoCustomPointsWrap").classList.toggle("hidden", event.target.value !== "custom");
         if (event.target.id === "gmAmericanoRounds") document.getElementById("gmAmericanoCustomRoundsWrap").classList.toggle("hidden", event.target.value !== "custom");
         if (event.target.id === "gmMexicanoPoints") document.getElementById("gmMexicanoCustomPointsWrap").classList.toggle("hidden", event.target.value !== "custom");
-        if (event.target.closest("#gameMakerModal")) return;
+        if (event.target.closest("#gameMakerModal")) {
+          saveGameMakerState();
+          return;
+        }
         if (event.target.matches("select")) render();
         if (event.target.id === "scoreMatch") renderScoreTeams();
+      });
+      document.addEventListener("input", (event) => {
+        if (!event.target.closest("#gameMakerModal")) return;
+        if (event.target.matches("[data-gm-score]")) syncGameMakerScoreInput(event.target);
+        else if (event.target.matches("input, textarea")) saveGameMakerState();
       });
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape" && !document.getElementById("gameMakerModal").classList.contains("hidden")) closeGameMaker();
